@@ -1,0 +1,12 @@
+<h1> Jelenlegi termékek </h1>
+
+<% if @goods.blank? %>
+    <p> Nincs termék. </p>
+
+<% else %>
+
+    <% @goods.each do |g| %>
+        <div> <%= g.name %> </div>
+    <% end %>
+
+<% end %>
