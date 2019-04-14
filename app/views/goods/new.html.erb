@@ -1,0 +1,33 @@
+
+<h1>Termék felvétel</h1>
+
+<%= form_with scope: :good, local: true do |form| %>
+    <p>
+      <%= form.label :Név %><br>
+      <%= form.text_field :name %>
+    </p>
+
+    <p>
+    <%= form.label :Ár %><br>
+    <%= form.text_field :price %>
+    </p>
+
+    <p>
+      <%= form.label :Kategória %><br>
+      <%= form.text_field :category_id %>
+    </p>
+    <p>
+      <%= form.label :Eladó %><br>
+      <%= form.text_field:seller_id %>
+    </p>
+
+    <p>
+    <%= form.label :Leírás %><br>
+    <%= form.text_area :description %>
+    </p>
+
+    
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>

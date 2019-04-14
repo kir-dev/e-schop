@@ -1,0 +1,19 @@
+<h1> Jelenlegi termékek </h1>
+
+
+
+<% if @goods.blank? %>
+    <p> Nincs termék. </p>
+
+<% else %>
+ <table> 
+    <% @goods.each do |g| %>
+<tr>
+        <td> <%= g.name %> </td>
+        <td><%= link_to 'Show', good_path(g) %></td>
+        </tr>
+    <% end %>
+ </table> 
+ <p><%= link_to 'Back', {:action => 'landing'} %></p>
+
+ <% end %>
