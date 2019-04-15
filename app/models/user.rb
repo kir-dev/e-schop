@@ -1,3 +1,3 @@
 class User < ApplicationRecord
-    has_many :goods
+    has_many :goods             
 end

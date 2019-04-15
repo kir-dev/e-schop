@@ -17,3 +17,9 @@ goods = Good.create!([{ name: 'Kakaós csiga', price:200, description:'Banánnal
 { name: 'Bomba gól', price:1, description:'Nem lehet kivédeni + csalás.',category_id:3,seller_id:2 },
 { name: 'Anna kenyér', price:330, description:'A legjobb kenyér <3',category_id:1,seller_id:3 }
 ])
+
+categories = Category.create!([
+    { name: 'Étel'},
+    { name: 'Ital'},
+    { name: 'Egyéb'}    
+])

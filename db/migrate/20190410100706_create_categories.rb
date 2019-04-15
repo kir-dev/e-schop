@@ -4,9 +4,5 @@ class CreateCategories < ActiveRecord::Migration[5.2]
       t.column :name, :string
       t.timestamps
     end
-    Category.create :name => "Kaja"
-    Category.create :name => "Ital"
-    Category.create :name => "Stb"
-     
   end
 end

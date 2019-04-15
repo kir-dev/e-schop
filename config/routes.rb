@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   resources :goods
 
   post '/goods/new' => 'goods#create'
-
+  delete 'goods/destroy' => 'goods#destroy'
 end

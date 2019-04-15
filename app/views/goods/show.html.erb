@@ -18,4 +18,6 @@
 <strong>Leírás:</strong>
 <%= @good.description %>
 </p>
-<p><%= link_to 'Back', goods_path %></p>
+<p><%= link_to 'Vissza', goods_path %></p>
+<p><%= link_to 'Törlés', @good, method: :delete %></p>
+
