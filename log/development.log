@@ -3972,3 +3972,1228 @@ Processing by GoodsController#index as HTML
 Completed 200 OK in 93ms (Views: 75.5ms | ActiveRecord: 0.4ms)
 
 
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (5.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (164.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "e-schop_development"[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (160.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "e-schop_test"[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (1479.8ms)[0m  [1m[35mCREATE DATABASE "e-schop_development" ENCODING = 'unicode'[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (945.2ms)[0m  [1m[35mCREATE DATABASE "e-schop_test" ENCODING = 'unicode'[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35mSQL (0.6ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  ↳ db/schema.rb:16
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories" CASCADE[0m
+  ↳ db/schema.rb:18
+  [1m[35m (16.0ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "name" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:18
+  [1m[35m (5.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "goods" CASCADE[0m
+  ↳ db/schema.rb:24
+  [1m[35m (13.1ms)[0m  [1m[35mCREATE TABLE "goods" ("id" bigserial primary key, "name" character varying, "price" integer, "description" text, "category_id" integer, "seller_id" integer, "buyer_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:24
+  [1m[35m (1.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  ↳ db/schema.rb:35
+  [1m[35m (12.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "password" character varying, "roomnumber" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:35
+  [1m[35m (10.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  ↳ db/schema.rb:13
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ db/schema.rb:13
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20190410100706)[0m
+  ↳ db/schema.rb:13
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20190410092244),
+(20190410092300);
+
+[0m
+  ↳ db/schema.rb:13
+  [1m[35m (12.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ db/schema.rb:13
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2019-04-15 19:32:49.108632"], ["updated_at", "2019-04-15 19:32:49.108632"]]
+  ↳ db/schema.rb:13
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35mSQL (0.3ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  ↳ db/schema.rb:16
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories" CASCADE[0m
+  ↳ db/schema.rb:18
+  [1m[35m (13.3ms)[0m  [1m[35mCREATE TABLE "categories" ("id" bigserial primary key, "name" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:18
+  [1m[35m (1.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "goods" CASCADE[0m
+  ↳ db/schema.rb:24
+  [1m[35m (13.4ms)[0m  [1m[35mCREATE TABLE "goods" ("id" bigserial primary key, "name" character varying, "price" integer, "description" text, "category_id" integer, "seller_id" integer, "buyer_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:24
+  [1m[35m (2.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  ↳ db/schema.rb:35
+  [1m[35m (11.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "password" character varying, "roomnumber" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:35
+  [1m[35m (10.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  ↳ db/schema.rb:13
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ db/schema.rb:13
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20190410100706)[0m
+  ↳ db/schema.rb:13
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20190410092244),
+(20190410092300);
+
+[0m
+  ↳ db/schema.rb:13
+  [1m[35m (11.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ db/schema.rb:13
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2019-04-15 19:32:49.249385"], ["updated_at", "2019-04-15 19:32:49.249385"]]
+  ↳ db/schema.rb:13
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Update (0.4ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2019-04-15 19:32:49.252097"], ["key", "environment"]]
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/bin/rake:23
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:10
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("username", "password", "roomnumber", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Ákos"], ["password", "12345678"], ["roomnumber", -1], ["created_at", "2019-04-15 19:32:49.327880"], ["updated_at", "2019-04-15 19:32:49.327880"]]
+  ↳ db/seeds.rb:10
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:10
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:10
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("username", "password", "roomnumber", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Bálint"], ["password", "43210"], ["roomnumber", 704], ["created_at", "2019-04-15 19:32:49.329768"], ["updated_at", "2019-04-15 19:32:49.329768"]]
+  ↳ db/seeds.rb:10
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:10
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:10
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("username", "password", "roomnumber", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Csabi"], ["password", "10203"], ["roomnumber", 2019], ["created_at", "2019-04-15 19:32:49.330884"], ["updated_at", "2019-04-15 19:32:49.330884"]]
+  ↳ db/seeds.rb:10
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:10
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:10
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("username", "password", "roomnumber", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Laci"], ["password", "1234"], ["roomnumber", 713], ["created_at", "2019-04-15 19:32:49.331990"], ["updated_at", "2019-04-15 19:32:49.331990"]]
+  ↳ db/seeds.rb:10
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:10
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:15
+  [1m[36mGood Create (0.8ms)[0m  [1m[32mINSERT INTO "goods" ("name", "price", "description", "category_id", "seller_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "Kakaós csiga"], ["price", 200], ["description", "Banánnal nagyon jó!"], ["category_id", 1], ["seller_id", 1], ["created_at", "2019-04-15 19:32:49.354197"], ["updated_at", "2019-04-15 19:32:49.354197"]]
+  ↳ db/seeds.rb:15
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:15
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:15
+  [1m[36mGood Create (0.2ms)[0m  [1m[32mINSERT INTO "goods" ("name", "price", "description", "category_id", "seller_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "Banán"], ["price", 145], ["description", "Egészséges és illik a kakaós csigához."], ["category_id", 1], ["seller_id", 1], ["created_at", "2019-04-15 19:32:49.356425"], ["updated_at", "2019-04-15 19:32:49.356425"]]
+  ↳ db/seeds.rb:15
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:15
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:15
+  [1m[36mGood Create (0.2ms)[0m  [1m[32mINSERT INTO "goods" ("name", "price", "description", "category_id", "seller_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "Bomba gól"], ["price", 1], ["description", "Nem lehet kivédeni + csalás."], ["category_id", 3], ["seller_id", 2], ["created_at", "2019-04-15 19:32:49.357704"], ["updated_at", "2019-04-15 19:32:49.357704"]]
+  ↳ db/seeds.rb:15
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:15
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:15
+  [1m[36mGood Create (0.2ms)[0m  [1m[32mINSERT INTO "goods" ("name", "price", "description", "category_id", "seller_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "Anna kenyér"], ["price", 330], ["description", "A legjobb kenyér <3"], ["category_id", 1], ["seller_id", 3], ["created_at", "2019-04-15 19:32:49.359029"], ["updated_at", "2019-04-15 19:32:49.359029"]]
+  ↳ db/seeds.rb:15
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:15
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:21
+  [1m[36mCategory Create (0.7ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Étel"], ["created_at", "2019-04-15 19:32:49.367876"], ["updated_at", "2019-04-15 19:32:49.367876"]]
+  ↳ db/seeds.rb:21
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:21
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:21
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Ital"], ["created_at", "2019-04-15 19:32:49.369665"], ["updated_at", "2019-04-15 19:32:49.369665"]]
+  ↳ db/seeds.rb:21
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:21
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:21
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Egyéb"], ["created_at", "2019-04-15 19:32:49.370821"], ["updated_at", "2019-04-15 19:32:49.370821"]]
+  ↳ db/seeds.rb:21
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:21
+Started GET "/" for ::1 at 2019-04-15 21:33:01 +0200
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/lib/ruby/gems/2.5.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 603ms (Views: 581.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:33:15 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.8ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (27.7ms)
+Completed 200 OK in 147ms (Views: 104.8ms | ActiveRecord: 6.2ms)
+
+
+Started GET "/goods/1" for ::1 at 2019-04-15 21:33:21 +0200
+Processing by GoodsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mGood Load (0.2ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:12
+  Rendering goods/show.html.erb within layouts/application
+  Rendered goods/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 105ms (Views: 78.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:33:27 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 74ms (Views: 62.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/goods/2" for ::1 at 2019-04-15 21:33:29 +0200
+Processing by GoodsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:12
+  Rendering goods/show.html.erb within layouts/application
+  Rendered goods/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 85ms (Views: 62.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:33:35 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 107ms (Views: 85.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/goods/4" for ::1 at 2019-04-15 21:33:37 +0200
+Processing by GoodsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:12
+  Rendering goods/show.html.erb within layouts/application
+  Rendered goods/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 92ms (Views: 68.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:33:41 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 95ms (Views: 73.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2019-04-15 21:33:44 +0200
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 91ms (Views: 79.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-15 21:33:45 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (81.6ms)
+Completed 200 OK in 165ms (Views: 144.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/goods/new" for ::1 at 2019-04-15 21:34:15 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Vb3AZqwHwrT1ydpICq1Luqqy/tVnoIHoROzaAuC32VtCfOnLE4v1+k5fN3usLFzBm7en9lwjHc2/BXsNkiw/7A==", "good"=>{"name"=>"", "price"=>"", "seller_id"=>"", "description"=>""}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (3.9ms)
+Completed 200 OK in 91ms (Views: 82.7ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 21:34:18 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"PpFtS9iWlZzqjY5hrYUjqd2nk+x46VQJMpeJxhNaHk20vWoIBUzSwSJ5FwzquEbPT4MZ9w5Bu7aMVyslpXM+fw==", "good"=>{"name"=>"", "price"=>"", "seller_id"=>"", "description"=>""}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (3.5ms)
+Completed 200 OK in 88ms (Views: 81.8ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 21:35:04 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"WgMGWOZgKbCnjtxwnzoFhTnfC6Xu5474zZjacCZrsQbQLwEbO7pu7W96RR3YB2Djq/uBvphPYUdzWHiTkEKRNA==", "good"=>{"name"=>"Almdudler", "price"=>"999", "seller_id"=>"2", "description"=>"A folyékony arany"}, "commit"=>"Save Good"}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 80ms (Views: 73.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:35:08 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.5ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 104ms (Views: 82.0ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2019-04-15 21:35:11 +0200
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 102ms (Views: 81.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-15 21:35:12 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 87ms (Views: 66.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:35:15 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 74ms (Views: 61.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2019-04-15 21:35:18 +0200
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 102ms (Views: 81.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-15 21:35:19 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 93ms (Views: 80.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/goods/new" for ::1 at 2019-04-15 21:35:39 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"/utX98ikL6S0Ehg6HMhbytAaH7re3roi2W5G4Jx+fATpKn5adygY6g+E9Qm6SUyx4R9GmeVdJgcih+fv7uWasw==", "good"=>{"name"=>"Almdudler", "price"=>"999", "seller_id"=>"2", "description"=>"Folyékony arany"}, "commit"=>"Save Good"}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 95ms (Views: 89.8ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 21:35:42 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"hhiB7Zidst479MEHpkb0Hg/IbH20LjWugVtqS08VNAsMNIauRUf1g/MAWGrhe5F4nezmZsKG2hE/m8io+TwUOQ==", "good"=>{"name"=>"Almdudler", "price"=>"999", "seller_id"=>"2", "description"=>"Folyékony arany"}, "commit"=>"Save Good"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 81ms (Views: 77.0ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 21:35:42 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"LsC0B5RjAUKOqm3Hu80a5OkK5UdBHJPAZYEbTBhb/Dek7LNESblGH0Ze9Kr88H+Cey5vXDe0fH/bQbmvrnLcBQ==", "good"=>{"name"=>"Almdudler", "price"=>"999", "seller_id"=>"2", "description"=>"Folyékony arany"}, "commit"=>"Save Good"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 95ms (Views: 88.5ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 21:35:43 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"+qlnPNA0c0NKwMA39nL8OD08RK9u+uFL6Mn/MzUpkVVwhWB/De40HoI0WVqxT5lerxjOtBhSDvRWCV3QgwCxZw==", "good"=>{"name"=>"Almdudler", "price"=>"999", "seller_id"=>"2", "description"=>"Folyékony arany"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 94ms (Views: 89.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:35:52 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 96ms (Views: 74.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:35:56 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 115ms (Views: 93.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:35:57 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (3.8ms)
+Completed 200 OK in 77ms (Views: 64.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:35:57 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.5ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (4.9ms)
+Completed 200 OK in 102ms (Views: 80.7ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:35:58 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (3.2ms)
+Completed 200 OK in 120ms (Views: 98.0ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/goods/4" for ::1 at 2019-04-15 21:36:00 +0200
+Processing by GoodsController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:12
+  Rendering goods/show.html.erb within layouts/application
+  Rendered goods/show.html.erb within layouts/application (5.3ms)
+Completed 200 OK in 102ms (Views: 79.4ms | ActiveRecord: 0.3ms)
+
+
+Started DELETE "/goods/4" for ::1 at 2019-04-15 21:36:02 +0200
+Processing by GoodsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"qtjmL0keXT1tBHnl8V5IhbXF24eAohyZPk9Ax916t9Ig9OFslMQaYKXw4Ii2Yy3jJ+FRnPYK8yaAj+Ika1OX4A==", "id"=>"4"}
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:29
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:30
+  [1m[36mGood Destroy (0.3ms)[0m  [1m[31mDELETE FROM "goods" WHERE "goods"."id" = $1[0m  [["id", 4]]
+  ↳ app/controllers/goods_controller.rb:30
+  [1m[35m (3.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/goods_controller.rb:30
+Redirected to http://localhost:3000/goods
+Completed 302 Found in 14ms (ActiveRecord: 4.5ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:36:02 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 103ms (Views: 89.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/goods/3" for ::1 at 2019-04-15 21:36:07 +0200
+Processing by GoodsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:12
+  Rendering goods/show.html.erb within layouts/application
+  Rendered goods/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 88ms (Views: 65.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:36:14 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 112ms (Views: 90.7ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/goods/2" for ::1 at 2019-04-15 21:36:17 +0200
+Processing by GoodsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:12
+  Rendering goods/show.html.erb within layouts/application
+  Rendered goods/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 92ms (Views: 69.4ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:36:19 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 93ms (Views: 81.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/goods/1" for ::1 at 2019-04-15 21:36:21 +0200
+Processing by GoodsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mGood Load (0.2ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:12
+  Rendering goods/show.html.erb within layouts/application
+  Rendered goods/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 99ms (Views: 75.3ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:36:23 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 112ms (Views: 91.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2019-04-15 21:36:28 +0200
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 112ms (Views: 91.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-15 21:36:35 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 99ms (Views: 78.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/goods/new" for ::1 at 2019-04-15 21:36:39 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nylBQzbnIR9J94YATsmrTHzYhx35AiRpRqKFtyjlAEGI6GjuiWsWUfJhazPoSLw3Td3ePsKBuEy9SyS4Wn7m9g==", "good"=>{"name"=>"", "price"=>"", "seller_id"=>"", "description"=>""}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 90ms (Views: 83.2ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 21:36:40 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"dpGMFmajQwABlIdG1tEn8wArW4xJ5GuXpDhWn0+uM/z8vYtVu3kEXclgHiuR7EKVkg/Rlz9MhCga+PR8+YcTzg==", "good"=>{"name"=>"", "price"=>"", "seller_id"=>"", "description"=>""}, "commit"=>"Save Good"}
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 95ms (Views: 88.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-15 21:36:44 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 93ms (Views: 81.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2019-04-15 21:36:44 +0200
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 91ms (Views: 70.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:36:46 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.5ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (3.2ms)
+Completed 200 OK in 105ms (Views: 83.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for ::1 at 2019-04-15 21:36:49 +0200
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 95ms (Views: 75.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-15 21:36:50 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 97ms (Views: 84.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/goods/new" for ::1 at 2019-04-15 21:37:03 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"tJ9LbJU/2uwL3e5JFv8B1FW/Miuzh01TBJqbF6vbp6mjXmLBKrPtorBLA3qwfhavZLprCIgE0Xb/czoY2UBBHg==", "good"=>{"name"=>"a", "price"=>"1", "seller_id"=>"2", "description"=>"1asdasdadsada"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 95ms (Views: 90.6ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 21:37:04 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"TMCWvGSnSgHCH9KM5E/tWcFOQ/YkUajFl324KM+8WpfG7JH/uX0NXArrS+Gjcog/U2rJ7VL5R3opvRrLeZV6pQ==", "good"=>{"name"=>"a", "price"=>"1", "seller_id"=>"2", "description"=>"1asdasdadsada"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 69ms (Views: 64.9ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 21:37:13 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"wsCtFV0rx4TWEzXnWaANnd13eRrLCuG9ygr88H6AAdFI7KpWgPGA2R7nrIoenWj7T1PzAb2iDgJ0yl4TyKkh4w==", "good"=>{"name"=>"a", "price"=>"10", "seller_id"=>"1", "description"=>"100saads"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 69ms (Views: 63.9ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 21:37:19 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"08VSMWzPX7QUimytyl88m/DrAxWi/+G2P8Bj8iuM75pZ6VVysRUY6dx+9cCNYln9Ys+JDtRXDgmBAMERnaXPqA==", "good"=>{"name"=>"a", "price"=>"10", "seller_id"=>"1", "description"=>"100saads"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 93ms (Views: 87.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:37:26 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 93ms (Views: 72.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2019-04-15 21:37:28 +0200
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 77ms (Views: 65.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-15 21:37:30 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 108ms (Views: 86.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/goods/new" for ::1 at 2019-04-15 21:37:34 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"yTtj8fYxieheAqpiTTBSMASw4piMkkOvIxM3+PW1i0Pe+kpcSb2+puWUR1HrsUVLNbW7u7cR34rY+pb3hy5t9A==", "good"=>{"name"=>"a", "price"=>"", "seller_id"=>"", "description"=>""}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 100ms (Views: 93.3ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 21:37:43 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rWL1wQTwLf+VgmxD70tQy9BHie3hk+gsgXJybob2fXAnTvKC2Spqol129S6odjWtQmMD9pc7B5M/stCNMN9dQg==", "good"=>{"name"=>"a", "price"=>"s", "seller_id"=>"1", "description"=>"asx"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 112ms (Views: 106.2ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 21:37:46 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ItUvoiyXYXyXGXcS+zSQItFGqrubdLBrFIQBfXLi2t2o+Sjh8U0mIV/t7n+8CfVEQ2IgoO3cX9SqRKOexMv67w==", "good"=>{"name"=>"a", "price"=>"s", "seller_id"=>"1", "description"=>"asx"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 76ms (Views: 70.3ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 21:37:47 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"TZvdE7f7TkKoM24PZ7vTtRmhXuVX2qifiCWMW/Vicn7Ht9pQaiEJH2DH92IghrbTi4XU/iFyRyA25S64Q0tSTA==", "good"=>{"name"=>"a", "price"=>"s", "seller_id"=>"1", "description"=>"asx"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 79ms (Views: 71.5ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 21:37:47 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ag6+bi3fWqI1S0w1CoHcs/HEHl8q+tlwzlo95E+F60/gIrkt8AUd//2/1VhNvLnVY+CURFxSNs9wmp8H+azLfQ==", "good"=>{"name"=>"a", "price"=>"s", "seller_id"=>"1", "description"=>"asx"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (3.5ms)
+Completed 200 OK in 74ms (Views: 69.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:37:48 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 95ms (Views: 74.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2019-04-15 21:37:51 +0200
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 92ms (Views: 70.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 21:37:52 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 93ms (Views: 72.0ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2019-04-15 22:22:21 +0200
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 87ms (Views: 70.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 22:22:24 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.9ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (4.0ms)
+Completed 200 OK in 88ms (Views: 74.2ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/goods/3" for ::1 at 2019-04-15 22:22:26 +0200
+Processing by GoodsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:12
+  Rendering goods/show.html.erb within layouts/application
+  Rendered goods/show.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 113ms (Views: 89.4ms | ActiveRecord: 0.6ms)
+
+
+Started DELETE "/goods/3" for ::1 at 2019-04-15 22:22:28 +0200
+Processing by GoodsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"JFRqCjGQkEQk9C6l9240nWk+BB68nAmDuUMFOFNpJH/EnVOQdhC+8XC7nfkturXiVIeRMvm/y9io2IL3DdIfYw==", "id"=>"3"}
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:29
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:30
+  [1m[36mGood Destroy (0.8ms)[0m  [1m[31mDELETE FROM "goods" WHERE "goods"."id" = $1[0m  [["id", 3]]
+  ↳ app/controllers/goods_controller.rb:30
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/goods_controller.rb:30
+Redirected to http://localhost:3000/goods
+Completed 302 Found in 27ms (ActiveRecord: 2.5ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 22:22:28 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (2.3ms)
+Completed 200 OK in 99ms (Views: 85.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/" for ::1 at 2019-04-15 22:22:30 +0200
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 91ms (Views: 79.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-15 22:22:32 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 82ms (Views: 61.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/goods/new" for ::1 at 2019-04-15 22:22:34 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"bpkE21gmW3MFLiwB0UJG9gl403QwyG0/pPZK2hHtxdNRbHdU+ScnC64FPFrMcDDdu4huPt+2YnaTyTIRlW+35A==", "good"=>{"name"=>"", "price"=>"", "seller_id"=>"", "description"=>""}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 80ms (Views: 70.9ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 22:22:36 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"jdFuU8ZPA9eXVMj4w5tuSoc8D9uNGPCd/XBWbzUIDSZtGFfJgc8tYsMbe6QZT+81uoWa98g7Msbs69Gga7M2Og==", "good"=>{"name"=>"", "price"=>"", "seller_id"=>"", "description"=>""}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (3.5ms)
+Completed 200 OK in 97ms (Views: 90.4ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 22:22:38 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"3vavuaa0G48PPBspQgnaRlYCdBZ5vJUE2o4qXxUWZIE+P5Yj4TQ1OltzqHWY3Vs5a7vhOjyfV1/LFa2QS61fnQ==", "good"=>{"name"=>"", "price"=>"", "seller_id"=>"", "description"=>""}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 88ms (Views: 81.0ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 22:22:48 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"tBJOJPdp6dH8BDvJvERykInr5Dd8tnWb8xswHGv6+0VU23e+sOnHZKhLiJVmkPPvtFJxGzmVt8DigLfTNUHAWQ==", "good"=>{"name"=>"Almdudler", "price"=>"1", "seller_id"=>"1", "description"=>"asd"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (3.5ms)
+Completed 200 OK in 111ms (Views: 106.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 22:25:49 +0200
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/lib/ruby/gems/2.5.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.7ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (16.9ms)
+Completed 200 OK in 269ms (Views: 238.5ms | ActiveRecord: 6.0ms)
+
+
+Started GET "/" for ::1 at 2019-04-15 22:25:51 +0200
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 126ms (Views: 106.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-15 22:25:53 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (38.8ms)
+Completed 200 OK in 143ms (Views: 130.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/goods/new" for ::1 at 2019-04-15 22:25:54 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"UBlC8fSaS2Ncq1yXL3EWN+a1PmWx4VlFBSR8KqgAnYBv7DF+VZs3G/eATMwyQ2AcVEWDL16fVgwyGwThLILvtw==", "good"=>{"name"=>"", "price"=>"", "seller_id"=>"", "description"=>""}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 88ms (Views: 80.1ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 22:25:56 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"c4IV8VoJXbZK/ysRXj3iEDCB0aJp+accqzoPqY7sf+eTSyxrHYlzAx6wmE2E6WNvDThEjizaZUe6oYhm0FdE+w==", "good"=>{"name"=>"", "price"=>"", "seller_id"=>"", "description"=>""}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 90ms (Views: 83.1ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 22:25:58 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"lWmTgF/cytnSRjBCaQzwFK76vHJrDNcMTICqK7VfZCJ1oKoaGFzkbIYJgx6z2HFrk0MpXi4vFVddGy3k6+RfPg==", "good"=>{"name"=>"", "price"=>"", "seller_id"=>"", "description"=>""}, "commit"=>"Save Good"}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 79ms (Views: 66.8ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 22:25:59 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"l8xMw5x2iOUp2ufAE40p9bXenl3IVMd/EEYmjIFPT1t3BXVZ2/amUH2VVJzJWaiKiGcLcY13BSQB3aFD3/R0Rw==", "good"=>{"name"=>"", "price"=>"", "seller_id"=>"", "description"=>""}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 92ms (Views: 86.6ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 22:26:09 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"7s9SkKP26TsmRvTRIQyNu9nkJV8IjaZT3VQuv8ADNMMOBmsK5HbHjnIJR4372AzE5F2wc02uZAjMz6lwnrgP3w==", "good"=>{"name"=>"a", "price"=>"b", "seller_id"=>"b", "description"=>"a"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 79ms (Views: 73.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-15 22:26:14 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 130ms (Views: 108.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/goods/new" for ::1 at 2019-04-15 22:26:29 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"NPStCq0/K2TXOd+nMuulqkmSc8NoZloBX9SS0bVVmoTUPZSQ6r8F0YN2bPvoPyTVdCvm7y1FmFpOTxUe6+6hmA==", "good"=>{"name"=>"a", "price"=>"1", "seller_id"=>"1", "description"=>"adsad"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 81ms (Views: 74.6ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 22:26:30 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"LRuIr6aAakCdAESDwsnqCm4i6RNz8SaBfL+2E3QZEvrN0rE14QBE9clP998YHWt1U5t8PzbS5NptJDHcKqIp5g==", "good"=>{"name"=>"a", "price"=>"1", "seller_id"=>"1", "description"=>"adsad"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 98ms (Views: 92.8ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 22:26:31 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"HWfW78+aC+C5UYVRWXQme7pL9yKPVRBbedHj3QZvhBf9ru91iBolVe0eNg2DoKcEh/JiDsp20gBoSmQSWNS/Cw==", "good"=>{"name"=>"a", "price"=>"1", "seller_id"=>"1", "description"=>"adsad"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 74ms (Views: 68.8ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 22:26:31 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"9Cyq1hBIu42KsG4FUyGgSzHI3InMOCuxqqTUqq91dpcU5ZNMV8iVON7/3VmJ9SE0DHFJpYkb6eq7P1Nl8c5Niw==", "good"=>{"name"=>"a", "price"=>"1", "seller_id"=>"1", "description"=>"adsad"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 98ms (Views: 92.5ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/goods" for ::1 at 2019-04-15 22:26:31 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ws5qwwb42ol6rWo6dLwitHXtLWYPAfF0VKXpFbeCaxYiB1NZQXj0PC7i2WauaKPLSFS4SkoiMy9FPm7a6TlQCg==", "good"=>{"name"=>"a", "price"=>"1", "seller_id"=>"1", "description"=>"adsad"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/goods_controller.rb:21
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 100ms (Views: 95.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 22:26:38 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.5ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (4.7ms)
+Completed 200 OK in 105ms (Views: 83.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/goods/2" for ::1 at 2019-04-15 22:26:41 +0200
+Processing by GoodsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:12
+  Rendering goods/show.html.erb within layouts/application
+  Rendered goods/show.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 98ms (Views: 79.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 22:26:43 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (3.5ms)
+Completed 200 OK in 103ms (Views: 90.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2019-04-15 22:26:46 +0200
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (0.5ms)
+Completed 200 OK in 96ms (Views: 75.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-15 22:30:24 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 99ms (Views: 82.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-15 22:31:34 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 93ms (Views: 80.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/goods/new" for ::1 at 2019-04-15 22:31:50 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"y0pLnP5YVwGn3/VnIsXxsX1g64kL997ctjJJhzEkij4rg3IGudh5tPOQRjv4EXDOQNl+pU7UHIenqc5Ib5+xIg==", "good"=>{"name"=>"Almdudler", "price"=>"100", "category_id"=>"1", "seller_id"=>"1", "description"=>"as"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[36mGood Create (0.7ms)[0m  [1m[32mINSERT INTO "goods" ("name", "price", "description", "category_id", "seller_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "Almdudler"], ["price", 100], ["description", "as"], ["category_id", 1], ["seller_id", 1], ["created_at", "2019-04-15 20:31:50.276389"], ["updated_at", "2019-04-15 20:31:50.276389"]]
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/goods_controller.rb:21
+Redirected to http://localhost:3000/goods/5
+Completed 302 Found in 13ms (ActiveRecord: 1.9ms)
+
+
+Started GET "/goods/5" for ::1 at 2019-04-15 22:31:50 +0200
+Processing by GoodsController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:12
+  Rendering goods/show.html.erb within layouts/application
+  Rendered goods/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 106ms (Views: 92.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-15 22:31:55 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 105ms (Views: 86.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2019-04-16 10:35:32 +0200
+  [1m[35m (6.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ D:/ProgramFiles/Ruby25-x64/lib/ruby/gems/2.5.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 544ms (Views: 523.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-16 10:35:35 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (9.6ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (40.5ms)
+Completed 200 OK in 172ms (Views: 94.3ms | ActiveRecord: 26.8ms)
+
+
+Started GET "/" for ::1 at 2019-04-16 10:35:38 +0200
+Processing by GoodsController#landing as HTML
+  Rendering goods/landing.html.erb within layouts/application
+  Rendered goods/landing.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 110ms (Views: 97.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-16 10:35:38 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (67.6ms)
+Completed 200 OK in 167ms (Views: 146.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/goods/new" for ::1 at 2019-04-16 10:36:44 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"GnxNxPztW0IgSpePc6o4lT0NCg9p1QWA8vDmhrYifG2MROymxYYUFuCLfJeco8bzdE0e3FJpLsdCR42CNxKidQ==", "good"=>{"name"=>"Perec", "price"=>"200", "category_id"=>"1", "seller_id"=>"1", "description"=>"Sample text.\r\n"}, "commit"=>"Save Good"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[36mGood Create (1.8ms)[0m  [1m[32mINSERT INTO "goods" ("name", "price", "description", "category_id", "seller_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "Perec"], ["price", 200], ["description", "Sample text.\r\n"], ["category_id", 1], ["seller_id", 1], ["created_at", "2019-04-16 08:36:44.622591"], ["updated_at", "2019-04-16 08:36:44.622591"]]
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/goods_controller.rb:21
+Redirected to http://localhost:3000/goods/6
+Completed 302 Found in 12ms (ActiveRecord: 2.5ms)
+
+
+Started GET "/goods/6" for ::1 at 2019-04-16 10:36:44 +0200
+Processing by GoodsController#show as HTML
+  Parameters: {"id"=>"6"}
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:12
+  Rendering goods/show.html.erb within layouts/application
+  Rendered goods/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 122ms (Views: 77.0ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-16 10:36:51 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 77ms (Views: 61.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-16 10:37:34 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 92ms (Views: 79.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/goods/new" for ::1 at 2019-04-16 10:38:44 +0200
+Processing by GoodsController#new as HTML
+  Rendering goods/new.html.erb within layouts/application
+  Rendered goods/new.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 115ms (Views: 85.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/goods/new" for ::1 at 2019-04-16 10:39:28 +0200
+Processing by GoodsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"la2Q3OVsV8FDBRJZV3U9hZka9E00wN7Tfu3z6NCr0jIlN/l0Km8mGEt2teLAGfhkKid1l6kXCPi5UtM3TAr7ig==", "good"=>{"name"=>"Tej", "price"=>"100", "category_id"=>"2", "seller_id"=>"3", "description"=>"Sok benne a kálcium."}, "commit"=>"Felvétel"}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[36mGood Create (0.4ms)[0m  [1m[32mINSERT INTO "goods" ("name", "price", "description", "category_id", "seller_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "Tej"], ["price", 100], ["description", "Sok benne a kálcium."], ["category_id", 2], ["seller_id", 3], ["created_at", "2019-04-16 08:39:28.582076"], ["updated_at", "2019-04-16 08:39:28.582076"]]
+  ↳ app/controllers/goods_controller.rb:21
+  [1m[35m (0.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/goods_controller.rb:21
+Redirected to http://localhost:3000/goods/7
+Completed 302 Found in 11ms (ActiveRecord: 0.8ms)
+
+
+Started GET "/goods/7" for ::1 at 2019-04-16 10:39:28 +0200
+Processing by GoodsController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:12
+  Rendering goods/show.html.erb within layouts/application
+  Rendered goods/show.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 102ms (Views: 88.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/goods" for ::1 at 2019-04-16 10:39:31 +0200
+Processing by GoodsController#index as HTML
+  Rendering goods/index.html.erb within layouts/application
+  [1m[36mGood Load (0.4ms)[0m  [1m[34mSELECT "goods".* FROM "goods"[0m
+  ↳ app/views/goods/index.html.erb:5
+  Rendered goods/index.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 86ms (Views: 64.7ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/goods/7" for ::1 at 2019-04-16 10:39:33 +0200
+Processing by GoodsController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mGood Load (0.3ms)[0m  [1m[34mSELECT  "goods".* FROM "goods" WHERE "goods"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/goods_controller.rb:12
+  Rendering goods/show.html.erb within layouts/application
+  Rendered goods/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 109ms (Views: 94.7ms | ActiveRecord: 0.3ms)
+
+
