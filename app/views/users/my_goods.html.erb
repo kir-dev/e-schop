@@ -1,0 +1,29 @@
+<h1 align = "center"> E-schop </h1>
+<h3> Termékeim: </h3>
+<table style="width:30%"> 
+    <% has_goods = false %>
+    <% @goods.each do |g| %>
+        <% if g.seller_id == session[:user_id] %>
+            <% has_goods = true %>
+            <tr>        
+                <td><%= link_to g.name, {:action => 'good_show', :id => g.id} %></td>
+                <% if g.buyer_id != nil %>
+                    <td align = "center">
+                        <% vevő = "Vevő: " + User.find_by_id(g.buyer_id).username %>
+                        <%=link_to vevő,
+                        {:action => 'show_buyer', :id => g.buyer_id} %> 
+                    </td>
+
+                    <td align = "rigth">
+                        <%=link_to "Kifizetve",
+                        g, method: :delete  %>
+                    </td>
+                <% end %>
+            </tr>
+        <% end %>    
+    <% end %>
+</table>
+<% if has_goods == false %>
+    <div> Jelenleg nem árulsz semmit </div>
+<% end %>
+<div> <%=link_to "Profilra", {:action => 'show', :controller => 'users'} %> </div>

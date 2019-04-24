@@ -1,0 +1,21 @@
+<h1> Regisztráció </h1>
+<% if @error == true %>
+    <div> Username already taken. </div>
+<%end%>
+<%= form_for @user, :url => url_for(:controller => 'users', :action => 'create') do |f| %>
+    <div>
+        <%=f.label :username %>: 
+        <%=f.text_field :username %>
+
+        <%=f.label :roomnumber %>: 
+        <%=f.text_field :roomnumber %>
+
+        <%=f.label :password %>: 
+        <%=f.password_field :password %>
+
+        <%=f.label :password_confirmation %>: 
+        <%=f.password_field :password_confirmation %>
+    </div>
+    <%=f.submit "Létrehoz" %>
+<%end%>
+

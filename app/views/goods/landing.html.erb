@@ -1,6 +1,22 @@
 <h1 align="center"> E-schop </h1>
 
-<p><%= link_to "Lista", {:action => 'index'} %></p>
-
-<p><%= link_to "Új termék felvétele", {:action => 'new'} %></p>
-
+<% if session[:user_id] == nil %>
+    <h3> Nincs bejelentkezve senki! </h3>
+    <p><%= link_to "Vissza a főoldalra", {:action => 'index', :controller => 'eschop'} %></p>
+<% else %>
+    <table style="width:90%" > 
+        <tr>
+            <td><%= link_to "Lista", {:action => 'index'} %> </td>
+            <td align = "right"> 
+                <strong> <%= User.find_by_id(session[:user_id]).username %> </strong> 
+            </td>
+        </tr>
+        <tr>
+            <td><%= link_to "Új termék felvétele", {:action => 'new'} %> </td>
+            <td align = "right"><%= link_to "Profil megtekintése", {:action => 'show', :controller => 'users'} %> </td>
+        </tr>
+        <tr>
+            <td><%= link_to "Kijelentkezés", {:action => 'destroy', :controller => 'sessions'} %> </td>
+        </tr>
+    </table> 
+<%end%>

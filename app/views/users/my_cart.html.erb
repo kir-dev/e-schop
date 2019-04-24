@@ -1,0 +1,21 @@
+<h1 align = "center"> E-schop </h1>
+
+<h3> Kosár: </h3>
+<% has_goods = false %>
+<table style="width:30%"> 
+    <% @goods.each do |g| %>
+        <% if g.buyer_id == session[:user_id] %>
+            <% has_goods = true %>
+            <tr>        
+                <td><%= link_to g.name, {:action => 'show', :controller => 'goods', :id => g.id} %></td>
+                <td align = "rigth"> <%=link_to "Eldobás", {:action => 'back_from_cart', :controller => 'goods', :id => g.id} %> </td>
+            </tr>
+        <% end %>    
+    <% end %>
+</table>
+
+<% if has_goods == false %>
+    <div> Üres a kosarad </div>
+<% end %>
+
+<div> <%=link_to "Profilra", {:action => 'show', :controller => 'users'} %> </div>

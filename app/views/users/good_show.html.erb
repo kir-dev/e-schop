@@ -1,0 +1,18 @@
+<h1 align = "center"> E-schop </h1>
+<p>
+<strong>Név:</strong>
+<%= @good.name %>
+</p>
+
+<p>
+<strong>Ár:</strong>
+<%= @good.price %>
+</p>
+
+<p>
+<strong>Leírás:</strong>
+<%= @good.description %>
+</p>
+<p><%= link_to 'Vissza', :back %></p>
+<p><%= link_to 'Törlés', @good, method: :delete %></p>
+

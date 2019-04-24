@@ -1,4 +1,4 @@
-
+<h1 align = "center"> E-schop </h1>
 <p>
 <strong>Név:</strong>
 <%= @good.name %>
@@ -10,14 +10,14 @@
 </p>
 
 <p>
-<strong>Név:</strong>
-<%= @good.seller_id %>
+<strong>Eladó:</strong>
+<%= @user.username %>
 </p>
 
 <p>
 <strong>Leírás:</strong>
 <%= @good.description %>
 </p>
-<p><%= link_to 'Vissza', goods_path %></p>
-<p><%= link_to 'Törlés', @good, method: :delete %></p>
+<p><%= link_to 'Kosárba', {:action => 'to_cart', :controller => 'goods', :id => @good.id} %></p>
 
+<p><%= link_to 'Vissza', {:action => 'index', :controller => 'goods'} %></p>

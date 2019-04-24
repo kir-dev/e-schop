@@ -13,8 +13,8 @@
     </p>
 
     <p>
-      <%= form.label :Eladó %><br>
-      <%= form.text_field:seller_id %>
+      <%= form.label :Kategória %><br>
+      <%= form.collection_select(:category_id, @categories, :id, :name) %>
     </p>
 
     <p>
@@ -22,7 +22,6 @@
     <%= form.text_area :description %>
     </p>
 
-    
     <p>
       <%= form.submit %>
     </p>

@@ -1,18 +1,12 @@
 class EschopController < ApplicationController
 
     def index
+        if session[:user_id] != nil
+            redirect_to '/landing'
+        end
     end
 
     def list
         @goods = Good.all
-    end
-
-    def new_good
-    end
-
-    def create_good
-    end
-
-    def delete_good
     end
 end
