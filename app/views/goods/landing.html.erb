@@ -1,10 +1,8 @@
-<h1 align="center"> E-schop </h1>
-
 <% if session[:user_id] == nil %>
     <h3> Nincs bejelentkezve senki! </h3>
     <p><%= link_to "Vissza a főoldalra", {:action => 'index', :controller => 'eschop'} %></p>
 <% else %>
-    <table style="width:90%" > 
+    <table style="width:95%" align = "center" >
         <tr>
             <td><%= link_to "Lista", {:action => 'index'} %> </td>
             <td align = "right"> 
@@ -17,6 +15,13 @@
         </tr>
         <tr>
             <td><%= link_to "Kijelentkezés", {:action => 'destroy', :controller => 'sessions'} %> </td>
+            <% unread_num = User.find_by_id(session[:user_id]).unread_inbox_count %>
+            <% if unread_num >= 1 %>
+                <% message_text = "Beszélgetések (" + unread_num.to_s + ")" %>
+            <% else %>
+                <% message_text = "Beszélgetések" %>
+            <% end %>
+            <td align = "right"><%= link_to message_text, conversations_path %> </td>            
         </tr>
     </table> 
 <%end%>

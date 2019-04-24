@@ -1,0 +1,20 @@
+<h1><%= @conversation.subject %></h1>
+
+<% @conversation.receipts_for(User.find_by_id(session[:user_id])).each do |receipt| %>
+    <div>
+        <div>Feladó: <%= receipt.message.sender.name %></div>
+        <p><%= receipt.message.body %></p>
+    </div>
+<% end %>
+
+<% @conversation.mark_as_read(User.find_by_id(session[:user_id])) %>
+
+<%= form_tag conversation_messages_path(@conversation), method: :post do %>
+    <div>
+        <%= text_area_tag :body %>
+    </div>
+
+    <%= submit_tag %>
+<% end %>
+
+<%= link_to 'Vissza', conversations_path %>

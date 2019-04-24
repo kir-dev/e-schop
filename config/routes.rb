@@ -25,4 +25,8 @@ Rails.application.routes.draw do
   get '/landing' => 'goods#landing'
   post '/goods/new' => 'goods#create'
   delete 'goods/destroy' => 'goods#destroy'
+
+  resources :conversations do
+    resources :messages
+  end
 end

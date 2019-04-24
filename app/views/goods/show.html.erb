@@ -1,4 +1,3 @@
-<h1 align = "center"> E-schop </h1>
 <p>
 <strong>Név:</strong>
 <%= @good.name %>
@@ -18,6 +17,10 @@
 <strong>Leírás:</strong>
 <%= @good.description %>
 </p>
-<p><%= link_to 'Kosárba', {:action => 'to_cart', :controller => 'goods', :id => @good.id} %></p>
+<% name = User.find_by_id(session[:user_id]).name %>
+<% uzenet = name + " megvette fent jelzett nevű terméked, 
+            Dátum: " + Time.new.strftime("%Y-%m-%d, %H:%M:%S").to_s%>
+<p><%=  link_to 'Kosárba', {:action => 'to_cart', :controller => 'goods', :id => @good.id,
+        :user_id => @good.seller_id, :subject => @good.name, :body => uzenet} %></p>
 
 <p><%= link_to 'Vissza', {:action => 'index', :controller => 'goods'} %></p>

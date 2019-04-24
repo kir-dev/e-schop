@@ -34,6 +34,10 @@ class GoodsController < ApplicationController
     end
 
     def to_cart
+      recipient = User.find(params[:user_id])
+      receipt = User.find_by_id(session[:user_id]).send_message(recipient,
+                params[:body], params[:subject])
+
       good = Good.find(params[:id])
       error = false
       if good.seller_id === session[:user_id]
