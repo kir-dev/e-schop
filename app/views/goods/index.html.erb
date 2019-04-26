@@ -3,6 +3,7 @@
 <% if @goods.blank? %>
     <p> Nincs termék. </p>
 <% else %>
+<%= render 'searchbar' %>
  <table> 
     <% @goods.each do |g| %>
         <% if g.buyer_id == nil %>

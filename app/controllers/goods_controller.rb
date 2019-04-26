@@ -5,8 +5,25 @@ class GoodsController < ApplicationController
   end
 
     def index
-        @goods = Good.all
+      @categories= Category.all
+      getSelectedGoods
       end
+
+      def getSelectedGoods
+
+        @goods= Good.all
+    
+        if !(params[:post].blank?||params[:post][:category_id].blank?)
+       @goods= @goods.select{|g| g.category_id==params[:post][:category_id].to_i}
+        end
+    
+    
+        if !params[:scearched_prase].blank?
+          @goods= @goods.select{ |g| g.name.downcase.include?(params[:scearched_prase].downcase) }
+          logger.debug  
+        end
+      end
+      
 
     def show
         @good = Good.find(params[:id])
