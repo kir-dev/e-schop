@@ -10,7 +10,9 @@
   </head>
 
   <body>
-    <h1 align="center"> E-schop </h1>
+    <h1 align="center">
+      <%= link_to 'E-schop', :action => 'landing', :controller => 'goods' %>
+    </h1>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>

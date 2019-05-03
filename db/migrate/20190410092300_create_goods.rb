@@ -6,8 +6,11 @@ class CreateGoods < ActiveRecord::Migration[5.2]
       t.column :description, :text
       t.column :category_id, :integer
       t.column :seller_id, :integer
+      t.column :number, :integer
       t.column :buyer_id, :integer
-
+      t.column :bought, :boolean
+      t.column :original, :integer
+      
       t.timestamps
     end
   end

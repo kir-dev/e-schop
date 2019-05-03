@@ -27,7 +27,10 @@ ActiveRecord::Schema.define(version: 2019_04_24_112003) do
     t.text "description"
     t.integer "category_id"
     t.integer "seller_id"
+    t.integer "number"
     t.integer "buyer_id"
+    t.boolean "bought"
+    t.integer "original"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -42,6 +45,7 @@ ActiveRecord::Schema.define(version: 2019_04_24_112003) do
 
   create_table "mailboxer_conversations", id: :serial, force: :cascade do |t|
     t.string "subject", default: ""
+    t.integer "good_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

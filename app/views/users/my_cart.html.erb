@@ -2,11 +2,21 @@
 <% has_goods = false %>
 <table style="width:30%"> 
     <% @goods.each do |g| %>
-        <% if g.buyer_id == session[:user_id] %>
+        <% if g.buyer_id == session[:user_id] && !g.bought %>
             <% has_goods = true %>
             <tr>        
-                <td><%= link_to g.name, {:action => 'show', :controller => 'goods', :id => g.id} %></td>
-                <td align = "rigth"> <%=link_to "Eldobás", {:action => 'back_from_cart', :controller => 'goods', :id => g.id} %> </td>
+                <td><%= link_to g.name, {:action => 'good_show', :id => g.id} %></td>
+
+                <% name = User.find_by_id(session[:user_id]).name %>
+                <% uzenet = name + " megvette fent jelzett nevű termékedből "+
+                            g.number.to_s + " darabot.\n
+                            Dátum: " + Time.new.strftime("%Y-%m-%d, %H:%M:%S").to_s%>
+
+                <td align = "center"> 
+                    <%=link_to "Megrendel", {:action => 'to_bought', :controller => 'goods', :id => g.id,
+                    :user_id => g.seller_id, :subject => g.name, :body => uzenet} %>
+                </td>
+                <td align = "right"> <%=link_to "Eldobás", {:action => 'back_from_cart', :controller => 'goods', :id => g.id} %> </td>
             </tr>
         <% end %>    
     <% end %>

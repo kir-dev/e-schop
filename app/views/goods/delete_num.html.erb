@@ -1,0 +1,7 @@
+<%= form_for @number, :url => url_for(:action => 'destroy') do |f| %>
+    <%= f.select :number, options_for_select(0..@good.number) %>
+    <%= hidden_field_tag(:id, @good.id)%>
+    <%= f.submit "Törlés" %>
+<% end %>
+
+ <%= link_to 'Vissza', {:action => 'good_show', :controller => 'users', :id => @good.id} %>

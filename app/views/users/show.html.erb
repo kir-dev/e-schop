@@ -3,7 +3,16 @@
 
 <% cart_num = 0 %>
 <% @goods.each do |g| %>
-    <% if g.buyer_id == session[:user_id] %>
+    <% if g.buyer_id == session[:user_id] && g.bought%>
+       <% cart_num += 1 %>
+    <% end %>
+<%end%>
+<% felirat = "Rendelések (" + cart_num.to_s + ")" %>
+<div> <%=link_to felirat, {:action => 'bought_goods', :controller => 'users'} %> </div>
+
+<% cart_num = 0 %>
+<% @goods.each do |g| %>
+    <% if g.buyer_id == session[:user_id] && !g.bought%>
        <% cart_num += 1 %>
     <% end %>
 <%end%>
@@ -12,7 +21,7 @@
 
 <% good_num = 0 %>
 <% @goods.each do |g| %>
-    <% if g.seller_id == session[:user_id] %>
+    <% if g.seller_id == session[:user_id] && (g.buyer_id == nil || g.bought) %>
        <% good_num += 1 %>
     <% end %>
 <%end%>

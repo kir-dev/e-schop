@@ -5,6 +5,7 @@ class CreateMailboxer < ActiveRecord::Migration[4.2]
     #Conversations
     create_table :mailboxer_conversations do |t|
       t.column :subject, :string, :default => ""
+      t.column :good_id, :integer
       t.column :created_at, :datetime, :null => false
       t.column :updated_at, :datetime, :null => false
     end

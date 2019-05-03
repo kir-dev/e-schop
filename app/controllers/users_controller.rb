@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+    skip_before_action :session_check, only: [:login, :new, :create, :create_params]
+    before_action :check_good_id, only: [:good_show]
     def login
         @user = User.new
     end
@@ -53,7 +55,17 @@ class UsersController < ApplicationController
 
     def pass_update
         @user = User.find_by_id(session[:user_id])
-        if @user.update_attributes(pass_edit_params)
+        error = false
+        if @user.authenticate(pass_check[:password_check])
+            if @user.update_attributes(pass_edit_params)
+            else 
+                error = true
+            end
+        else
+            error = true
+        end
+
+        if error == false
             redirect_to action: "show"
         else 
             render action: "pass_edit"
@@ -68,8 +80,12 @@ class UsersController < ApplicationController
         @goods = Good.all
     end
 
-    def show_buyer
+    def show_other_user
         @user = User.find(params[:id])
+    end
+
+    def bought_goods
+        @goods = Good.all
     end
 
     private
@@ -83,5 +99,9 @@ class UsersController < ApplicationController
 
         def pass_edit_params
             params.require(:user).permit(:password, :password_confirmation)
+        end
+
+        def pass_check
+            params.require(:user).permit(:password_check)
         end
 end

@@ -1,17 +1,65 @@
 <p>
-<strong>Név:</strong>
-<%= @good.name %>
+    <strong>Név:</strong>
+    <%= @good.name %>
 </p>
 
 <p>
-<strong>Ár:</strong>
-<%= @good.price %>
+    <strong>Ár:</strong>
+    <%= @good.price %>
 </p>
 
 <p>
-<strong>Leírás:</strong>
-<%= @good.description %>
+    <strong>Darabszám:</strong>
+    <%= @good.number %>
 </p>
-<p><%= link_to 'Vissza', :back %></p>
-<p><%= link_to 'Törlés', @good, method: :delete %></p>
+
+<% if @good.seller_id != session[:user_id] %>
+    <p>
+        <strong>Eladó:</strong>
+        <% seller = User.find_by_id(@good.seller_id) %>
+        <%= link_to seller.name, {:action => 'show_other_user', :id => seller.id,
+            :good_id => @good.id}
+        %>
+    </p>
+<% end %>
+<p>
+    <strong>Leírás:</strong>
+    <%= @good.description %>
+</p>
+
+<% if @good.seller_id == session[:user_id] %>
+    <% if !@good.bought %>
+      <p><%= link_to 'Törlés', {:action => 'delete_num', :controller => 'goods', :id => @good.id} %></p>
+    <% end %>
+    <p><%= link_to 'Vissza', {:action => 'my_goods'} %></p>
+
+<% else %>
+
+    <% if @good.buyer_id == session[:user_id] && !@good.bought %>
+
+        <% name = User.find_by_id(session[:user_id]).name %>
+        <% uzenet = name + " megvette fent jelzett nevű termékedből "+
+                    @good.number.to_s + " darabot.\n
+                    Dátum: " + Time.new.strftime("%Y-%m-%d, %H:%M:%S").to_s%>
+        <p>
+            <%=link_to "Megrendel", {:action => 'to_bought', :controller => 'goods', :id => @good.id,
+               :user_id => @good.seller_id, :subject => @good.name, :body => uzenet} %>
+        </p>
+        <p>
+            <%=link_to "Eldobás", {:action => 'back_from_cart', :controller => 'goods',
+               :id => @good.id} %>
+        </p>
+        <p><%= link_to 'Vissza', {:action => 'my_cart'} %></p>
+
+    <% elsif @good.buyer_id == session[:user_id] && @good.bought %>
+
+        <p>
+            <%= link_to "Rendelés törlése", {:action => 'back_from_bought',
+                :controller => 'goods', :id => @good.id} %>
+        </p>
+        <p><%= link_to 'Vissza', {:action => 'bought_goods'} %></p>
+
+    <% end %>
+
+<% end %>
 

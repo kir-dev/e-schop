@@ -1,0 +1,19 @@
+<h3> Megrendelt termékeid: </h3>
+<% has_goods = false %>
+<table style="width:30%"> 
+    <% @goods.each do |g| %>
+        <% if g.buyer_id == session[:user_id] && g.bought %>
+            <% has_goods = true %>
+            <tr>        
+                <td><%= link_to g.name, {:action => 'good_show', :id => g.id} %></td>
+                <td align = "right"> <%=link_to "Rendelés törlése", {:action => 'back_from_bought', :controller => 'goods', :id => g.id} %> </td>
+            </tr>
+        <% end %>    
+    <% end %>
+</table>
+
+<% if has_goods == false %>
+    <div> Nincs megrendelt termék </div>
+<% end %>
+
+<div> <%=link_to "Profilra", {:action => 'show', :controller => 'users'} %> </div>

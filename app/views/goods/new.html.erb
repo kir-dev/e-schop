@@ -17,6 +17,12 @@
     </p>
 
     <p>
+      <%= form.label :Darabszám %><br>
+      <%= form.text_field :number %>
+    </p>
+    
+
+    <p>
     <%= form.label :Leírás %><br>
     <%= form.text_area :description %>
     </p>
@@ -24,4 +30,6 @@
     <p>
       <%= form.submit "Felvétel" %>
     </p>
-  <% end %>
+<% end %>
+
+<%= link_to "Vissza", {:action => 'landing'} %>
