@@ -1,35 +1,42 @@
-<p>
-    <strong>Név:</strong>
-    <%= @good.name %>
-</p>
+<table>
+<tr>
+    <td><strong>Név:</strong></td>
+    <td align = "right"><%= @good.name %></td>
+</tr>
 
-<p>
-    <strong>Ár:</strong>
-    <%= @good.price %>
-</p>
+<tr>
+    <td><strong>Ár:</strong></td> 
+    <td align = "right"><%= @good.price %></td>
+</tr>
 
-<p>
-    <strong>Darabszám:</strong>
-    <%= @good.number %>
-</p>
+<tr>
+    <td><strong>Darabszám:</strong></td>
+    <td align = "right" id = 'number'><%= @good.number %></td>
+</tr>
 
-<% if @good.seller_id != session[:user_id] %>
-    <p>
-        <strong>Eladó:</strong>
-        <% seller = User.find_by_id(@good.seller_id) %>
-        <%= link_to seller.name, {:action => 'show_other_user', :id => seller.id,
-            :good_id => @good.id}
-        %>
-    </p>
-<% end %>
-<p>
-    <strong>Leírás:</strong>
-    <%= @good.description %>
-</p>
+<tr>
+    <% if @good.seller_id != session[:user_id] %>
+        <td><strong>Eladó:</strong></td>
+        <td align = "right">
+            <% seller = User.find_by_id(@good.seller_id) %>
+            <%= link_to seller.name, {:action => 'show_other_user', :id => seller.id,
+                :good_id => @good.id}
+            %>
+        </td>
+    <% end %>
+</tr>
+
+<tr>
+    <td><strong>Leírás:</strong></td>    
+    <td align = "right"><%= @good.description %></td>
+</tr>
+</table>
 
 <% if @good.seller_id == session[:user_id] %>
     <% if !@good.bought %>
-      <p><%= link_to 'Törlés', {:action => 'delete_num', :controller => 'goods', :id => @good.id} %></p>
+        <p><%= link_to 'Törlés', {:action => 'delete_num', :controller => 'goods', :id => @good.id},
+               id: "delete_num_link", remote: true %>
+        </p>
     <% end %>
     <p><%= link_to 'Vissza', {:action => 'my_goods'} %></p>
 

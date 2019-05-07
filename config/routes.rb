@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   post '/good/copy' => 'goods#copy'
   get '/good/delete_num' => 'goods#delete_num'
 
+  get '/record/create' => 'records#create'
+
   resources :goods
   get '/landing' => 'goods#landing'
   post '/goods/new' => 'goods#create'

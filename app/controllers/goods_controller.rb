@@ -36,7 +36,8 @@ class GoodsController < ApplicationController
         @good = Good.new(good_params)
         @good.seller_id = session[:user_id]
         if @good.save
-          redirect_to :controller => 'users', :action => 'good_show', :id => @good.id
+          redirect_to :controller => 'records', :action => 'create', :id => @good.id,
+                      :name => @good.name, :price => @good.price, :category_id => @good.category_id
         else
           render :action => 'new'
         end
@@ -57,7 +58,10 @@ class GoodsController < ApplicationController
         if @good.number > number.number
           new_num = @good.number - number.number
           @good.update_attributes(:number => new_num)
-          redirect_to :controller => 'users', :action => 'good_show', :id => @good.id
+          respond_to do |format|
+            format.html{redirect_to :controller => 'users', :action => 'good_show', :id => @good.id}
+              format.js 
+          end
         else
           @good.destroy
           redirect_to :controller => 'users', :action => 'my_goods'
@@ -97,7 +101,10 @@ class GoodsController < ApplicationController
 
       @good = Good.find(params[:id])
       original = Good.find_by_id(@good.original)
-      if @good.number < original.number
+      if original == nil
+        @good.destroy
+        redirect_to :controller => 'users',:action => 'my_cart'
+      elsif @good.number < original.number
         new_number = original.number - @good.number
         original.update_attributes(:number => new_number)
         @good.update_attributes(:bought => true)
