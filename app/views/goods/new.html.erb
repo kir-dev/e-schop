@@ -26,8 +26,8 @@
     <%= form.label :Leírás %><br>
     <%= form.text_area :description %>
     </p>
-
-    <p>
+    <p><%=form.file_field :photo %></p>
+    <p> 
       <%= form.submit "Felvétel" %>
     </p>
 <% end %>
