@@ -162,7 +162,7 @@ class GoodsController < ApplicationController
 
     private
         def good_params
-          params.require(:good).permit(:name, :price, :text, :description, :category_id, :number)
+          params.require(:good).permit(:name, :price, :text, :description, :category_id, :number, :photo)
         end
         def copy_param
           params.require(:good).permit(:number)

@@ -28,6 +28,9 @@
     <strong>Leírás:</strong>
     <%= @good.description %>
 </p>
+<% if @good.photo.attached? %>
+<p><%= image_tag @good.thumb%></p>
+<% end %>
 
 <% if session[:user_id] != @user.id %>
     <%= form_for @order, :url => url_for(:action => 'copy', :id => @good.id) do |f| %>

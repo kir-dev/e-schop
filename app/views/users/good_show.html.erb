@@ -32,6 +32,10 @@
 </tr>
 </table>
 
+<% if @good.photo.attached? %>
+<p><%= image_tag @good.thumb%></p>
+<% end %>
+
 <% if @good.seller_id == session[:user_id] %>
     <% if !@good.bought %>
         <p><%= link_to 'Törlés', {:action => 'delete_num', :controller => 'goods', :id => @good.id},
