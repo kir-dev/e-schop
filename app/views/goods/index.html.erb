@@ -1,18 +1,16 @@
 <h1> Jelenlegi termékek </h1>
 
 <% if @goods.blank? %>
-    <p> Nincs termék. </p>
+  <p> Nincs termék. </p>
 <% else %>
 <%= render 'searchbar' %>
- <table> 
+  <table> 
     <% @goods.each do |g| %>
-        <% if g.buyer_id == nil %>
-            <tr>        
-                <td><%= link_to g.name, good_path(g) %></td>
-            </tr>
-        <% end %>
+    <tr>
+      <td><%= link_to g.name, good_path(g) %></td>
+    </tr>
     <% end %>
  </table> 
- <p><%= link_to 'Vissza', {:action => 'landing'} %></p>
+ <p><%= link_to 'Vissza', {action: 'landing'} %></p>
 
  <% end %>

@@ -1,13 +1,13 @@
-<%= form_for @user, :url => url_for(:action => 'update') do |f| %>
-    <div>
-        <%=f.label :Felhasználónév %>: 
-        <%=f.text_field :username %>
+<%= form_for current_user, url: url_for(action: 'update') do |f| %>
+  <div>
+    <%=f.label :Felhasználónév %>: 
+    <%=f.text_field :username %>
 
-        <%=f.label :Szobaszám %>: 
-        <%=f.text_field :roomnumber %>
+    <%=f.label :Szobaszám %>: 
+    <%=f.text_field :roomnumber %>
 
-        <%=link_to "Jelszó megváltoztatása", {:action => 'pass_edit'} %>
-    </div>
-    <%=f.submit "Jóváhagyás" %>
+    <%=link_to "Jelszó megváltoztatása", { action: 'pass_edit' } %>
+  </div>
+  <%=f.submit "Jóváhagyás" %>
 <%end%>
-<div> <%=link_to "Mégse", {:action => 'show'} %> </div> 
+<div> <%=link_to "Mégse", { action: 'show' } %> </div> 

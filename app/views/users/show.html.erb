@@ -1,32 +1,32 @@
-<h2> <%=@user.username%> profil adatok </h2>
-<div> <%=link_to "Adatok módosítása", {:action => 'edit'} %> </div>
+<h2> <%=current_user.username%> profil adatok </h2>
+<div> <%=link_to "Adatok módosítása", {action: 'edit'} %> </div>
 
 <% cart_num = 0 %>
-<% @goods.each do |g| %>
-    <% if g.buyer_id == session[:user_id] && g.bought%>
-       <% cart_num += 1 %>
-    <% end %>
-<%end%>
-<% felirat = "Rendelések (" + cart_num.to_s + ")" %>
-<div> <%=link_to felirat, {:action => 'bought_goods', :controller => 'users'} %> </div>
-
-<% cart_num = 0 %>
-<% @goods.each do |g| %>
-    <% if g.buyer_id == session[:user_id] && !g.bought%>
+<% @purchases.each do |p| %>
+    <% if p.buyer_id == current_user.id%>
        <% cart_num += 1 %>
     <% end %>
 <%end%>
 <% felirat = "Kosaram (" + cart_num.to_s + ")" %>
-<div> <%=link_to felirat, {:action => 'my_cart', :controller => 'users'} %> </div>
+<div> <%=link_to felirat, {action: 'my_cart', controller: 'users'} %> </div>
 
 <% good_num = 0 %>
 <% @goods.each do |g| %>
-    <% if g.seller_id == session[:user_id] && (g.buyer_id == nil || g.bought) %>
+    <% if g.seller_id == current_user.id %>
        <% good_num += 1 %>
     <% end %>
 <%end%>
 <% felirat = "Termékeim (" + good_num.to_s + ")" %>
-<div> <%=link_to felirat, {:action => 'my_goods', :controller => 'users'} %> </div>
+<div> <%=link_to felirat, {action: 'my_goods', controller: 'users'} %> </div>
 
-<div> <%=link_to "Vissza", {:action => 'landing', :controller => 'goods'} %> </div>
+<% good_num = 0 %>
+<% @purchases.each do |p| %>
+    <% if Good.find_by_id(p.good_id).seller_id == current_user.id %>
+       <% good_num += 1 %>
+    <% end %>
+<%end%>
+<% felirat = "Megrendelt termékeim (" + good_num.to_s + ")" %>
+<div> <%=link_to felirat, {action: 'sold_goods', controller: 'users'} %> </div>
+
+<div> <%=link_to "Vissza", {action: 'landing', controller: 'goods'} %> </div>
 

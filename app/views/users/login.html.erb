@@ -1,5 +1,5 @@
 <h3>Bejelentkezés</h3>
-<%= form_for @user, :url => url_for(:controller => 'sessions', :action => 'create') do |f| %>
+<%= form_for @user, url: url_for(controller: 'sessions', action: 'create') do |f| %>
     <div>
         <%=f.label :username %>: 
         <%=f.text_field :username %>
@@ -9,4 +9,4 @@
     </div>
     <%=f.submit "Bejelentkezés" %>
 <%end%>
-<%= link_to 'Vissza', {:action => 'index', :controller => 'eschop'} %>
+<%= link_to 'Vissza', {action: 'index', controller: 'eschop'} %>

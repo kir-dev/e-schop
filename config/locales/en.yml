@@ -31,3 +31,12 @@
 
 en:
   hello: "Hello world"
+  user_exists: "Már létezik ilyen felhasználó"
+  user_create: "Sikeresen létrehozta a felhasználót"
+  login_fail: "Felhasználónév vagy a jelszó hibás"
+  good_deleted: "Sikeresen törölte a termékeket"
+  good_created: "Sikeresen létrehozta a terméket"
+  good_to_cart: "Sikeresen megrendelted a terméket"
+  no_current_user: "Nincs senki bejelentkezve"
+  not_enough_good: "Nincs ennyi termék"
+  back_from_cart: "Eltávolítottál egy terméket a kosárból"

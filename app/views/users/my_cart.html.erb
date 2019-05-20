@@ -1,29 +1,21 @@
 <h3> Kosár: </h3>
-<% has_goods = false %>
-<table style="width:30%"> 
-    <% @goods.each do |g| %>
-        <% if g.buyer_id == session[:user_id] && !g.bought %>
-            <% has_goods = true %>
-            <tr>        
-                <td><%= link_to g.name, {:action => 'good_show', :id => g.id} %></td>
-
-                <% name = User.find_by_id(session[:user_id]).name %>
-                <% uzenet = name + " megvette fent jelzett nevű termékedből "+
-                            g.number.to_s + " darabot.\n
-                            Dátum: " + Time.new.strftime("%Y-%m-%d, %H:%M:%S").to_s%>
-
-                <td align = "center"> 
-                    <%=link_to "Megrendel", {:action => 'to_bought', :controller => 'goods', :id => g.id,
-                    :user_id => g.seller_id, :subject => g.name, :body => uzenet} %>
-                </td>
-                <td align = "right"> <%=link_to "Eldobás", {:action => 'back_from_cart', :controller => 'goods', :id => g.id} %> </td>
-            </tr>
-        <% end %>    
+<% if !@purchases.nil? %>
+  <table style="width:30%">
+    <% @purchases.each do |p| %>
+      <% if p.buyer_id == current_user.id %>
+        <% good = Good.with_deleted.find(p.good_id) %>
+        <tr>    
+          <td><%= link_to good.name, {action: 'good_show', id: good.id, purchase_id: p.id} %></td>
+          <% name = current_user.name %>
+          <% uzenet = name + " megvette fent jelzett nevű termékedből "+
+                p.number.to_s + " darabot.\n
+                Dátum: " + Time.new.strftime("%Y-%m-%d, %H:%M:%S").to_s%>
+          <td align = "right"> <%=link_to "Eldobás", {action: 'back_from_cart', controller: 'purchases', id: p.id} %> </td>
+        </tr>
+      <% end %>  
     <% end %>
-</table>
-
-<% if has_goods == false %>
-    <div> Üres a kosarad </div>
+  </table>
+<% else %>
+  <div> Üres a kosarad </div>
 <% end %>
-
-<div> <%=link_to "Profilra", {:action => 'show', :controller => 'users'} %> </div>
+<div> <%=link_to "Profilra", {action: 'show', controller: 'users'} %> </div>

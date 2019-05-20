@@ -1,72 +1,60 @@
 <table>
 <tr>
-    <td><strong>Név:</strong></td>
-    <td align = "right"><%= @good.name %></td>
+  <td><strong>Név:</strong></td>
+  <td align = "right"><%= @good.name %></td>
 </tr>
 
 <tr>
-    <td><strong>Ár:</strong></td> 
-    <td align = "right"><%= @good.price %></td>
+  <td><strong>Ár:</strong></td> 
+  <td align = "right"><%= @good.price %></td>
 </tr>
 
 <tr>
-    <td><strong>Darabszám:</strong></td>
+  <td><strong>Darabszám:</strong></td>
+  <% if params[:purchase_id].nil? %>
     <td align = "right" id = 'number'><%= @good.number %></td>
+  <% else %>
+    <td align = "right" id = 'number'><%= Purchase.find(params[:purchase_id]).number %></td>
+  <% end %>
 </tr>
 
 <tr>
-    <% if @good.seller_id != session[:user_id] %>
-        <td><strong>Eladó:</strong></td>
-        <td align = "right">
-            <% seller = User.find_by_id(@good.seller_id) %>
-            <%= link_to seller.name, {:action => 'show_other_user', :id => seller.id,
-                :good_id => @good.id}
-            %>
-        </td>
-    <% end %>
+  <% if @good.seller_id != current_user.id %>
+    <td><strong>Eladó:</strong></td>
+    <td align = "right">
+      <% seller = User.find_by_id(@good.seller_id) %>
+      <%= link_to seller.name, {action: 'show_other_user', id: seller.id,
+        good_id: @good.id}
+      %>
+    </td>
+  <% end %>
 </tr>
 
 <tr>
-    <td><strong>Leírás:</strong></td>    
-    <td align = "right"><%= @good.description %></td>
+  <td><strong>Leírás:</strong></td>  
+  <td align = "right"><%= @good.description %></td>
 </tr>
 </table>
 
-<% if @good.seller_id == session[:user_id] %>
-    <% if !@good.bought %>
-        <p><%= link_to 'Törlés', {:action => 'delete_num', :controller => 'goods', :id => @good.id},
-               id: "delete_num_link", remote: true %>
-        </p>
-    <% end %>
-    <p><%= link_to 'Vissza', {:action => 'my_goods'} %></p>
-
-<% else %>
-
-    <% if @good.buyer_id == session[:user_id] && !@good.bought %>
-
-        <% name = User.find_by_id(session[:user_id]).name %>
-        <% uzenet = name + " megvette fent jelzett nevű termékedből "+
-                    @good.number.to_s + " darabot.\n
-                    Dátum: " + Time.new.strftime("%Y-%m-%d, %H:%M:%S").to_s%>
-        <p>
-            <%=link_to "Megrendel", {:action => 'to_bought', :controller => 'goods', :id => @good.id,
-               :user_id => @good.seller_id, :subject => @good.name, :body => uzenet} %>
-        </p>
-        <p>
-            <%=link_to "Eldobás", {:action => 'back_from_cart', :controller => 'goods',
-               :id => @good.id} %>
-        </p>
-        <p><%= link_to 'Vissza', {:action => 'my_cart'} %></p>
-
-    <% elsif @good.buyer_id == session[:user_id] && @good.bought %>
-
-        <p>
-            <%= link_to "Rendelés törlése", {:action => 'back_from_bought',
-                :controller => 'goods', :id => @good.id} %>
-        </p>
-        <p><%= link_to 'Vissza', {:action => 'bought_goods'} %></p>
-
-    <% end %>
-
+<% if @good.seller_id == current_user.id && params[:purchase_id].nil? %>
+  <p><%= link_to 'Törlés', {action: 'delete_num', controller: 'goods', id: @good.id}%></p>
+  <p><%= link_to 'Vissza', {action: 'my_goods'} %></p>
 <% end %>
-
+<% if !params[:purchase_id].nil? %>
+  <% purchase = Purchase.find(params[:purchase_id]) %>
+  <% if purchase.buyer_id == current_user.id %>
+    <% name = current_user.name %>
+    <% uzenet = name + " megvette fent jelzett nevű termékedből "+
+          @good.number.to_s + " darabot.\n
+          Dátum: " + Time.new.strftime("%Y-%m-%d, %H:%M:%S").to_s%>
+    <p>
+      <%=link_to "Eldobás", {action: 'back_from_cart', controller: 'purchases', id: purchase.id} %>
+    </p>
+    <p><%= link_to 'Vissza', {action: 'my_cart'} %></p>
+  <% else %> 
+    <p>
+      <%=link_to "Kifizetve", {action: 'delete', controller: 'purchases', id: purchase.id} %>
+    </p>
+    <p><%= link_to 'Vissza', {action: 'sold_goods'} %></p>
+  <% end %>
+<% end %>

@@ -1,7 +1,0 @@
-<%= form_for @number, :url => url_for(:action => 'destroy'), 
-    :html=> {:id => 'delete_num_form'}, remote: true do |f| 
-%>
-    <%= f.select :number, options_for_select(0..@good.number) %>
-    <%= hidden_field_tag(:id, @good.id)%>
-    <%= f.submit "Törlés" %>
-<% end %>
