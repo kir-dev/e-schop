@@ -28,6 +28,9 @@
   <strong>Leírás:</strong>
   <%= @good.description %>
 </p>
+<% if @good.photo.attached? %>
+<p><%= image_tag @good.thumb%></p>
+<% end %>
 
 <% if @good.photo.attached? %>
   <image src="<%= (url_for(@good.photo)) %>">

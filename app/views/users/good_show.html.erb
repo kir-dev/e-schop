@@ -36,6 +36,10 @@
 </tr>
 </table>
 
+<% if @good.photo.attached? %>
+  <p><%= image_tag @good.thumb%></p>
+<% end %>
+
 <% if @good.seller_id == current_user.id && params[:purchase_id].nil? %>
   <p><%= link_to 'Törlés', {action: 'delete_num', controller: 'goods', id: @good.id}%></p>
   <p><%= link_to 'Vissza', {action: 'my_goods'} %></p>

@@ -51,8 +51,11 @@ ActiveRecord::Schema.define(version: 2019_05_19_203319) do
     t.integer "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
-    t.index ["deleted_at"], name: "index_goods_on_deleted_at"
+    t.string "photo_file_name"
+    t.string "photo_content_type"
+    t.integer "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.string "photo"
   end
 
   create_table "mailboxer_conversation_opt_outs", id: :serial, force: :cascade do |t|
@@ -133,6 +136,7 @@ ActiveRecord::Schema.define(version: 2019_05_19_203319) do
     t.integer "roomnumber"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "photo"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
