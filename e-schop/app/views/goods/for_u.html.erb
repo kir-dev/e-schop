@@ -1,0 +1,22 @@
+<h3> Neked ajánlott </h3>
+
+<table>
+  <% favourite = favourite_category %>
+  <% @goods.each do |g| %>
+    <% if g.category_id == favourite && g.seller_id != current_user.id %>
+      <tr>
+        <td><%= link_to g.name, good_path(g) %></td>
+        <td>
+          <% if g.photo.attached? %>
+            <p><%= image_tag g.thumb_list%></p>
+          <% else %>
+            <% product = Product.find_by_id(g.product_id) %>
+            <% if product.photo.attached? %>
+              <p><%= image_tag product.thumb_list%></p>
+            <% end %> 
+          <% end %>
+        </td>
+      </tr>
+    <% end %>      
+  <% end %>
+</table>

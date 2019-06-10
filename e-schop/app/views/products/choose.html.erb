@@ -1,0 +1,5 @@
+<div> Válassz a sablonok közül </div>
+<%= form_for @good, url: url_for(action: 'new_from_product') do |f| %>
+  <div> <%=f.collection_select(:product_id, @products, :id, :name ) %> </div>
+  <div> <%=f.submit 'Használ' %> </div>
+<% end %>

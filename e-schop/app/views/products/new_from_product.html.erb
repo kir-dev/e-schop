@@ -1,0 +1,40 @@
+<h1>Termék felvétel</h1>
+<%= form_for @good, url: url_for(action: 'create_from_product') do |form| %>
+  <p>
+    <%= form.label :Név %><br>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label :Ár %><br>
+    <%= form.text_field :price %>
+  </p>
+
+  <p>
+    <%= form.label :Kategória %><br>
+    <%= form.collection_select(:category_id, @categories, :id, :name) %>
+  </p>
+
+  <p>
+    <%= form.label :Darabszám %><br>
+    <%= form.text_field :number %>
+  </p>
+  
+  <p>
+    <%= form.label :Leírás %><br>
+    <%= form.text_area :description %>
+  </p>
+  <% if @product.photo.attached?%>
+    <p><%= image_tag @product.thumb%></p>
+  <% end %>
+  <p>
+    <%= form.label "Másik kép feltöltése" %><br>
+    <%= form.file_field :photo %>
+  </p>
+  <%= hidden_field_tag(:product_id, @product.id)%>
+  <p>
+    <%= form.submit "Felvétel" %>
+  </p>
+<% end %>
+
+<%= link_to "Vissza", {action: 'choose'} %>

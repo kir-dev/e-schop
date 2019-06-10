@@ -1,0 +1,23 @@
+<h3> Megrendelt termékeim </h3>
+<table style="width:30%">
+  <% van = false %>
+  <% @purchases.each do |p| %>
+    <% good = Good.with_deleted.find(p.good_id) %>
+    <%if good.seller_id == current_user.id%>
+      <% van = true %>
+      <tr>
+        <td> <%= link_to good.name, {action: 'good_show', purchase_id: p.id, id: good.id} %> </td>
+        <td align = "center">
+          <% vevő = "Vevő: " + User.find_by_id(p.buyer_id).username %>
+          <%=link_to vevő,{action: 'show_other_user', id: p.buyer_id, good_id: good.id} %> 
+        </td>
+        <td align = "rigth">
+          <%=link_to "Kifizetve", { action: 'delete', controller: 'purchases', id: p.id }  %>
+        </td>
+      </tr>
+    <% end %>  
+  <% end %>
+  <% unless van %>
+    <div> Nincs megrendelt terméked </div>
+  <% end %>
+</table>

@@ -1,0 +1,38 @@
+<h1>Termék felvétel</h1>
+
+<div> <%= link_to 'Felvétel meglévőből', {action: 'choose', controller: 'products'} %> </div>
+
+<%= form_with scope: :good, local: true do |form| %>
+  <p>
+    <%= form.label :Név %><br>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label :Ár %><br>
+    <%= form.text_field :price %>
+  </p>
+
+  <p>
+    <%= form.label :Kategória %><br>
+    <%= form.collection_select(:category_id, @categories, :id, :name) %>
+  </p>
+
+  <p>
+    <%= form.label :Darabszám %><br>
+    <%= form.text_field :number %>
+  </p>
+  
+  <p>
+    <%= form.label :Leírás %><br>
+    <%= form.text_area :description %>
+  </p>
+
+  <p>
+    <%= form.label "Kép feltöltése" %><br>
+    <%= form.file_field :photo %>
+  </p>
+  <p>
+    <%= form.submit "Felvétel" %>
+  </p>
+<% end %>

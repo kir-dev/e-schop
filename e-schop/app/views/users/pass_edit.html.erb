@@ -1,0 +1,15 @@
+<%= form_for @user, url: url_for(action: 'pass_update') do |f| %>
+  <div>
+    <%=f.label :Régi %>: 
+    <%=f.password_field :password_check %>
+  </div>
+  <div>
+    <%=f.label :Jelszó %>: 
+    <%=f.password_field :password %>
+
+    <%=f.label :Mégegyszer %>: 
+    <%=f.password_field :password_confirmation %>
+  </div>
+  <%=f.submit "Jóváhagyás" %>
+<%end%>
+<div> <%=link_to "Mégse", {action: 'show'} %> </div> 

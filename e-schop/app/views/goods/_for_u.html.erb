@@ -1,0 +1,28 @@
+<% if !current_user.nil? && !@goods.blank? %>
+  <% unless Purchase.where(buyer_id: current_user.id).blank? %>
+    <p> Neked ajánlott </p>
+    <% favourite = favourite_category %>
+    <table>
+      <% idx = 0 %>
+      <% @goods.each do |g| %>
+        <% if idx < 3 && g.category_id == favourite && g.seller_id != current_user.id %>
+          <% idx += 1 %>
+          <tr>
+            <td><%= link_to g.name, good_path(g) %></td>
+            <td>
+              <% if g.photo.attached? %>
+                <p><%= image_tag g.thumb_list%></p>
+              <% else %>
+                <% product = Product.find_by_id(g.product_id) %>
+                <% if product.photo.attached? %>
+                  <p><%= image_tag product.thumb_list%></p>
+                <% end %> 
+              <% end %>
+            </td>
+          </tr>
+        <% end %>      
+      <% end %>
+    </table>
+    <p><%= link_to 'Több', {action: 'for_u'} %></p>
+  <% end %>
+<% end %>

@@ -1,0 +1,8 @@
+<div>
+  <%= form_tag(goods_path, method: "get") do %>
+      <%= collection_select(:post,:category_id, @categories, :id, :name,
+      :include_blank => "Összes") %>
+      <%= text_field_tag(:scearched_prase) %>
+    <%= submit_tag("Keres") %>
+  <% end %>
+</div>

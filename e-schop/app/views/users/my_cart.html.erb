@@ -1,0 +1,23 @@
+<h3> Kosár: </h3>
+<% if !@purchases.nil? %>
+  <table style="width:30%">
+    <% van = false %>
+    <% @purchases.each do |p| %>
+      <% if p.buyer_id == current_user.id %>
+        <% van = true %>
+        <% good = Good.with_deleted.find(p.good_id) %>
+        <tr>    
+          <td><%= link_to good.name, {action: 'good_show', id: good.id, purchase_id: p.id} %></td>
+          <% name = current_user.name %>
+          <% uzenet = name + " megvette fent jelzett nevű termékedből "+
+                p.number.to_s + " darabot.\n
+                Dátum: " + Time.new.strftime("%Y-%m-%d, %H:%M:%S").to_s%>
+          <td align = "right"> <%=link_to "Eldobás", {action: 'back_from_cart', controller: 'purchases', id: p.id} %> </td>
+        </tr>
+      <% end %>  
+    <% end %>
+  </table>
+<% end %>
+<% unless van %>
+  <div> Üres a kosarad </div>  
+<% end %>

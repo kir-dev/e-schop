@@ -1,0 +1,54 @@
+<p>
+  <strong>Név:</strong>
+  <%= @good.name %>
+</p>
+
+<p>
+  <strong>Ár/db:</strong>
+  <%= @good.price %>
+  Ft
+</p>
+
+<p>
+  <strong>Darabszám:</strong>
+  <%= @good.number %>
+</p>
+
+<p>
+  <% if current_user != @user %>
+    <strong>Eladó:</strong> 
+    <%= link_to @user.username, { action: 'show_other_user', controller: 'users',
+                                  id: @user.id, good_id: @good.id }  %>
+  <% else %>
+    <strong>saját termék</strong>
+  <% end %>
+</p>
+
+<p>
+  <strong>Leírás:</strong>
+  <%= @good.description %>
+</p>
+
+<% if @good.photo.attached? %>
+  <p><%= image_tag @good.thumb%></p>
+<% else %>
+  <% product = Product.find_by_id(@good.product_id) %>
+  <% if product.photo.attached? %>
+    <p><%= image_tag product.thumb%></p>
+  <% end %> 
+<% end %>
+
+<% if @good.photo.attached? %>
+  <image src="<%= (url_for(@good.photo)) %>">
+<% end %>
+
+<% if current_user != @user %>
+  <%= form_for @order, :url => url_for(action: 'to_cart', controller: 'purchases',
+                                       id: @good.id) do |f| %>
+    <div>
+      <%= f.label :Mennyiség %>:
+      <%= f.text_field :number %>
+      <%=f.submit "Kosárba" %>
+    </div>
+  <% end %>
+<% end %>
