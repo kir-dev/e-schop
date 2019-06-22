@@ -1,20 +1,25 @@
 <h1><%= @conversation.subject %></h1>
 
-<% @conversation.receipts_for(User.find_by_id(session[:user_id])).each do |receipt| %>
-    <div>
-        <div>Feladó: <%= receipt.message.sender.name %></div>
-        <p><%= receipt.message.body %></p>
-    </div>
+<div>
+<% @conversation.receipts_for(current_user).order(created_at: :asc).each do |receipt| %>
+    <p title = "<%= receipt.message.created_at.strftime("%Y. %m. %d. %H:%M") %>">
+        <% if receipt.message.sender.name === current_user.name %>
+            <%= "Én: " + receipt.message.body %>
+        <% else %>
+            <%= receipt.message.sender.name + ": " + receipt.message.body %>
+        <% end %>
+    </p>
 <% end %>
+</div>
 
-<% @conversation.mark_as_read(User.find_by_id(session[:user_id])) %>
+<% @conversation.mark_as_read(current_user) %>
 
-<%= form_tag conversation_messages_path(@conversation), method: :post do %>
+<%= form_with url: conversation_messages_path(@conversation), method: :post do %>
     <div>
-        <%= text_area_tag :body %>
+        <%= text_area_tag :body, "", placeholder: "Új üzenet", required: true %>
     </div>
 
-    <%= submit_tag %>
+    <%= submit_tag "Küldés"%>
 <% end %>
 
 <%= link_to 'Vissza', conversations_path %>

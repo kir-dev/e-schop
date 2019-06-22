@@ -13,7 +13,7 @@
         margin:0;
         padding-top: 40px;
       }
-      ul {
+      .navbar ul {
         position: fixed;
         top: 0;
         width: 100%;
@@ -70,8 +70,8 @@
   </head>
 
   <body>
-  <div style="text-align: center;">
-    <ul>
+  <div style="text-align: center", class = "navbar">
+    <ul class = "navbar">
       <li> <%= link_to 'E-schop', {action: 'index', controller: 'goods'} %> </li>
       <li> <%= link_to 'Étel', {action: 'food', controller: 'goods'} %> </li>
       <li> <%= link_to 'Ital', {action: 'drink', controller: 'goods'} %> </li>
@@ -114,6 +114,12 @@
           <%=link_to felirat, {action: 'sold_goods', controller: 'users'} %>
 
           <%= link_to 'Új termék felvétele', {action: 'new', controller: 'goods'} %>
+          <% unread_num = current_user.unread_inbox_count %>
+          <% if unread_num > 0 %>
+            <%= link_to "Beszélgetések (" + unread_num.to_s + ")", conversations_path(current_user) %>
+          <% else %>
+            <%= link_to "Beszélgetések", conversations_path(current_user) %>
+          <% end %>
           <%= link_to 'Kijelentkezés', {action: 'destroy', controller: 'sessions'} %>
           </div>
         </li>

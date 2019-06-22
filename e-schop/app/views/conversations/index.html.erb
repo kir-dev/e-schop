@@ -1,11 +1,16 @@
-<h1> Bejövő üzenetek </h1>
-<div>Olvasatlanok száma: <%= User.find_by_id(session[:user_id]).unread_inbox_count %></div>
+<h1>Beszélgetések</h1>
+<div>Olvasatlanok száma: <%= current_user.unread_inbox_count %></div>
 
+<ol class = "inbox">
 <% @conversations.each do |conversation| %>
-    <div>
-        <%= link_to conversation.subject, conversation_path(conversation) %>
-    </div>
+    <li class = "inbox">
+        <% if conversation.is_unread?(current_user) %><b><% end %>
+        <%= link_to (conversation.participants - [current_user])[0].username + ": " + conversation.subject,
+                    conversation_path(conversation) %>
+        <% if conversation.is_unread?(current_user) %></b><% end %>
+    </li>
 <% end %>
+</ol>
 
 <div><%= link_to "Új beszélgetés", new_conversation_path %></div>
-<div><%= link_to "Vissza a főoldalra", {:action => 'landing', :controller => 'goods'} %></div>
+<div><%= link_to "Vissza a főoldalra", {:action => 'index', :controller => 'goods'} %></div>
