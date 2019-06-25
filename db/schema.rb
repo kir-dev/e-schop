@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_19_203319) do
+ActiveRecord::Schema.define(version: 2019_06_10_105000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,18 +44,16 @@ ActiveRecord::Schema.define(version: 2019_05_19_203319) do
 
   create_table "goods", force: :cascade do |t|
     t.string "name"
-    t.integer "price"
-    t.text "description"
     t.integer "category_id"
-    t.integer "seller_id"
-    t.integer "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "photo_file_name"
-    t.string "photo_content_type"
-    t.integer "photo_file_size"
-    t.datetime "photo_updated_at"
-    t.string "photo"
+    t.datetime "deleted_at"
+    t.text "description"
+    t.integer "number"
+    t.integer "seller_id"
+    t.integer "price"
+    t.integer "product_id"
+    t.index ["deleted_at"], name: "index_goods_on_deleted_at"
   end
 
   create_table "mailboxer_conversation_opt_outs", id: :serial, force: :cascade do |t|
@@ -113,12 +111,21 @@ ActiveRecord::Schema.define(version: 2019_05_19_203319) do
     t.index ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.integer "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "purchases", force: :cascade do |t|
     t.integer "buyer_id"
     t.integer "good_id"
     t.integer "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_purchases_on_deleted_at"
   end
 
   create_table "records", force: :cascade do |t|
@@ -136,7 +143,6 @@ ActiveRecord::Schema.define(version: 2019_05_19_203319) do
     t.integer "roomnumber"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "photo"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

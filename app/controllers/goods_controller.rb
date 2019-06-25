@@ -1,16 +1,13 @@
 class GoodsController < ApplicationController
-  before_action :check_good_id, only: [:show, :delete_num, :destroy, :to_cart,
-                  :back_from_cart, :to_bought, :back_from_bought, :copy]
-
+  skip_before_action :session_check, only: [:index, :show, :food, :drink, :else, :search]
   def landing; end
 
   def index
-    @categories = Category.all
     getSelectedGoods
   end
 
   def getSelectedGoods
-    @goods = Good.all
+    @goods = Good.all.order(name: :asc, created_at: :desc)
     unless (params[:post].blank? || params[:post][:category_id].blank?)
       @goods = @goods.select{ |g| g.category_id == params[:post][:category_id].to_i }
     end
@@ -31,8 +28,11 @@ class GoodsController < ApplicationController
   end
 
   def create
+    @product = Product.new(product_params)
+    @product.save
     @good = Good.new(good_params)
     @good.seller_id = current_user.id
+    @good.product_id = @product.id
     if @good.save
       redirect_to controller: 'users', action: 'good_show', id: @good.id
     else
@@ -65,9 +65,34 @@ class GoodsController < ApplicationController
     end
   end
 
+  def for_u
+    @goods = Good.all
+  end
+
+  def food
+    @goods = Good.where(category_id: 1)
+  end
+
+  def drink
+    @goods = Good.where(category_id: 2)
+  end
+
+  def else
+    @goods = Good.where(category_id: 3)
+  end
+
+  def search
+    @categories = Category.all
+    getSelectedGoods
+  end
+
   private
 
   def good_params
-    params.require(:good).permit(:name, :price, :text, :description, :category_id, :number, :photo)
+    params.require(:good).permit(:name, :price, :text, :description, :number, :category_id)
+  end
+
+  def product_params
+    params.require(:good).permit(:name, :photo, :category_id)
   end
 end

@@ -40,3 +40,4 @@ en:
   no_current_user: "Nincs senki bejelentkezve"
   not_enough_good: "Nincs ennyi termék"
   back_from_cart: "Eltávolítottál egy terméket a kosárból"
+  pass_update_fail: "Nem jó a régi kód, vagy nem ugyanaz a kettő új"

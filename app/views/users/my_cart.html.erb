@@ -1,8 +1,10 @@
 <h3> Kosár: </h3>
 <% if !@purchases.nil? %>
   <table style="width:30%">
+    <% van = false %>
     <% @purchases.each do |p| %>
       <% if p.buyer_id == current_user.id %>
+        <% van = true %>
         <% good = Good.with_deleted.find(p.good_id) %>
         <tr>    
           <td><%= link_to good.name, {action: 'good_show', id: good.id, purchase_id: p.id} %></td>
@@ -15,7 +17,7 @@
       <% end %>  
     <% end %>
   </table>
-<% else %>
-  <div> Üres a kosarad </div>
 <% end %>
-<div> <%=link_to "Profilra", {action: 'show', controller: 'users'} %> </div>
+<% unless van %>
+  <div> Üres a kosarad </div>  
+<% end %>

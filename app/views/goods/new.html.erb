@@ -1,5 +1,7 @@
 <h1>Termék felvétel</h1>
 
+<div> <%= link_to 'Felvétel meglévőből', {action: 'choose', controller: 'products'} %> </div>
+
 <%= form_with scope: :good, local: true do |form| %>
   <p>
     <%= form.label :Név %><br>
@@ -34,5 +36,3 @@
     <%= form.submit "Felvétel" %>
   </p>
 <% end %>
-
-<%= link_to "Vissza", {action: 'landing'} %>

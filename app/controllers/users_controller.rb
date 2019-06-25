@@ -57,6 +57,8 @@ class UsersController < ApplicationController
     if error == false
       redirect_to action: 'show'
     else
+      @user = User.new
+      flash[:alert] = t(:pass_update_fail)
       render action: 'pass_edit'
     end
   end

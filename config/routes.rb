@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  get '/' => 'eschop#index'
+  get '/' => 'goods#index'
+
   get '/destroysession' => 'sessions#destroy'
   post '/createsession' => 'sessions#create'
 
@@ -30,11 +31,20 @@ Rails.application.routes.draw do
   post '/goods/new' => 'goods#create'
   delete '/goods/delete' => 'goods#delete'
   post '/goods/delete' => 'goods#delete'
+  get '/for_u' => 'goods#for_u'
+  get '/food' => 'goods#food'
+  get '/drink' => 'goods#drink'
+  get '/else' => 'goods#else'
+  get '/search' => 'goods#search'
 
   get '/purchases/to_cart' => 'purchases#to_cart'
   post '/purchases/to_cart' => 'purchases#to_cart'
   get '/purchases/back_from_cart' => 'purchases#back_from_cart'
   get '/purchases/delete' => 'purchases#delete'
+
+  get '/product/choose' => 'products#choose'
+  post '/product/new_from_product' => 'products#new_from_product'
+  post '/product/create_from_product' => 'products#create_from_product'
 
   resources :conversations do
     resources :messages

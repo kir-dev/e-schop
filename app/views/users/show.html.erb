@@ -21,12 +21,10 @@
 
 <% good_num = 0 %>
 <% @purchases.each do |p| %>
-    <% if Good.find_by_id(p.good_id).seller_id == current_user.id %>
+    <% if Good.with_deleted.find_by_id(p.good_id).seller_id == current_user.id %>
        <% good_num += 1 %>
     <% end %>
 <%end%>
 <% felirat = "Megrendelt termékeim (" + good_num.to_s + ")" %>
 <div> <%=link_to felirat, {action: 'sold_goods', controller: 'users'} %> </div>
-
-<div> <%=link_to "Vissza", {action: 'landing', controller: 'goods'} %> </div>
 

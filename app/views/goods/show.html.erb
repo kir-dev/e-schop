@@ -28,8 +28,14 @@
   <strong>Leírás:</strong>
   <%= @good.description %>
 </p>
+
 <% if @good.photo.attached? %>
-<p><%= image_tag @good.thumb%></p>
+  <p><%= image_tag @good.thumb%></p>
+<% else %>
+  <% product = Product.find_by_id(@good.product_id) %>
+  <% if product.photo.attached? %>
+    <p><%= image_tag product.thumb%></p>
+  <% end %> 
 <% end %>
 
 <% if @good.photo.attached? %>
@@ -46,5 +52,3 @@
     </div>
   <% end %>
 <% end %>
-
-<%= link_to 'Vissza', { action: 'index' } %>
