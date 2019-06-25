@@ -2,6 +2,40 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.inbox li{
-  background-color: aqua
+div.inbox{
+  display: inline-block;
+}
+
+ul.inbox{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li.inbox{
+  border-bottom: 1px solid #ccc;
+}
+
+li.inbox:last-child{
+  border: none;
+}
+
+li.inbox a{
+  text-decoration: none;
+  color: #333;
+  display: block;
+ 
+  -webkit-transition: padding-left 0.05s ease;
+  -moz-transition: padding-left 0.05s ease;
+  -o-transition: padding-left 0.05s ease;
+  -ms-transition: padding-left 0.05s ease;
+  transition: padding-left 0.05s ease;
+}
+
+li.inbox a:hover{
+  padding-left: 5px;
+}
+
+h2.unread-num{
+  font-size: 16px;
 }

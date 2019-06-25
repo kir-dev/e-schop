@@ -1,4 +1,4 @@
-<h1><%= @conversation.subject %></h1>
+<h1><%= @partner.name %>: <%= @conversation.subject %></h1>
 
 <div>
 <% @conversation.receipts_for(current_user).order(created_at: :asc).each do |receipt| %>
