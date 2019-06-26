@@ -1,6 +1,31 @@
 <h1>Beszélgetések</h1>
 <h2 class = "unread-num">Olvasatlanok száma: <%= current_user.unread_inbox_count %></h2>
 
+<div class = "messaging">
+    <div class = "conversations">
+        <ul class = "inbox">
+        <% @conversations.each do |conversation| %>
+            <li class = "inbox">
+                <% if conversation.is_unread?(current_user) %><b><% end %>
+                <%= link_to (conversation.participants - [current_user])[0].username + ": " + conversation.subject,
+                            conversation_path(conversation) %>
+                <% if conversation.is_unread?(current_user) %></b><% end %>
+            </li>
+        <% end %>
+        </ul>
+    </div>
+
+    <div class = "chat">
+        
+    </div>
+
+    <div class = "profile-details">
+    </div>
+</div>
+
+
+
+<!--
 <div class = "inbox">
     <ul class = "inbox">
     <% @conversations.each do |conversation| %>
@@ -16,3 +41,5 @@
 
 <div><%= link_to "Új beszélgetés", new_conversation_path %></div>
 <div><%= link_to "Vissza a főoldalra", action: 'index', controller: 'goods' %></div>
+
+-->
