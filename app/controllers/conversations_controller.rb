@@ -6,6 +6,11 @@ class ConversationsController < ApplicationController
   def show
     @conversation = current_user.mailbox.conversations.find(params[:id])
     @partner = (@conversation.participants - [current_user])[0]
+    @receipts = @conversation.receipts_for(current_user).order(created_at: :asc)
+
+    respond_to do |format|
+      format.js { render layout: false }
+    end
   end
 
   def new

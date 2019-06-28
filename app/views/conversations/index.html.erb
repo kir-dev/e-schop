@@ -3,23 +3,27 @@
 
 <div class = "messaging">
     <div class = "conversations">
-        <ul class = "inbox">
+        <dl class = "inbox uk-description-list uk-description-list-divider">
         <% @conversations.each do |conversation| %>
-            <li class = "inbox">
+            <dt class = "inbox">
                 <% if conversation.is_unread?(current_user) %><b><% end %>
-                <%= link_to (conversation.participants - [current_user])[0].username + ": " + conversation.subject,
-                            conversation_path(conversation) %>
+                <%= link_to (conversation.participants - [current_user])[0].username,
+                            conversation_path(conversation), remote: true %>
                 <% if conversation.is_unread?(current_user) %></b><% end %>
-            </li>
+            </dt>
+            <dd>
+                <%= conversation.subject %>
+            </dd>
         <% end %>
-        </ul>
+        </dl>
     </div>
 
-    <div class = "chat">
-        
+    <div class = "chat", id="current_conversation">
+    
     </div>
 
     <div class = "profile-details">
+
     </div>
 </div>
 
