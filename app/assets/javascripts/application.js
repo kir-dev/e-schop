@@ -17,3 +17,6 @@
 //= require jquery_ujs
 
 //= require_tree .
+
+//= require uikit
+//= require uikit-components
