@@ -1,18 +1,4 @@
-<h1> Jelenlegi termékek </h1>
-
-<% if @goods.blank? %>
-    <p> Nincs termék. </p>
-<% else %>
-<%= render 'searchbar' %>
- <table> 
-    <% @goods.each do |g| %>
-        <% if g.buyer_id == nil %>
-            <tr>        
-                <td><%= link_to g.name, good_path(g) %></td>
-            </tr>
-        <% end %>
-    <% end %>
- </table> 
- <p><%= link_to 'Vissza', {:action => 'landing'} %></p>
-
- <% end %>
+<% if Good.all.order(name: :asc, created_at: :desc) == @goods %>
+  <%= render 'for_u' %>
+<% end %>
+<%= render 'list' %>

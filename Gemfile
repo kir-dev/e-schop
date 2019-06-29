@@ -3,11 +3,17 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.3'
 
-gem 'mailboxer'
+gem 'devise'
 
-gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
+gem 'dotenv-rails', groups: [:development, :test]
 
-gem 'rails-ujs', '~> 0.1.0'
+gem 'omniauth-authsch'
+
+gem 'omniauth'
+
+gem 'paranoia', '~> 2.4', '>= 2.4.2'
+
+gem 'mini_magick'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
@@ -29,8 +35,8 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
-#Use ActiveModel has_secure_password
- gem 'bcrypt', '~> 3.1.7'
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -45,8 +51,6 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
-#Active Storage :variant
-gem 'mini_magick'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_07_060712) do
+ActiveRecord::Schema.define(version: 2019_06_29_164555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,98 +44,48 @@ ActiveRecord::Schema.define(version: 2019_05_07_060712) do
 
   create_table "goods", force: :cascade do |t|
     t.string "name"
-    t.integer "price"
+    t.integer "category_id"
     t.text "description"
-    t.integer "category_id"
-    t.integer "seller_id"
     t.integer "number"
-    t.integer "buyer_id"
-    t.boolean "bought"
-    t.integer "original"
+    t.integer "seller_id"
+    t.integer "price"
+    t.integer "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "photo_file_name"
-    t.string "photo_content_type"
-    t.integer "photo_file_size"
-    t.datetime "photo_updated_at"
-    t.string "photo"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_goods_on_deleted_at"
   end
 
-  create_table "mailboxer_conversation_opt_outs", id: :serial, force: :cascade do |t|
-    t.string "unsubscriber_type"
-    t.integer "unsubscriber_id"
-    t.integer "conversation_id"
-    t.index ["conversation_id"], name: "index_mailboxer_conversation_opt_outs_on_conversation_id"
-    t.index ["unsubscriber_id", "unsubscriber_type"], name: "index_mailboxer_conversation_opt_outs_on_unsubscriber_id_type"
-  end
-
-  create_table "mailboxer_conversations", id: :serial, force: :cascade do |t|
-    t.string "subject", default: ""
-    t.integer "good_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "mailboxer_notifications", id: :serial, force: :cascade do |t|
-    t.string "type"
-    t.text "body"
-    t.string "subject", default: ""
-    t.string "sender_type"
-    t.integer "sender_id"
-    t.integer "conversation_id"
-    t.boolean "draft", default: false
-    t.string "notification_code"
-    t.string "notified_object_type"
-    t.integer "notified_object_id"
-    t.string "attachment"
-    t.datetime "updated_at", null: false
-    t.datetime "created_at", null: false
-    t.boolean "global", default: false
-    t.datetime "expires"
-    t.index ["conversation_id"], name: "index_mailboxer_notifications_on_conversation_id"
-    t.index ["notified_object_id", "notified_object_type"], name: "index_mailboxer_notifications_on_notified_object_id_and_type"
-    t.index ["notified_object_type", "notified_object_id"], name: "mailboxer_notifications_notified_object"
-    t.index ["sender_id", "sender_type"], name: "index_mailboxer_notifications_on_sender_id_and_sender_type"
-    t.index ["type"], name: "index_mailboxer_notifications_on_type"
-  end
-
-  create_table "mailboxer_receipts", id: :serial, force: :cascade do |t|
-    t.string "receiver_type"
-    t.integer "receiver_id"
-    t.integer "notification_id", null: false
-    t.boolean "is_read", default: false
-    t.boolean "trashed", default: false
-    t.boolean "deleted", default: false
-    t.string "mailbox_type", limit: 25
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "is_delivered", default: false
-    t.string "delivery_method"
-    t.string "message_id"
-    t.index ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
-    t.index ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
-  end
-
-  create_table "records", force: :cascade do |t|
+  create_table "products", force: :cascade do |t|
     t.string "name"
-    t.float "avg_price"
-    t.integer "num"
     t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer "buyer_id"
+    t.integer "good_id"
+    t.integer "number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_purchases_on_deleted_at"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "password_digest"
-    t.integer "roomnumber"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "photo"
+    t.string "username"
+    t.integer "roomnumber"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", column: "conversation_id", name: "mb_opt_outs_on_conversations_id"
-  add_foreign_key "mailboxer_notifications", "mailboxer_conversations", column: "conversation_id", name: "notifications_on_conversation_id"
-  add_foreign_key "mailboxer_receipts", "mailboxer_notifications", column: "notification_id", name: "receipts_on_notification_id"
 end

@@ -1,25 +1,3 @@
 <h3>Név: <%= @user.username %> </h3>
 <h3>Szobaszám: <%= @user.roomnumber %> </h3>
 <h3> (Üzenet küldése) </h3>
-<% good = Good.find_by_id(params[:good_id]) %>
-<% if good.buyer_id == nil %>
-    <%=link_to "Vissza", {:action => 'show', :controller => 'goods',
-       :id => params[:good_id]} 
-    %> 
-<% else %>
-  <% if !good.bought %>
-    <%=link_to "Vissza", {:action => 'good_show', :controller => 'users',
-       :id => params[:good_id]} 
-    %>
-  <% else %>
-    <% if good.seller_id == session[:user_id] %>
-        <%=link_to "Vissza", {:action => 'my_goods', :controller => 'users',
-           :id => params[:good_id]} 
-        %>
-    <% else %>
-        <%=link_to "Vissza", {:action => 'good_show', :controller => 'users',
-           :id => params[:good_id]} 
-        %>
-    <% end %>
-  <% end %>
-<% end %>

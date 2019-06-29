@@ -1,12 +1,15 @@
 class Good < ApplicationRecord
-    belongs_to :user, optional: true
-    has_one :category
-    validates :name, presence: true
-    validates_numericality_of :price, presence: true
-    validates_numericality_of :category_id, presence: true    
-    has_one_attached :photo
+  acts_as_paranoid
+  belongs_to :user, optional: true
+  validates :name, presence: true
+  validates_numericality_of :price, presence: true
+  has_one_attached :photo
 
-    def thumb
-       self.photo.variant(resize: "300x300").processed 
-    end
+  def thumb
+    self.photo.variant(resize: '300x300').processed
+  end
+
+  def thumb_list
+    self.photo.variant(resize: '150x150').processed
+  end
 end
