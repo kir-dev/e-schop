@@ -1,9 +1,12 @@
-<h1>Beszélgetések</h1>
-<h2 class = "unread-num">Olvasatlanok száma: <%= current_user.unread_inbox_count %></h2>
-
-<div class = "messaging">
+<div class = "messaging uk-grid">
     <div class = "conversations">
-        <dl class = "inbox uk-description-list uk-description-list-divider">
+        <div class = "header">
+            <h1>Beszélgetések</h1>
+            <h2 class = "unread-num">Olvasatlanok száma: <%= current_user.unread_inbox_count %></h2>
+        </div>
+        
+        <div class = "inbox">
+        <dl class = "uk-description-list uk-description-list-divider">
         <% @conversations.each do |conversation| %>
             <dt class = "inbox">
                 <% if conversation.is_unread?(current_user) %><b><% end %>
@@ -16,9 +19,12 @@
             </dd>
         <% end %>
         </dl>
+        </div>
+        
+        <%= link_to "Új beszélgetés", new_conversation_path, class: 'new-conversation-link uk-button uk-button-default', remote: true %>
     </div>
 
-    <div class = "chat", id="current_conversation">
+    <div class = "chat" id = "current_conversation">
     
     </div>
 
@@ -26,24 +32,3 @@
 
     </div>
 </div>
-
-
-
-<!--
-<div class = "inbox">
-    <ul class = "inbox">
-    <% @conversations.each do |conversation| %>
-        <li class = "inbox">
-            <% if conversation.is_unread?(current_user) %><b><% end %>
-            <%= link_to (conversation.participants - [current_user])[0].username + ": " + conversation.subject,
-                        conversation_path(conversation) %>
-            <% if conversation.is_unread?(current_user) %></b><% end %>
-        </li>
-    <% end %>
-    </ul>
-</div>
-
-<div><%= link_to "Új beszélgetés", new_conversation_path %></div>
-<div><%= link_to "Vissza a főoldalra", action: 'index', controller: 'goods' %></div>
-
--->

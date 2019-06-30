@@ -15,16 +15,19 @@ class ConversationsController < ApplicationController
 
   def new
     @recipients = User.all - [current_user]
+
+    respond_to do |format|
+      format.js { render layout: false }
+    end
   end
 
   def create
-    recipient = User.find(params[:user_id])
     if params[:subject].empty?
       flash.now[:alert] = t(:no_subject)
     else
-      receipt = current_user.send_message(recipient,
-                                          params[:body], params[:subject])
-      redirect_to conversation_path(receipt.conversation)
+      recipient = User.find(params[:user_id])
+      current_user.send_message(recipient, params[:body], params[:subject])
+      redirect_to conversations_path(current_user)
     end
   end
 end

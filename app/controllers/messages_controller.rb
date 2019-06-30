@@ -3,8 +3,13 @@ class MessagesController < ApplicationController
   def new; end
 
   def create
-    receipt = current_user.reply_to_conversation(@conversation, params[:body])
-    redirect_to conversation_path(receipt.conversation)
+    @receipt = current_user.reply_to_conversation(@conversation, params[:body])
+    @message = @receipt.message.body
+    @sent_time = @receipt.message.created_at.strftime('%Y. %m. %d. %H:%M')
+    
+    respond_to do |format|
+      format.js { render layout: false }
+    end
   end
 
   private

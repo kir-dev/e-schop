@@ -41,3 +41,5 @@ en:
   not_enough_good: "Nincs ennyi termék"
   back_from_cart: "Eltávolítottál egy terméket a kosárból"
   pass_update_fail: "Nem jó a régi kód, vagy nem ugyanaz a kettő új"
+  no_subject: "Add meg a beszélgetés tárgyát!"
+  no_body: "Az üzenet mező nem lehet üres"
