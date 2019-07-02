@@ -10,6 +10,6 @@ class Good < ApplicationRecord
   end
 
   def thumb_list
-    self.photo.variant(resize: '150x150').processed
+    self.photo.variant(resize: '10x10').processed
   end
 end
