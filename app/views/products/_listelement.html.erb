@@ -1,0 +1,14 @@
+
+  
+
+<figure class="uk-overlay uk-overlay-hover">
+ <% if listelement.photo.attached? %>
+      <%= image_tag listelement.thumb_list%> 
+  <% end %>
+  <figcaption  class="uk-overlay-panel uk-flex uk-flex-center uk-flex-middle uk-text-center  uk-overlay-background">
+    <h1>
+    <%= link_to listelement.name, product_new_from_product_path( :good => { :product_id =>listelement.id }),:method=> :post  %>
+  
+    </h1>
+  </figcaption>
+</figure> 
