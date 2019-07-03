@@ -1,2 +1,4 @@
-$("#current_conversation").css("display", "inline-block");
+$("#current_conversation").css("display", "flex");
 $("#current_conversation").html("<%= j render partial: 'show' %>");
+$("#chat-input-field").focus();
+$(".partner-details").html("<%= j render partial: 'partner_details' %>");

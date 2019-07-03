@@ -44,14 +44,14 @@ ActiveRecord::Schema.define(version: 2019_06_10_105000) do
 
   create_table "goods", force: :cascade do |t|
     t.string "name"
+    t.integer "price"
+    t.text "description"
     t.integer "category_id"
+    t.integer "seller_id"
+    t.integer "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.text "description"
-    t.integer "number"
-    t.integer "seller_id"
-    t.integer "price"
     t.integer "product_id"
     t.index ["deleted_at"], name: "index_goods_on_deleted_at"
   end

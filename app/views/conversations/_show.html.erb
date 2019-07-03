@@ -1,8 +1,8 @@
-<h1><%= @partner.name %>: <%= @conversation.subject %></h1>
+<h1 class="chat-header"><%= @partner.name %>: <%= @conversation.subject %></h1>
 
-<div id="chatbox" style="overflow:auto; height:150px">
+<div class="chatbox" id="chatbox">
 <% @receipts.each do |receipt| %>
-    <p title = "<%= receipt.message.created_at.strftime("%Y. %m. %d. %H:%M") %>">
+    <p title = "<%= receipt.message.created_at.strftime("%Y. %m. %d. %H:%M") %>" class="chatbox-message">
         <% if receipt.message.sender.name === current_user.name %>
             <%= "Én: " + receipt.message.body %>
         <% else %>
@@ -14,10 +14,8 @@
 
 <% @conversation.mark_as_read(current_user) %>
 
-<%= form_with url: conversation_messages_path(@conversation), method: :post do %>
-    <div>
-        <%= text_area_tag :body, "", placeholder: "Új üzenet", maxlength: 32_000, id: "chat-input-field", required: true %>
-    </div>
-
-    <%= submit_tag "Küldés", id: "chat-send-btn" %>
+<%= form_with url: conversation_messages_path(@conversation), class: "chat-input", method: :post do %>
+    <%= text_area_tag :body, "", placeholder: "Új üzenet", maxlength: 32_000,
+                        id: "chat-input-field", autofocus: true, required: true %>
+    <%= submit_tag "Küldés", class: "chat-send-btn uk-button uk-button-primary" %>
 <% end %>

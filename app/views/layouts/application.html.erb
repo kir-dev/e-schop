@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="hu">
   <head>
     <title>ESchop</title>
     <%= csrf_meta_tags %>
@@ -9,10 +9,14 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <style>
+      html, body {
+        height: calc(100vh - 32px);
+      }
+
       body {
-        margin:0;
         padding-top: 32px;
       }
+      
       .navbar ul {
         position: fixed;
         top: 0;
@@ -70,8 +74,8 @@
   </head>
 
   <body>
-  <div style = "text-align: center" class = "navbar">
-    <ul class = "navbar">
+  <div style = "text-align: center" class="navbar">
+    <ul class="navbar">
       <li> <%= link_to 'E-schop', {action: 'index', controller: 'goods'} %> </li>
       <li> <%= link_to 'Étel', {action: 'food', controller: 'goods'} %> </li>
       <li> <%= link_to 'Ital', {action: 'drink', controller: 'goods'} %> </li>

@@ -1,34 +1,35 @@
-<div class = "messaging uk-grid">
-    <div class = "conversations">
-        <div class = "header">
+<div class="messaging">
+    <div class="conversations">
+        <div class="header">
             <h1>Beszélgetések</h1>
-            <h2 class = "unread-num">Olvasatlanok száma: <%= current_user.unread_inbox_count %></h2>
+            <h2 class="unread-num">Olvasatlanok száma: <%= current_user.unread_inbox_count %></h2>
         </div>
         
-        <div class = "inbox">
-        <dl class = "uk-description-list uk-description-list-divider">
+        <div class="inbox">
+        <dl class="inbox uk-description-list">
         <% @conversations.each do |conversation| %>
-            <dt class = "inbox">
+            <%= link_to conversation_path(conversation), class: "conversation-link", remote: true do %>
+            <dt class="inbox-conversation-partner">
                 <% if conversation.is_unread?(current_user) %><b><% end %>
-                <%= link_to (conversation.participants - [current_user])[0].username,
-                            conversation_path(conversation), remote: true %>
+                <%= (conversation.participants - [current_user])[0].username %>
                 <% if conversation.is_unread?(current_user) %></b><% end %>
             </dt>
-            <dd>
+            <dd class="inbox-conversation-subject">
                 <%= conversation.subject %>
             </dd>
+            <% end %>
         <% end %>
         </dl>
         </div>
         
-        <%= link_to "Új beszélgetés", new_conversation_path, class: 'new-conversation-link uk-button uk-button-default', remote: true %>
+        <%= link_to "Új beszélgetés", new_conversation_path, class: 'new-conversation-link uk-button uk-button-basic', remote: true %>
     </div>
 
-    <div class = "chat" id = "current_conversation">
+    <div class="chat" id="current_conversation">
     
     </div>
 
-    <div class = "profile-details">
+    <div class="partner-details">
 
     </div>
 </div>

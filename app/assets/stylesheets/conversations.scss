@@ -4,90 +4,115 @@
 
 @import "uikit";
 
-div.messaging{
+.messaging {
   display: flex;
+  height: 100%;
 }
 
-div.conversations{
+.conversations {
   display: flex;
   flex-direction: column;
   flex-basis: 25%;
-  flex-flow: column;
   height: 100%;
-  border-right: 1px solid #333;
+  border-right: 1px solid #e4e4e4;
 }
 
-div.conversations div.header{
-  flex: 0 0 auto;
+.conversations > .header {
+  background: #333;
 }
 
-div.conversations div.inbox{
-  flex: 1 1 auto;
-  position: relative;
+.conversations > .header * {
+  margin: 0px;
+  color: white;
+}
+
+.unread-num {
+  font-size: 16px;
+}
+
+.conversations > div.inbox {
+  flex: 1;
   overflow-y: auto;
 }
 
-div.conversations div.header *{
-  margin: 0px;
+.conversations > div.inbox > dl.inbox {
+  margin: 0;
 }
 
-div.conversations a.new-conversation-link{
+.conversations > div.inbox > dl.inbox * {
+  margin: 0;
+  padding: 2px;
+}
+
+.conversations > div.inbox > dl.inbox > .conversation-link {
+  margin: 5px;
+  padding: 6px;
   display: block;
-  flex: 0 0;
-  flex-shrink: 0;
+  border-radius: 5px;
+  border-bottom: 1px solid #e4e4e4;
 }
 
-div.chat{
-  flex: 2;
+.conversations > .new-conversation-link {
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+}
+
+.chat {
   display: none;
-  border: 1px solid #333;
+  flex-direction: column;
+  flex-basis: 50%;
+  height: 100%;
+  border-right: 1px solid #e4e4e4;
 }
 
-div.profile-details{
+.chat-header {
+  line-height: 70px;
+  padding-left: 20px;
+  margin: 0;
+  height: 70px;
+  border-bottom: 2px solid #e4e4e4;
+}
+
+.chatbox {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.chatbox > .chatbox-message {
+  margin-top: 4px;
+  margin-bottom: 2px;
+  padding-left: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  -o-hyphens: auto;
+  hyphens: auto;
+}
+
+.chat-input {
+  display: flex;
+}
+
+#chat-input-field {
+  flex: 1;
+  height: 34px;
+  margin: 0;
+}
+
+.partner-details {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 25%;
+  text-align: center;
+}
+
+.partner-details > .profile-pic, .info {
   flex: 1;
 }
 
-
-/*
-div.new-conversation{
-  flex: 0 1 40px;
-}
-*/
-.chat-input-field{
-  width: 80%;
-}
-
-/*
-ul.inbox{
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-li.inbox{
-  border-bottom: 1px solid #ccc;
-}
-
-li.inbox:last-child{
-  border: none;
-}
-
-li.inbox a{
-  text-decoration: none;
-  color: #333;
-  display: block;
- 
-  -webkit-transition: padding-left 0.05s ease;
-  -moz-transition: padding-left 0.05s ease;
-  -o-transition: padding-left 0.05s ease;
-  -ms-transition: padding-left 0.05s ease;
-  transition: padding-left 0.05s ease;
-}
-
-li.inbox a:hover{
-  padding-left: 5px;
-}
-*/
-h2.unread-num{
-  font-size: 16px;
+.partner-details > .name {
+  flex: 0;
 }

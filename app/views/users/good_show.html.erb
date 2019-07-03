@@ -12,9 +12,9 @@
 <tr>
   <td><strong>Darabszám:</strong></td>
   <% if params[:purchase_id].nil? %>
-    <td align = "right" id = 'number'><%= @good.number %></td>
+    <td align = "right" id="number"><%= @good.number %></td>
   <% else %>
-    <td align = "right" id = 'number'><%= Purchase.find(params[:purchase_id]).number %></td>
+    <td align = "right" id="number"><%= Purchase.find(params[:purchase_id]).number %></td>
   <% end %>
 </tr>
 

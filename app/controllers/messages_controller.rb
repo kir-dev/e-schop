@@ -6,9 +6,9 @@ class MessagesController < ApplicationController
     @receipt = current_user.reply_to_conversation(@conversation, params[:body])
     @message = @receipt.message.body
     @sent_time = @receipt.message.created_at.strftime('%Y. %m. %d. %H:%M')
-    
+
     respond_to do |format|
-      format.js { render layout: false }
+      format.js { render 'send', layout: false }
     end
   end
 
