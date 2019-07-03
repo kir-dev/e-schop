@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="hu">
   <head>
     <title>ESchop</title>
     <%= csrf_meta_tags %>
@@ -13,7 +13,7 @@
         margin:0;
         padding-top: 40px;
       }
-      ul {
+      .navbar ul {
         position: fixed;
         top: 0;
         width: 100%;
@@ -23,12 +23,12 @@
         background-color: #333;
       }
 
-      li {
+      .navbar li {
         text-align: center;
         display: inline;
       }
 
-      li a, .dropbtn {
+      .navbar li a, .dropbtn {
         display: inline-block;
         color: white;
         text-align: center;
@@ -36,11 +36,11 @@
         text-decoration: none;
       }
 
-      li a:hover, .dropdown:hover .dropbtn {
+      .navbar li a:hover, .dropdown:hover .dropbtn {
         background-color: red;
       }
 
-      li.dropdown {
+      .navbar li.dropdown {
         display: inline-block;
       }
 
@@ -53,7 +53,7 @@
         z-index: 1;
       }
 
-      .dropdown-content a {
+      li.dropdown .dropdown-content a {
         color: black;
         padding: 12px 16px;
         text-decoration: none;
@@ -63,15 +63,15 @@
 
       .dropdown-content a:hover {background-color: #f1f1f1;}
 
-      .dropdown:hover .dropdown-content {
+      .dropdown:hover div.dropdown-content {
         display: block;
       }
     </style>
   </head>
 
   <body>
-  <div style="text-align: center;">
-    <ul>
+  <div style = "text-align: center" class="navbar">
+    <ul class="navbar">
       <li> <%= link_to 'E-schop', goods_path %> </li>
       <li> <%= link_to 'Étel', {action: 'food', controller: 'goods'} %> </li>
       <li> <%= link_to 'Ital', {action: 'drink', controller: 'goods'} %> </li>
@@ -114,14 +114,22 @@
           <%=link_to felirat, {action: 'sold_goods', controller: 'users'} %>
 
           <%= link_to 'Új termék felvétele', {action: 'new', controller: 'goods'} %>
+          
+          <% unread_num = current_user.unread_inbox_count %>
+          <% if unread_num > 0 %>
+            <%= link_to "Beszélgetések (" + unread_num.to_s + ")", conversations_path(current_user) %>
+          <% else %>
+            <%= link_to "Beszélgetések", conversations_path(current_user) %>
+          <% end %>
+          
           <%= link_to 'Kijelentkezés', destroy_user_session_path, method: :delete %>
           </div>
         </li>
       <% end %>
     </ul>
   </div>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <p class="notice" style = "margin:0px"><%= notice %></p>
+    <p class="alert" style = "margin:0px"><%= alert %></p>
     <%= yield %>
   </body>
 </html>

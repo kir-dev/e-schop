@@ -1,0 +1,21 @@
+<h1 class="chat-header"><%= @partner.name %>: <%= @conversation.subject %></h1>
+
+<div class="chatbox" id="chatbox">
+<% @receipts.each do |receipt| %>
+    <p title = "<%= receipt.message.created_at.strftime("%Y. %m. %d. %H:%M") %>" class="chatbox-message">
+        <% if receipt.message.sender.name === current_user.name %>
+            <%= "Én: " + receipt.message.body %>
+        <% else %>
+            <%= receipt.message.sender.name + ": " + receipt.message.body %>
+        <% end %>
+    </p>
+<% end %>
+</div>
+
+<% @conversation.mark_as_read(current_user) %>
+
+<%= form_with url: conversation_messages_path(@conversation), class: "chat-input", method: :post do %>
+    <%= text_area_tag :body, "", placeholder: "Új üzenet", maxlength: 32_000,
+                        id: "chat-input-field", autofocus: true, required: true %>
+    <%= submit_tag "Küldés", class: "chat-send-btn uk-button uk-button-primary" %>
+<% end %>
