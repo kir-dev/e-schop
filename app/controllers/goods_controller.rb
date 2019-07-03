@@ -1,6 +1,4 @@
 class GoodsController < ApplicationController
-  def landing; end
-
   def index
     getSelectedGoods
   end

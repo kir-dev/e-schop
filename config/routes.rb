@@ -12,19 +12,20 @@ Rails.application.routes.draw do
   get '/user/sold_goods' => 'users#sold_goods'
   get '/user/purchase_show' => 'users#purchase_show'
 
-  resources :goods
-  get '/good/show' => 'goods#show'
+  resources :goods, only: [:new, :create, :show, :index, :destroy]
+  # get '/good/show' => 'goods#show'
+
   get '/good/back_from_bought' => 'goods#back_from_bought'
   get '/good/delete_num' => 'goods#delete_num'
-  get '/landing' => 'goods#landing'
-  post '/goods/new' => 'goods#create'
-  delete '/goods/delete' => 'goods#delete'
-  post '/goods/delete' => 'goods#delete'
   get '/for_u' => 'goods#for_u'
   get '/food' => 'goods#food'
   get '/drink' => 'goods#drink'
   get '/else' => 'goods#else'
   get '/search' => 'goods#search'
+  delete '/goods/delete' => 'goods#delete'
+  post '/goods/delete' => 'goods#delete'
+
+  # post '/goods/new' => 'goods#create'
 
   get '/purchases/to_cart' => 'purchases#to_cart'
   post '/purchases/to_cart' => 'purchases#to_cart'
