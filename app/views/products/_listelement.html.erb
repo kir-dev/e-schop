@@ -1,14 +1,13 @@
-
-  
-
-<figure class="uk-overlay uk-overlay-hover">
- <% if listelement.photo.attached? %>
-      <%= image_tag listelement.thumb_list%> 
-  <% end %>
-  <figcaption  class="uk-overlay-panel uk-flex uk-flex-center uk-flex-middle uk-text-center  uk-overlay-background">
-    <h1>
-    <%= link_to listelement.name, product_new_from_product_path( :good => { :product_id =>listelement.id }),:method=> :post  %>
-  
-    </h1>
-  </figcaption>
-</figure> 
+  <div class="uk-panel uk-panel-box  uk-text-center">
+     <h1 class="uk-text-center"> <%=listelement.name%></h1>
+       <figure class="uk-overlay uk-overlay-hover">
+            <%= image_tag listelement.thumb_list%> 
+           <figcaption class="uk-overlay-panel uk-overlay-background uk-flex uk-flex-center uk-flex-middle uk-text-center">
+              <div>
+               <h1><%= link_to "Kiválaszt", product_new_from_product_path( :good => { :product_id =>listelement.id }),:method=> :post %>  </h1>
+                  
+              </div>
+            </figcaption>
+        </figure>
+  </div>
+ 

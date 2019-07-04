@@ -1,16 +1,19 @@
 
-
-<div data-uk-dropdown>
-
-  <button class="uk-button"> Válassz a sablonok közül <i class="uk-icon-caret-down"></i></button>
-    
-
-    <div class="uk-dropdown uk-dropdown-scrollable">
-
-    <% @products.each do |product| %>
-      
-      <%=render partial:'listelement', object:product %>
-    <% end %>
-    </div>
-   
+<div class="uk-block uk-block-primary">
+  <h1 class="uk-text-center">
+    Válassz a terméksablonok közül!
+  </h1>
 </div>
+
+<%product_rows = @products.each_slice(6).to_a%>
+<% product_rows.each do |product_row| %>
+  <div class="uk-grid " data-uk-grid-margin>
+    <% product_row.each do |product| %>
+        <div class="uk-width-large-1-6 uk-width-medium-1-2 uk-grid-margin uk-row-first">
+         
+              <%=render partial:'listelement', object:product %>
+          
+        </div>    
+    <% end %>
+  </div>
+<% end %>
