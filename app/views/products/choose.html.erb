@@ -1,5 +1,19 @@
-<div> Válassz a sablonok közül </div>
-<%= form_for @good, url: url_for(action: 'new_from_product') do |f| %>
-  <div> <%=f.collection_select(:product_id, @products, :id, :name ) %> </div>
-  <div> <%=f.submit 'Használ' %> </div>
+
+<div class="uk-block uk-block-primary">
+  <h1 class="uk-text-center">
+    Válassz a terméksablonok közül!
+  </h1>
+</div>
+
+<%product_rows = @products.each_slice(6).to_a%>
+<% product_rows.each do |product_row| %>
+  <div class="uk-grid " data-uk-grid-margin>
+    <% product_row.each do |product| %>
+        <div class="uk-width-large-1-6 uk-width-medium-1-2 uk-grid-margin uk-row-first">
+         
+              <%=render partial:'listelement', object:product %>
+          
+        </div>    
+    <% end %>
+  </div>
 <% end %>
