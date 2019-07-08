@@ -1,11 +1,12 @@
-<% if @goods.blank? %>
+<% if list.blank? %>
   <p> Nincs termék. </p>
 <% else %>
-  <table>
-    <% @goods.each do |g| %>
-      <tr>
-       <%=render partial: 'listelement', object: g%>
-      </tr>
+  
+<div class="uk-grid-small uk-child-width-1-2 uk-child-width-1-6@m uk-text-center" uk-grid>
+    <% list.each do |g| %>
+     
+          <%=render partial: 'goods/listelement', object: g%>
+        
     <% end %>
-  </table> 
+</div>
 <% end %>

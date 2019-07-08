@@ -1,13 +1,16 @@
-<figure class="uk-overlay uk-overlay-hover">
-  <% if listelement.photo.attached? %>
-      <%= image_tag listelement.thumb_list%>
-    <% else %>
-      <% product = Product.find_by_id(listelement.product_id) %>
-      <% if product.photo.attached? %>
-        <%= image_tag product.thumb_list%>
-      <% end %> 
-  <% end %>
-  <figcaption  class="uk-overlay-panel uk-flex uk-flex-center uk-flex-middle uk-text-center  uk-overlay-background">
-    <h1><%= link_to listelement.name, good_path(listelement) %></h1>
-  </figcaption>
-</figure> 
+
+<div class="uk-text-center">
+        <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
+                      <% if listelement.photo.attached? %>
+                <%= image_tag listelement.thumb_list%>
+              <% else %>
+                <% product = Product.find_by_id(listelement.product_id) %>
+                <% if product.photo.attached? %>
+                  <%= image_tag product.thumb_list%>
+                <% end %> 
+            <% end %>
+            <div class="uk-transition-fade uk-position-cover  uk-overlay uk-overlay-default uk-flex uk-flex-center uk-flex-middle">
+                <p class="uk-h1 uk-margin-remove"><%=listelement.name%></p>
+            </div>
+        </div>
+</div>

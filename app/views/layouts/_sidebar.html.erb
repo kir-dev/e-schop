@@ -1,52 +1,57 @@
-<div id="my-id" class="uk-offcanvas">
-     <div class="uk-offcanvas-bar uk-offcanvas-bar-show" mode="push"> 
-            <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="">
-                    <li> <%= link_to 'E-schop', {action: 'index', controller: 'goods'} %> </li>
+<div id="offcanvas-nav" uk-offcanvas="overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <ul class="uk-nav uk-nav-default">
+          <li> <%= link_to 'E-schop', {action: 'index', controller: 'goods'} %> </li>
                     <li> <%= link_to 'Étel', {action: 'food', controller: 'goods'} %> </li>
                     <li> <%= link_to 'Ital', {action: 'drink', controller: 'goods'} %> </li>
                     <li> <%= link_to 'Egyéb', {action: 'else', controller: 'goods'} %> </li>
-                    <li> <%= link_to raw('&#8981'), {action: 'search', controller: 'goods'} %> </li>>
+                    <li> <%= link_to raw('&#8981'), {action: 'search', controller: 'goods'} %> </li>
 
-                     <% if current_user.nil? %>
+                    <% if current_user.nil? %>
                     <li> <%= link_to 'Bejelentkezés', user_authsch_omniauth_authorize_path %> </li>
                     <% else %>
-                    
-                    <div class="uk-button-dropdown" data-uk-dropdown="" aria-haspopup="true" aria-expanded="false">
-                        <button class="uk-button"><%= current_user.username %> <i class="uk-icon-caret-down"></i></button>
-                            <div class="uk-dropdown uk-dropdown-bottom" aria-hidden="true" tabindex="" style="top: 30px; left: 0px;">
-                                <ul class="uk-nav uk-nav-dropdown">
-                                        <% @purchases = Purchase.all %>
-                                        <% @goods = Good.all %>
-                                        <% cart_num = 0 %>
-                                        <% @purchases.each do |p| %>
-                                            <% if p.buyer_id == current_user.id%>
-                                                <% cart_num += 1 %>
-                                            <% end %>
-                                        <%end%>
-                                    <% felirat = "Kosaram (" + cart_num.to_s + ")" %>
-                                    <li><%=link_to felirat, {action: 'my_cart', controller: 'users'} %></li> 
-                                        <% good_num = 0 %>
-                                        <% @goods.each do |g| %>
-                                            <% if g.seller_id == current_user.id %>
-                                                <% good_num += 1 %>
-                                            <% end %>
-                                        <%end%>
-                                    <% felirat = "Termékeim (" + good_num.to_s + ")" %>
-                                    <li><%=link_to felirat, {action: 'my_goods', controller: 'users'} %></li>
-                                        <% good_num = 0 %>
-                                        <% @purchases.each do |p| %>
-                                            <% if Good.with_deleted.find_by_id(p.good_id).seller_id == current_user.id %>
-                                                <% good_num += 1 %>
-                                            <% end %>
-                                        <%end%>
-                                    <% felirat = "Megrendelt termékeim (" + good_num.to_s + ")" %>
-                                    <li><%=link_to felirat, {action: 'sold_goods', controller: 'users'} %></li>
-                                    <li><%= link_to 'Új termék felvétele', {action: 'new', controller: 'goods'} %></li> 
-                                    <li><%= link_to 'Kijelentkezés', destroy_user_session_path, method: :delete %></li> 
+           
+                            <li class="uk-parent">
+                                <a href="#"><%= current_user.username %></a>
+                                <ul class="uk-nav-sub">
+                                    <% @purchases = Purchase.all %>
+                                                        <% @goods = Good.all %>
+                                                        <% cart_num = 0 %>
+                                                        <% @purchases.each do |p| %>
+                                                            <% if p.buyer_id == current_user.id%>
+                                                                <% cart_num += 1 %>
+                                                            <% end %>
+                                                        <%end%>
+                                                    <% felirat = "Kosaram (" + cart_num.to_s + ")" %>
+                                                    <li><%=link_to felirat, {action: 'my_cart', controller: 'users'} %></li> 
+                                                        <% good_num = 0 %>
+                                                        <% @goods.each do |g| %>
+                                                            <% if g.seller_id == current_user.id %>
+                                                                <% good_num += 1 %>
+                                                            <% end %>
+                                                        <%end%>
+                                                    <% felirat = "Termékeim (" + good_num.to_s + ")" %>
+                                                    <li><%=link_to felirat, {action: 'my_goods', controller: 'users'} %></li>
+                                                        <% good_num = 0 %>
+                                                        <% @purchases.each do |p| %>
+                                                            <% if Good.with_deleted.find_by_id(p.good_id).seller_id == current_user.id %>
+                                                                <% good_num += 1 %>
+                                                            <% end %>
+                                                        <%end%>
+                                                    <% felirat = "Megrendelt termékeim (" + good_num.to_s + ")" %>
+                                                    <li><%=link_to felirat, {action: 'sold_goods', controller: 'users'} %></li>
+                                                    <li><%= link_to 'Új termék felvétele', {action: 'new', controller: 'goods'} %></li> 
+                                                    <li><%= link_to 'Kijelentkezés', destroy_user_session_path, method: :delete %></li> 
                                 </ul>
-                            </div>
-                        </div>
-                    <%end%>
-            </ul>
+                            </li>
+            <%end%>
+            <li class="uk-nav-header">Header</li>
+            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+            <li class="uk-nav-divider"></li>
+            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+        </ul>
+
     </div>
 </div>
