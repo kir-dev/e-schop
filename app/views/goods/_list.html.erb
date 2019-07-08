@@ -2,7 +2,7 @@
   <p> Nincs termék. </p>
 <% else %>
   
-<div class="uk-grid-small uk-child-width-1-2 uk-child-width-1-6@m uk-text-center" uk-grid>
+<div uk-scrollspy="target: > div; cls: uk-animation-scale-up; delay: 250" class="uk-grid-small uk-child-width-1-2 uk-child-width-1-6@m uk-text-center" uk-grid>
     <% list.each do |g| %>
      
           <%=render partial: 'goods/listelement', object: g%>
