@@ -9,11 +9,7 @@
                   <%= image_tag product.thumb_list%>
                 <% end %> 
             <% end %>
-                        <%puts "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" %>
-
-            <%puts controller_name %>
-            <%puts controller.action_name %>
-
+                        
             <div class="uk-transition-fade uk-position-cover  uk-overlay uk-overlay-default uk-flex uk-flex-center uk-flex-middle">
               <%if controller_name=="products"%>
               <%= link_to "Kiválaszt", product_new_from_product_path( :good => { :product_id =>listelement.id }),:method=> :post,class: "uk-h1 uk-margin-remove" %> 
