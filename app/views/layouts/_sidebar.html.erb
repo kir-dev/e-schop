@@ -42,6 +42,15 @@
                                     <% felirat = "Megrendelt termékeim (" + good_num.to_s + ")" %>
                                     <li><%=link_to felirat, {action: 'sold_goods', controller: 'users'} %></li>
                                     <li><%= link_to 'Új termék felvétele', {action: 'new', controller: 'goods'} %></li> 
+                                    
+                                    <% unread_num = current_user.unread_inbox_count %>
+                                    <li><% if unread_num > 0 %>
+                                        <%= link_to "Beszélgetések (" + unread_num.to_s + ")", conversations_path(current_user) %>
+                                    <% else %>
+                                        <%= link_to "Beszélgetések", conversations_path(current_user) %>
+                                    <% end %>
+                                    </li>
+                                    
                                     <li><%= link_to 'Kijelentkezés', destroy_user_session_path, method: :delete %></li> 
                                 </ul>
                             </div>

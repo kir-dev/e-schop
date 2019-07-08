@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_29_164555) do
+ActiveRecord::Schema.define(version: 2019_06_29_165000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,15 +44,15 @@ ActiveRecord::Schema.define(version: 2019_06_29_164555) do
 
   create_table "goods", force: :cascade do |t|
     t.string "name"
-    t.integer "price"
-    t.text "description"
     t.integer "category_id"
-    t.integer "seller_id"
+    t.text "description"
     t.integer "number"
+    t.integer "seller_id"
+    t.integer "price"
+    t.integer "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.integer "product_id"
     t.index ["deleted_at"], name: "index_goods_on_deleted_at"
   end
 
@@ -126,15 +126,6 @@ ActiveRecord::Schema.define(version: 2019_06_29_164555) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_purchases_on_deleted_at"
-  end
-
-  create_table "records", force: :cascade do |t|
-    t.string "name"
-    t.float "avg_price"
-    t.integer "num"
-    t.integer "category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
