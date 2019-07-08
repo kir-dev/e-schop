@@ -19,6 +19,8 @@ class User < ApplicationRecord
     user
   end
 
+  has_many :goods
+  
   acts_as_messageable
 
   def name
