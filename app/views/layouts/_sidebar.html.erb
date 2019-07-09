@@ -2,11 +2,11 @@
     <div class="uk-offcanvas-bar">
 
         <ul class="uk-nav uk-nav-default">
-          <li> <%= link_to 'E-schop', {action: 'index', controller: 'goods'} %> </li>
-                    <li> <%= link_to 'Étel', {action: 'food', controller: 'goods'} %> </li>
-                    <li> <%= link_to 'Ital', {action: 'drink', controller: 'goods'} %> </li>
-                    <li> <%= link_to 'Egyéb', {action: 'else', controller: 'goods'} %> </li>
-                    <li> <%= link_to raw('&#8981'), {action: 'search', controller: 'goods'} %> </li>
+                    <li><%= link_to 'E-schop',goods_path  %></li>
+                    <li> <%= link_to 'Étel', food_path %> </li>
+                    <li> <%= link_to 'Ital', drink_path %> </li>
+                    <li> <%= link_to 'Egyéb', else_path %> </li>
+                    <li>  <%= link_to search_path do %> <span uk-icon="search"></span><%end%> </li>
 
                     <% if current_user.nil? %>
                     <li> <%= link_to 'Bejelentkezés', user_authsch_omniauth_authorize_path %> </li>
@@ -25,10 +25,9 @@
                                                         <%end%>
                                                    
                                                     <li>
-                                                        <div>
-                                                            <%=link_to "Kosaram " , {action: 'my_cart', controller: 'users'} %>
-                                                            <span class="uk-badge"><%=cart_num.to_s%></span>
-                                                        </div>
+                                                        <%=link_to user_my_cart_path do %>
+                                                        Kosaram <span class="uk-badge"><%=cart_num.to_s%></span>
+                                                        <%end%>
                                                     </li> 
                                                         <% good_num = 0 %>
                                                         <% @goods.each do |g| %>
@@ -36,12 +35,10 @@
                                                                 <% good_num += 1 %>
                                                             <% end %>
                                                         <%end%>
-                                                    <% felirat = "Termékeim (" + good_num.to_s + ")" %>
                                                     <li>
-                                                        <div>
-                                                            <%=link_to "Termékeim ", {action: 'my_goods', controller: 'users'} %>
-                                                            <span class="uk-badge"><%=good_num.to_s%></span>
-                                                         <div>
+                                                        <%=link_to  user_my_goods_path do %>
+                                                        Termékeim <span class="uk-badge"><%=good_num.to_s%></span>
+                                                        <%end%>
                                                     </li>
                                                         <% good_num = 0 %>
                                                         <% @purchases.each do |p| %>
@@ -51,13 +48,12 @@
                                                         <%end%>
                                                     
                                                     <li>
-                                                        <div>
-                                                            <%=link_to "Megrendelt termékeim ", {action: 'sold_goods', controller: 'users'} %>
-                                                            <span class="uk-badge"><%=good_num.to_s%></span>
-                                                        <div>
+                                                            <%=link_to user_sold_goods_path do %>
+                                                            Megrendelt termékeim <span class="uk-badge"><%=good_num.to_s%></span>
+                                                            <%end%>
                                                     </li>
 
-                                                    <li><%= link_to 'Új termék felvétele', {action: 'new', controller: 'goods'} %></li> 
+                                                    <li><%= link_to 'Új termék felvétele', new_good_path %></li> 
                                                     <li><%= link_to 'Kijelentkezés', destroy_user_session_path, method: :delete %></li> 
                              
                             

@@ -6,12 +6,12 @@
     </div> 
         <div class="uk-navbar-center">
                 <ul class="uk-navbar-nav uk-visible@m">
-              <li> <%= link_to 'E-schop', {action: 'index', controller: 'goods'} %> </li>
-        <li> <%= link_to 'Étel', {action: 'food', controller: 'goods'} %> </li>
-        <li> <%= link_to 'Ital', {action: 'drink', controller: 'goods'} %> </li>
-        <li> <%= link_to 'Egyéb', {action: 'else', controller: 'goods'} %> </li>
-        <li> <%= link_to raw('&#8981'), {action: 'search', controller: 'goods'} %> </li>
-        <li>
+               <li><%= link_to 'E-schop',goods_path  %></li>
+                    <li> <%= link_to 'Étel', food_path %> </li>
+                    <li> <%= link_to 'Ital', drink_path %> </li>
+                    <li> <%= link_to 'Egyéb', else_path %> </li>
+                    <li>  <%= link_to search_path do %> <span uk-icon="search"></span><%end%> </li>
+            <li>
             <% if current_user.nil? %>
                 <%= link_to 'Bejelentkezés', user_authsch_omniauth_authorize_path %> 
             <% else %>
@@ -27,9 +27,9 @@
                                 <% end %>
                             <%end%>
                             <li>
-                            <div>
-                            <%=link_to "Kosaram ", {action: 'my_cart', controller: 'users'} %><span class="uk-badge"><%=cart_num.to_s%></span>
-                           </div>
+                                <%=link_to user_my_cart_path do %>
+                                    Kosaram <span class="uk-badge"><%=cart_num.to_s%></span>
+                                <%end%>
                             </li>
                             <% good_num = 0 %>
                             <% @goods.each do |g| %>
@@ -38,9 +38,11 @@
                                 <% end %>
                             <%end%>
                           
-                            <li> <div>
-                            <%=link_to "Termékeim ", {action: 'my_goods', controller: 'users'},class:"uk-dropdown-nav>li>a" %><span class="uk-badge"><%=good_num.to_s%></span>
-                            </div></li>
+                            <li> 
+                                <%=link_to  user_my_goods_path do %>
+                                    Termékeim <span class="uk-badge"><%=good_num.to_s%></span>
+                                <%end%>
+                                </li>
                             <% good_num = 0 %>
                             <% @purchases.each do |p| %>
                                 <% if Good.with_deleted.find_by_id(p.good_id).seller_id == current_user.id %>
@@ -49,12 +51,11 @@
                             <%end%>
                         
                             <li>
-                                <div>
-                                    <%=link_to "Megrendelt termékeim ", {action: 'sold_goods', controller: 'users'} %>
-                                    <span class="uk-badge"><%=good_num.to_s%></span>
-                                </div>
+                                <%=link_to user_sold_goods_path do %>
+                                    Megrendelt termékeim <span class="uk-badge"><%=good_num.to_s%></span>
+                                <%end%>
                             </li>
-                            <li><%= link_to 'Új termék felvétele ', {action: 'new', controller: 'goods'} %></li> 
+                                <li><%= link_to 'Új termék felvétele', new_good_path %></li> 
                             <li><%= link_to 'Kijelentkezés', destroy_user_session_path, method: :delete %></li>
                     </ul>
                 </div>
