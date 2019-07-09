@@ -5,15 +5,11 @@
   </h1>
 </div>
 
-<%product_rows = @products.each_slice(6).to_a%>
-<% product_rows.each do |product_row| %>
-  <div class="uk-grid " data-uk-grid-margin>
-    <% product_row.each do |product| %>
-        <div class="uk-width-large-1-6 uk-width-medium-1-2 uk-grid-margin uk-row-first">
-         
-              <%=render partial:'listelement', object:product %>
-          
-        </div>    
-    <% end %>
-  </div>
-<% end %>
+<%=render partial:'goods/list',object: @products%>
+
+
+
+
+
+
+

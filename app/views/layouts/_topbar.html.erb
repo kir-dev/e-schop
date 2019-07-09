@@ -1,20 +1,24 @@
-<nav class="uk-navbar">
-    <ul class="uk-navbar-nav uk-hidden-small">
-      <li> <%= link_to 'E-schop', {action: 'index', controller: 'goods'} %> </li>
-      <li> <%= link_to 'Étel', {action: 'food', controller: 'goods'} %> </li>
-      <li> <%= link_to 'Ital', {action: 'drink', controller: 'goods'} %> </li>
-      <li> <%= link_to 'Egyéb', {action: 'else', controller: 'goods'} %> </li>
-      <li> <%= link_to raw('&#8981'), {action: 'search', controller: 'goods'} %> </li>
+<nav class="uk-navbar uk-navbar-container">
+    <div class="uk-navbar-left">
+        <a uk-icon="menu" uk-toggle="target: #offcanvas-nav"  class="uk-navbar-item uk-logo router-link-exact-active uk-active uk-hidden@l"> </a>
+        <a uk-icon="menu" uk-toggle="target: #offcanvas-nav"  class="uk-navbar-item uk-logo router-link-exact-active uk-active uk-invisible"> </a>
 
-      <% if current_user.nil? %>
-        <li> <%= link_to 'Bejelentkezés', user_authsch_omniauth_authorize_path %> </li>
-      <% else %>
-            <li class="uk-parent" data-uk-dropdown="" aria-haspopup="true" aria-expanded="true">
-                <a href="javascript:void(0)" class="dropbtn"><%= current_user.username %></a>
-
-                    <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom" aria-hidden="true" tabindex="" style="top: 40px; left: 0px;">
-                        <ul class="uk-nav uk-nav-navbar">
-                            <% @purchases = Purchase.all %>
+    </div> 
+        <div class="uk-navbar-center">
+                <ul class="uk-navbar-nav uk-visible@m">
+               <li><%= link_to 'E-schop',goods_path  %></li>
+                    <li> <%= link_to 'Étel', food_path %> </li>
+                    <li> <%= link_to 'Ital', drink_path %> </li>
+                    <li> <%= link_to 'Egyéb', else_path %> </li>
+                    <li>  <%= link_to search_path do %> <span uk-icon="search"></span><%end%> </li>
+            <li>
+            <% if current_user.nil? %>
+                <%= link_to 'Bejelentkezés', user_authsch_omniauth_authorize_path %> 
+            <% else %>
+                <a href="#"><%= current_user.username %></a>
+                <div uk-dropdown>
+                    <ul class="uk-nav uk-dropdown-nav">
+                        <% @purchases = Purchase.all %>
                             <% @goods = Good.all %>
                             <% cart_num = 0 %>
                             <% @purchases.each do |p| %>
@@ -22,43 +26,42 @@
                                     <% cart_num += 1 %>
                                 <% end %>
                             <%end%>
-                            <% felirat = "Kosaram (" + cart_num.to_s + ")" %>
-                            <li><%=link_to felirat, {action: 'my_cart', controller: 'users'} %></li>
-
+                            <li>
+                                <%=link_to user_my_cart_path do %>
+                                    Kosaram <span class="uk-badge"><%=cart_num.to_s%></span>
+                                <%end%>
+                            </li>
                             <% good_num = 0 %>
                             <% @goods.each do |g| %>
                                 <% if g.seller_id == current_user.id %>
                                     <% good_num += 1 %>
                                 <% end %>
                             <%end%>
-
-                            <% felirat = "Termékeim (" + good_num.to_s + ")" %>
-                            <li><%=link_to felirat, {action: 'my_goods', controller: 'users'} %></li>
-
+                          
+                            <li> 
+                                <%=link_to  user_my_goods_path do %>
+                                    Termékeim <span class="uk-badge"><%=good_num.to_s%></span>
+                                <%end%>
+                                </li>
                             <% good_num = 0 %>
                             <% @purchases.each do |p| %>
                                 <% if Good.with_deleted.find_by_id(p.good_id).seller_id == current_user.id %>
                                     <% good_num += 1 %>
                                 <% end %>
                             <%end%>
-
-                            <% felirat = "Megrendelt termékeim (" + good_num.to_s + ")" %>
-                            <li><%=link_to felirat, {action: 'sold_goods', controller: 'users'} %></li>
-                            <li><%= link_to 'Új termék felvétele', {action: 'new', controller: 'goods'} %></li>
-                            
-                            <% unread_num = current_user.unread_inbox_count %>
-                            <li><% if unread_num > 0 %>
-                                <%= link_to "Beszélgetések (" + unread_num.to_s + ")", conversations_path(current_user) %>
-                            <% else %>
-                                <%= link_to "Beszélgetések", conversations_path(current_user) %>
-                            <% end %>
+                        
+                            <li>
+                                <%=link_to user_sold_goods_path do %>
+                                    Megrendelt termékeim <span class="uk-badge"><%=good_num.to_s%></span>
+                                <%end%>
                             </li>
-                            
+                                <li><%= link_to 'Új termék felvétele', new_good_path %></li> 
                             <li><%= link_to 'Kijelentkezés', destroy_user_session_path, method: :delete %></li>
-                        </ul>
-                    </div>
-            </li>
-        <%end%> 
-   </ul>
-    <a href="#my-id" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas>+</a>
-</nav>  
+                    </ul>
+                </div>
+            <%end%>
+            </ul> 
+       
+       
+    </div>
+</nav>
