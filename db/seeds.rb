@@ -12,7 +12,7 @@ categories = Category.create!([
     { name: 'Egyéb'}
 ])
 
-10.times do |good|
+36.times do |good|
 good= Good.create(
     name:Faker::Name.name,
     price:Faker::Number.between(100, 10000),
@@ -31,8 +31,8 @@ downloaded_image = open("http://lorempixel.com/400/400/food/")
     
 good.product_id=product.id
 good.save
-puts "XXXXXXXXXXXXXXXXXXXXXXXX"
-    puts product.id
-    puts good.product_id
+
+puts product.id
+ 
 
 end
