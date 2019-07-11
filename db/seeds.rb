@@ -12,27 +12,31 @@ categories = Category.create!([
     { name: 'Egyéb'}
 ])
 
-36.times do |good|
-good= Good.create(
-    name:Faker::Name.name,
-    price:Faker::Number.between(100, 10000),
-    description:Faker::Lorem.paragraph(2),
-    number: rand(0...10),
-    category_id: rand(0...2),
-    seller_id:1,
-    product_id:1
-)
-product =Product.create(
-    name:good.name, 
-    category_id:good.category_id
-)
-downloaded_image = open("http://lorempixel.com/400/400/food/")
-    product.photo.attach(io: downloaded_image  , filename: "foo.jpg")
-    
-good.product_id=product.id
-good.save
+puts "seeding goods:"
 
-puts product.id
- 
+30.times do |good|
+    good= Good.create(
+        name:Faker::Food.dish,
+        price:Faker::Number.between(100, 10000),
+        description:Faker::Lorem.paragraph(4),
+        number: rand(0...10),
+        category_id: rand(1...4),
+        seller_id:1,
+        product_id:1
+    )
+    product =Product.create(
+        name:good.name, 
+        category_id:good.category_id
+    )
+    downloaded_image = open("http://lorempixel.com/400/400/food/")
+    product.photo.attach(io: downloaded_image  , filename: "foo.jpg")
+
+    good.product_id=product.id
+
+    good.save
+    product.save
+
+    puts product.id
+    
 
 end
