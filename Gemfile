@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.3'
 
-gem 'mailboxer'
+gem 'faker', '~> 1.9', '>= 1.9.6'
 
 gem 'devise'
 
@@ -13,17 +13,15 @@ gem 'omniauth-authsch'
 
 gem 'omniauth'
 
-gem 'paranoia', '~> 2.4', '>= 2.4.2'
-
 gem 'mini_magick'
 
 gem 'paranoia', '~> 2.4', '>= 2.4.2'
 
-gem 'mini_magick'
+gem 'mailboxer'
 
-gem 'uikit-rails'
+gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 
-gem 'jquery-rails'
+gem 'rails-ujs', '~> 0.1.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'

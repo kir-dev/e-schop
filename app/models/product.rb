@@ -7,6 +7,6 @@ class Product < ApplicationRecord
   end
 
   def thumb_list
-    self.photo.variant(resize: '150x150').processed
+    self.photo.variant(resize: '320x320!').processed
   end
 end

@@ -18,4 +18,17 @@ class User < ApplicationRecord
     end
     user
   end
+
+  has_many :goods
+  
+  acts_as_messageable
+
+  def name
+      username.to_s
+  end
+
+  def mailboxer_email(object)
+      nil
+  end
+
 end
