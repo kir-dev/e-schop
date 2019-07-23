@@ -28,7 +28,7 @@ puts "seeding goods:"
         name:good.name, 
         category_id:good.category_id
     )
-    downloaded_image = open("http://lorempixel.com/400/400/food/")
+    downloaded_image = open("http://lorempixel.com/800/500/food/")
     product.photo.attach(io: downloaded_image  , filename: "foo.jpg")
 
     good.product_id=product.id
