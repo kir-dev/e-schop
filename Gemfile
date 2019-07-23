@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-#ruby '2.5.3'
+ruby '2.5.3'
+
 gem 'faker', '~> 1.9', '>= 1.9.6'
 
 gem 'devise'
@@ -12,12 +13,9 @@ gem 'omniauth-authsch'
 
 gem 'omniauth'
 
-
 gem 'mini_magick'
 
 gem 'paranoia', '~> 2.4', '>= 2.4.2'
-
-
 
 gem 'mailboxer'
 
