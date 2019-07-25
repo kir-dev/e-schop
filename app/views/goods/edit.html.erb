@@ -1,11 +1,9 @@
 <div class="uk-flex uk-flex-center">
    <div class="uk-card uk-card-body">
 
-    <h1>Termék felvétel</h1>
-
-    <div> <%= link_to 'Felvétel meglévőből', {action: 'choose', controller: 'products'} %> </div>
-
-        <%= form_with url: "/goods", scope: :good, local: true do |form| %>
+    <h1>Termék módosítása</h1>
+        <%= form_for @good, :url => url_for(:action => 'update') do |form| %>
+        <%= hidden_field_tag(:id, @good.id)%>
         <p>
           <%= form.label :Név %><br>
           <%= form.text_field :name,class:"uk-input" %>
@@ -32,15 +30,7 @@
         </p>
 
         <p>
-            <%= form.label "Kép feltöltése" %><br>
-          <div uk-form-custom>
-            <%= form.file_field :photo %>
-            <button class="uk-button uk-button-default" type="button" tabindex="-1">Választ</button>
-          </div>
-        </p>
-
-        <p>
-          <%= form.submit "Felvétel" ,class:"uk-button uk-button-default" %>
+          <%= form.submit "Mentés" ,class:"uk-button uk-button-default" %>
         </p>
       <% end %>
   </div>

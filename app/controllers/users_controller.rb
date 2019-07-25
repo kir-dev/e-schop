@@ -11,15 +11,15 @@ class UsersController < ApplicationController
   end
 
   def my_cart
-    @purchases = Purchase.all
+    @purchases = Purchase.all.order(created_at: :desc)
   end
 
   def my_goods
-    @goods = Good.without_deleted.all
+    @goods = Good.without_deleted.all.order(updated_at: :desc)
   end
 
   def sold_goods
-    @purchases = Purchase.all
+    @purchases = Purchase.all.order(created_at: :desc)
   end
 
   def show_other_user

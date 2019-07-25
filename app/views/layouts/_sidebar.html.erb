@@ -6,7 +6,13 @@
                     <li> <%= link_to 'Étel', food_path %> </li>
                     <li> <%= link_to 'Ital', drink_path %> </li>
                     <li> <%= link_to 'Egyéb', else_path %> </li>
-                    <li>  <%= link_to search_path do %> <span uk-icon="search"></span><%end%> </li>
+                    <li style="position: relative; left: -6px;">
+                        <form class="uk-search uk-search-default" action="/goods" accept-charset="UTF-8" method="get">
+                            <input name="utf8" type="hidden" value="&#x2713;" />
+                            <button class="uk-search-icon-flip" uk-search-icon></button>
+                            <input name="scearched_prase" id="scearched_prase" class="uk-search-input" type="search" placeholder="Keresés...">
+                        </form>
+                    </li>
 
                     <% if current_user.nil? %>
                     <li> <%= link_to 'Bejelentkezés', user_authsch_omniauth_authorize_path %> </li>

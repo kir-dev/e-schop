@@ -47,6 +47,7 @@
 
 <% if @good.seller_id == current_user.id && params[:purchase_id].nil? %>
   <p><%= link_to 'Törlés', {action: 'delete_num', controller: 'goods', id: @good.id}%></p>
+  <p><%= link_to 'Szerkesztés', {action: 'edit', controller: 'goods', id: @good.id}%></p>
 <% end %>
 <% if !params[:purchase_id].nil? %>
   <% purchase = Purchase.find(params[:purchase_id]) %>
