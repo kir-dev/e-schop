@@ -10,21 +10,7 @@
         <% if idx < 8 && g.category_id == favourite && g.seller_id != current_user.id %>
             <% idx += 1 %>
                         <li>
-                            <div class="uk-panel uk-transition-toggle">
-                                <% if g.photo.attached? %>
-                                  <%= link_to image_tag(g.thumb_list), good_path(g) %>
-                                <% else %>
-                                  <% product = Product.find_by_id(g.product_id) %>
-                                  <% if product.photo.attached? %>
-                                    <%= link_to image_tag(product.thumb_list), good_path(g) %>
-                                  <% end %> 
-                                <% end %>
-                                <div class="uk-position-center uk-panel">
-                                  <h1 class="uk-transition-slide-bottom-small">
-                                    <%= link_to g.name, good_path(g) %>
-                                  </h1>
-                                </div>
-                            </div>
+                             <%=render partial: 'goods/listelement', object: g%>
                         </li>                   
         <% end %>      
       <% end %>
