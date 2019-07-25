@@ -19,7 +19,7 @@ puts "seeding goods:"
         name:Faker::Food.dish,
         price:Faker::Number.between(100, 10000),
         description:Faker::Lorem.paragraph(4),
-        number: rand(0...10),
+        number: rand(1...10),
         category_id: rand(1...4),
         seller_id:1,
         product_id:1

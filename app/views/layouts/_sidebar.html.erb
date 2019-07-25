@@ -15,7 +15,7 @@
                     </li>
 
                     <% if current_user.nil? %>
-                    <li> <%= link_to 'Bejelentkezés', user_authsch_omniauth_authorize_path %> </li>
+                    <li>   <%= link_to 'Bejelentkezés', new_user_session_path %>  </li>
                     <% else %>
            
                             <li class="uk-nav-header">

@@ -1,70 +1,70 @@
-    <div uk-grid>
-        <div class="uk-width-1-1">
-            <div class="uk-align-center uk-card uk-card-secondary uk-card-body uk-width-1-4">
-                <h2 class="uk-card-title">Kosaram</h3>
-                <% osszeg = 0 %>
-                <% if !@purchases.nil? %>
-                    <% @purchases.each do |p| %>
-                        <% if p.buyer_id == current_user.id %>
-                            <% good = Good.with_deleted.find(p.good_id) %>
-                            <div> 
-                                <span align='left'> <%=p.number%>x<%=good.name%> </span>
-                                <span align='right'> <%=p.number*good.price%> Ft </span>
-                            </div>
-                            <% osszeg += p.number*good.price%>
-                        <% end %>
+
+<div class="uk-child-width-1-2@l  uk-flex-center " uk-grid>    
+        <div class="uk-align-center uk-card uk-card-secondary uk-card-body" uk-sticky="offset: 80; bottom: #top">
+            <div class="uk-card-title uk-text-center">Kosaram</div>
+            <% osszeg = 0 %>
+            <% if !@purchases.nil? %>
+                <% @purchases.each do |p| %>
+                    <% if p.buyer_id == current_user.id %>
+                        <% good = Good.with_deleted.find(p.good_id) %>
+                      
+                    <div> <% osszeg += p.number*good.price%></div>
                     <% end %>
                 <% end %>
-                <h4> Összesen: <%= osszeg%> Ft </h4>
+            <% end %>
+
+            <div class="uk-grid-small" uk-grid>
+                <div class="uk-width-expand" uk-leader="fill: -">Összesen:</div>
+                <div><%= osszeg%> Ft</div>
             </div>
         </div>
-    </div>
+</div>
 
 <% van = false %>
-    <div class="uk-grid-small" uk-grid>
-    <% @purchases.each do |p| %>
-        <% if p.buyer_id == current_user.id%>
-            <% van = true %>
-            <% good = Good.with_deleted.find(p.good_id) %>
-            <div class="uk-width-1-4@m">  
-                <div class="uk-card-small uk-card-hover uk-card uk-card-default ">
-                    <div class="uk-card-header">
-                        <div class="uk-grid-small uk-flex-middle" uk-grid>
-                            <div class="uk-width-auto">
-                                <% if good.photo.attached? %>
-                                    <%= link_to image_tag(good.thumb_cart), {action: 'good_show', id: good.id, purchase_id: p.id} %>
-                                <% else %>
-                                    <% product = Product.find_by_id(good.product_id) %>
-                                    <% if product.photo.attached? %>
-                                        <%= link_to image_tag(product.thumb_cart), {action: 'good_show', id: good.id, purchase_id: p.id}%>
-                                    <% end %> 
-                                <% end %>
-                            </div>
-                            <div class="uk-width-expand">
-                                <h3 class="uk-card-title uk-margin-remove-bottom">
-                                    <%= link_to good.name, {action: 'good_show', id: good.id, purchase_id: p.id}, class: "uk-link-reset" %>
-                                </h3>
-                                <div class="uk-card-badge">
-                                    <div> <%= link_to action: 'back_from_cart', controller: 'purchases', id: p.id do %> <span uk-icon="icon: trash" uk-tooltip="title: Rendelés törlése; pos: bottom"></span><%end%> </div>
-                                </div>
-                                <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01">
-                                    <%= p.created_at.strftime("%Y-%m-%d, %H:%M") %>
-                                </time></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="uk-card-body">
-                        <div> <%= Category.find_by_id(good.category_id).name %> </div>
-                        <div> Mennyiség: <%= p.number %> db</div>
-                    </div>
-                    <div class="uk-card-footer">
-                        <div align = 'center'> <%= good.price*p.number %> Ft </div>
-                    </div>
-                </div>
-            </div>
-      <% end %>  
-    <% end %>
+<div class="uk-child-width-1-2@l  uk-flex-center" uk-grid>    
+       <ul class="uk-list uk-list-divider">
+                <% van = false %>
+ 
+             <% @purchases.each do |p| %>
+                <% if p.buyer_id == current_user.id%>
+                <% van = true %>
+                <% good = Good.with_deleted.find(p.good_id) %>
+                    <li>
+                   
+                        
+                       <table style="width:100%">
+                            <tr>
+                                <th style="uk-preserve-width,width:20%" rowspan="3">
+                                        <% if good.photo.attached? %>
+                                            <%= link_to image_tag(good.thumb_cart), {action: 'good_show', id: good.id, purchase_id: p.id} %>
+                                        <% else %>
+                                            <% product = Product.find_by_id(good.product_id) %>
+                                            <% if product.photo.attached? %>
+                                                <%= link_to image_tag(product.thumb_cart), {action: 'good_show', id: good.id, purchase_id: p.id}%>
+                                            <% end %> 
+                                        <% end %>
+                                        </th>
+                                <th style="width:70%">
+                                   <%= link_to good.name, {action: 'good_show', id: good.id, purchase_id: p.id}, class: "uk-link-reset" %>
+                                </th>
+                                <th style="width:10%">
+                                    <div align = 'center'>
+                                        <%= link_to action: 'back_from_cart', controller: 'purchases', id: p.id do %> <span uk-icon="icon: trash" uk-tooltip="title: Rendelés törlése; pos: bottom"></span><%end%> </div>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td rowspan="2"><div> Mennyiség: <%= p.number %> db</div></td>
+                                <td rowspan="2"><div align = 'center'> <%= good.price*p.number %> Ft </div></td>
+                            </tr>
+                            <tr>
+                            </tr>
+                        </table>
+                                            
+                    </li>
+                <%end%>
+            <%end%>
+       </ul>
 </div>
-<% unless van %>
-  <h3 align = 'center'> Üres a kosarad </h2>  
-<% end %>
+
+
