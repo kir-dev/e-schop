@@ -6,11 +6,13 @@
 
     </div> 
         <div class="uk-navbar-center">
-                <ul class="uk-navbar-nav uk-visible@m">
+                <ul class="uk-navbar-nav">
                <li><%= link_to 'E-schop',goods_path  %></li>
-                    <li> <%= link_to 'Étel', food_path %> </li>
-                    <li> <%= link_to 'Ital', drink_path %> </li>
-                    <li> <%= link_to 'Egyéb', else_path %> </li>
+
+                
+                   <li> <%= link_to 'Étel', food_path ,class:"uk-visible@m"%> </li>
+                    <li> <%= link_to 'Ital', drink_path,class:"uk-visible@m" %> </li>
+                    <li> <%= link_to 'Egyéb', else_path,class:"uk-visible@m" %> </li>
                     <li style="position: relative; top: 19px;">
                         <form class="uk-search uk-search-default" action="/goods" accept-charset="UTF-8" method="get">
                             <input name="utf8" type="hidden" value="&#x2713;" />
@@ -18,12 +20,13 @@
                             <input name="scearched_prase" id="scearched_prase" class="uk-search-input" type="search" placeholder="Keresés...">
                         </form>
                     </li>
+                
             <li>
             <% if current_user.nil? %>
-                <%= link_to 'Bejelentkezés', new_user_session_path %> 
+                <%= link_to 'Bejelentkezés', new_user_session_path ,class:"uk-visible@m"%> 
             <% else %>
-                <a href="#"><%= current_user.username %></a>
-                <div uk-dropdown>
+                <a href="#" class="uk-visible@m"><%= current_user.username %></a>
+                <div uk-dropdown class="uk-visible@m">
                     <ul class="uk-nav uk-dropdown-nav">
                         <% @purchases = Purchase.all %>
                             <% @goods = Good.all %>

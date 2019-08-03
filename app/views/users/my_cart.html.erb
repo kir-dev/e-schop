@@ -36,11 +36,11 @@
                             <tr>
                                 <th style="uk-preserve-width,width:20%" rowspan="3">
                                         <% if good.photo.attached? %>
-                                            <%= link_to image_tag(good.thumb_cart), {action: 'good_show', id: good.id, purchase_id: p.id} %>
+                                            <%= link_to image_tag(good.photo), {action: 'good_show', id: good.id, purchase_id: p.id} %>
                                         <% else %>
                                             <% product = Product.find_by_id(good.product_id) %>
                                             <% if product.photo.attached? %>
-                                                <%= link_to image_tag(product.thumb_cart), {action: 'good_show', id: good.id, purchase_id: p.id}%>
+                                                <%= link_to image_tag(product.photo), {action: 'good_show', id: good.id, purchase_id: p.id}%>
                                             <% end %> 
                                         <% end %>
                                         </th>

@@ -38,12 +38,16 @@ class GoodsController < ApplicationController
 
   def new
     @categories = Category.all
+    
+    
+   
   end
 
   def create
     @product = Product.new(product_params)
     @product.save
     @good = Good.new(good_params)
+ 
     @good.seller_id = current_user.id
     @good.product_id = @product.id
     if @good.save

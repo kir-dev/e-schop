@@ -1,12 +1,12 @@
 
-<div class="uk-text-center">
+<div class="uk-text-center" width="500px" height="500px" >
         <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
             <% if listelement.photo.attached? %>
-              <%= image_tag listelement.thumb_list%>
+              <%= image_tag listelement.photo,height: "80px", width: "30px"%>
             <% else %>
               <% product = Product.find_by_id(listelement.product_id) %>
               <% if product.photo.attached? %>
-                <%= image_tag product.thumb_list%>
+                <%= image_tag product.photo,width:"100%"%>
               <% end %> 
             <% end %>
                         
