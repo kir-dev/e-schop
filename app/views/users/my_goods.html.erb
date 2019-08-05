@@ -1,15 +1,47 @@
-<h3> Termékeim: </h3>
-<table style="width:30%"> 
+<h3 align='center'> Termékeim </h3>
     <% has_goods = false %>
+    <div class="uk-grid-small" uk-grid>
     <% @goods.each do |g| %>
-        <% if g.seller_id == current_user.id%>
-            <% has_goods = true %>
-            <tr>        
-                <td><%= link_to g.name, {action: 'good_show', id: g.id} %></td>
-            </tr>
-        <% end %>    
+      <% if g.seller_id == current_user.id%>
+        <% has_goods = true %>
+        <div class="uk-width-1-4@m">  
+            <div class="uk-card-small uk-card-hover uk-card uk-card-default ">
+                <div class="uk-card-header">
+                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                        <div class="uk-width-auto">
+                            <% if g.photo.attached? %>
+                                <%= link_to image_tag(g.thumb_cart), {action: 'good_show', id: g.id} %>
+                            <% else %>
+                                <% product = Product.find_by_id(g.product_id) %>
+                                <% if product.photo.attached? %>
+                                    <%= link_to image_tag(product.thumb_cart), {action: 'good_show', id: g.id}%>
+                                <% end %> 
+                            <% end %>
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 class="uk-card-title uk-margin-remove-bottom">
+                                <%= link_to g.name, {action: 'good_show', id: g.id}, class: "uk-link-reset" %>
+                            </h3>
+                            <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01">
+                                <%= g.updated_at.strftime("%Y-%m-%d, %H:%M") %>
+                            </time></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-card-body uk-padding-remove-bottom">
+                    <div> Ár: <%= g.price %> Ft/db &nbsp;&nbsp;  Mennyiség: <%= g.number %> db</div>
+                </div>
+                <div class="uk-card-footer">                    
+                    <div align = 'center'>
+                        <%= link_to action: 'edit', controller: 'goods', id: g.id do %> <span uk-icon="icon: file-edit" uk-tooltip="title: Szerkesztés; pos: bottom"></span><%end%>
+                        <%= link_to action: 'delete_num', controller: 'goods', id: g.id do %> <span uk-icon="icon: trash" uk-tooltip="title: Összes törlése; pos: bottom"></span><%end%>
+                    </div>
+                </div>
+            </div>
+        </div>
+      <% end %>  
     <% end %>
-</table>
+</div>
 <% if has_goods == false %>
-    <div> Jelenleg nem árulsz semmit </div>
+    <h2 align='center'> Jelenleg nem árulsz semmit </h2>
 <% end %>

@@ -6,7 +6,7 @@
               <% else %>
                 <% product = Product.find_by_id(listelement.product_id) %>
                 <% if product.photo.attached? %>
-                  <%= image_tag product.thumb_list%>
+                  <%= image_tag product.photo%>
                 <% end %> 
             <% end %>
                         

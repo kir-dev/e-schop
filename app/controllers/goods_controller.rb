@@ -19,6 +19,22 @@ class GoodsController < ApplicationController
     @user = User.find_by_id(@good.seller_id)
     @order = Good.new
   end
+  
+  def edit
+    @good = Good.find_by_id(params[:id])
+    @categories = Category.all
+  end
+
+  def update
+    @good = Good.find_by_id(params[:id])
+
+    if @good.update_attributes(good_params)
+      redirect_to controller: 'users', action: 'good_show', id: @good.id
+    else
+      @categories = Category.all
+      render action: 'edit'
+    end
+  end
 
   def new
     @categories = Category.all

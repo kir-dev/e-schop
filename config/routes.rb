@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   root to: 'goods#index'
 
   get '/user/show' => 'users#show'
+  post '/goods/new' => 'goods#new'
+  get '/good/edit' => 'goods#edit'
+  post '/good/edit' => 'goods#edit'
+  patch '/good/update' => 'goods#update'
   get '/user/good_show' => 'users#good_show'
   get '/user/my_cart' => 'users#my_cart'
   get '/user/my_goods' => 'users#my_goods'

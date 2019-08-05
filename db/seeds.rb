@@ -19,7 +19,7 @@ puts "seeding goods:"
         name:Faker::Food.dish,
         price:Faker::Number.between(100, 10000),
         description:Faker::Lorem.paragraph(4),
-        number: rand(0...10),
+        number: rand(1...10),
         category_id: rand(1...4),
         seller_id:1,
         product_id:1
@@ -28,7 +28,7 @@ puts "seeding goods:"
         name:good.name, 
         category_id:good.category_id
     )
-    downloaded_image = open("http://lorempixel.com/800/500/food/")
+    downloaded_image = open("https://source.unsplash.com/500x400/?food")
     product.photo.attach(io: downloaded_image  , filename: "foo.jpg")
 
     good.product_id=product.id
