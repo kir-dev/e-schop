@@ -19,7 +19,7 @@ class GoodsController < ApplicationController
     @user = User.find_by_id(@good.seller_id)
     @order = Good.new
   end
-  
+
   def edit
     @good = Good.find_by_id(params[:id])
     @categories = Category.all
@@ -38,12 +38,16 @@ class GoodsController < ApplicationController
 
   def new
     @categories = Category.all
+    
+    
+   
   end
 
   def create
     @product = Product.new(product_params)
     @product.save
     @good = Good.new(good_params)
+ 
     @good.seller_id = current_user.id
     @good.product_id = @product.id
     if @good.save

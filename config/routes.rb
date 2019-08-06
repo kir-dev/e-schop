@@ -5,10 +5,6 @@ Rails.application.routes.draw do
   root to: 'goods#index'
 
   get '/user/show' => 'users#show'
-  post '/goods/new' => 'goods#new'
-  get '/good/edit' => 'goods#edit'
-  post '/good/edit' => 'goods#edit'
-  patch '/good/update' => 'goods#update'
   get '/user/good_show' => 'users#good_show'
   get '/user/my_cart' => 'users#my_cart'
   get '/user/my_goods' => 'users#my_goods'
@@ -18,7 +14,10 @@ Rails.application.routes.draw do
 
   resources :goods, only: [:new, :create, :show, :index, :destroy]
   # get '/good/show' => 'goods#show'
-
+  post '/goods/new' => 'goods#new'
+  get '/good/edit' => 'goods#edit'
+  post '/good/edit' => 'goods#edit'
+  patch '/good/update' => 'goods#update'
   get '/good/back_from_bought' => 'goods#back_from_bought'
   get '/good/delete_num' => 'goods#delete_num'
   get '/for_u' => 'goods#for_u'

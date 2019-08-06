@@ -5,7 +5,7 @@
 
     <div> <%= link_to 'Felvétel meglévőből', {action: 'choose', controller: 'products'} %> </div>
 
-        <%= form_with scope: :good, local: true do |form| %>
+        <%= form_with url: "/goods", scope: :good, local: true do |form| %>
         <p>
           <%= form.label :Név %><br>
           <%= form.text_field :name,class:"uk-input" %>
@@ -35,7 +35,8 @@
             <%= form.label "Kép feltöltése" %><br>
           <div uk-form-custom>
             <%= form.file_field :photo %>
-            <button class="uk-button uk-button-default" type="button" tabindex="-1">Select</button>
+            <button class="uk-button uk-button-default" type="button" tabindex="-1">Választ</button>
+           
           </div>
         </p>
 

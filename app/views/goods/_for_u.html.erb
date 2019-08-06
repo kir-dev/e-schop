@@ -1,28 +1,25 @@
 <% if !current_user.nil? && !@goods.blank? %>
-  <% unless Purchase.where(buyer_id: current_user.id).blank? %>
-    <p> Neked ajánlott </p>
-    <% favourite = favourite_category %>
-    <table>
+  <% unless Purchase.with_deleted.where(buyer_id: current_user.id).blank? %>
+      <h3><%= link_to 'Neked ajánlott', {action: 'for_u'} %></h3>
+      <% favourite = favourite_category %>
       <% idx = 0 %>
+<div uk-slider class="uk-slider uk-slider-container" center="0" finite="1">
+  <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
+    <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-4@m uk-grid">
       <% @goods.each do |g| %>
-        <% if idx < 3 && g.category_id == favourite && g.seller_id != current_user.id %>
-          <% idx += 1 %>
-          <tr>
-            <td><%= link_to g.name, good_path(g) %></td>
-            <td>
-              <% if g.photo.attached? %>
-                <p><%= image_tag g.thumb_list%></p>
-              <% else %>
-                <% product = Product.find_by_id(g.product_id) %>
-                <% if product.photo.attached? %>
-                  <p><%= image_tag product.thumb_list%></p>
-                <% end %> 
-              <% end %>
-            </td>
-          </tr>
+        <% if idx < 8 && g.category_id == favourite && g.seller_id != current_user.id %>
+            <% idx += 1 %>
+                        <li>
+                             <%=render partial: 'goods/listelement', object: g%>
+                        </li>                   
         <% end %>      
       <% end %>
-    </table>
-    <p><%= link_to 'Több', {action: 'for_u'} %></p>
+    </ul>
+    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+  </div>
+  <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
+</div>
   <% end %>
 <% end %>
+<hr class="uk-divider-icon">

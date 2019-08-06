@@ -1,39 +1,22 @@
-<% if !current_user.nil? && !@goods.blank? %>
-  <% unless Purchase.with_deleted.where(buyer_id: current_user.id).blank? %>
-      <h3><%= link_to 'Neked ajánlott', {action: 'for_u'} %></h3>
-      <% favourite = favourite_category %>
-      <% idx = 0 %>
-<div uk-slider class="uk-slider uk-slider-container" center="0" finite="1">
-  <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
-    <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-4@m uk-grid">
-      <% @goods.each do |g| %>
-        <% if idx < 8 && g.category_id == favourite && g.seller_id != current_user.id %>
-            <% idx += 1 %>
-                        <li>
-                            <div class="uk-panel uk-transition-toggle">
-                                <% if g.photo.attached? %>
-                                  <%= link_to image_tag(g.thumb_list), good_path(g) %>
-                                <% else %>
-                                  <% product = Product.find_by_id(g.product_id) %>
-                                  <% if product.photo.attached? %>
-                                    <%= link_to image_tag(product.thumb_list), good_path(g) %>
-                                  <% end %> 
-                                <% end %>
-                                <div class="uk-position-center uk-panel">
-                                  <h1 class="uk-transition-slide-bottom-small">
-                                    <%= link_to g.name, good_path(g) %>
-                                  </h1>
-                                </div>
-                            </div>
-                        </li>                   
-        <% end %>      
-      <% end %>
-    </ul>
-    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
-  </div>
-  <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
-</div>
+<h3> Neked ajánlott </h3>
+
+<table>
+  <% favourite = favourite_category %>
+  <% @goods.each do |g| %>
+    <% if g.category_id == favourite && g.seller_id != current_user.id %>
+      <tr>
+        <td><%= link_to g.name, good_path(g) %></td>
+        <td>
+          <% if g.photo.attached? %>
+            <p><%= image_tag g.photo%></p>
+          <% else %>
+            <% product = Product.find_by_id(g.product_id) %>
+            <% if product.photo.attached? %>
+              <p><%= image_tag product.photo%></p>
+            <% end %> 
+          <% end %>
+        </td>
+      </tr>
+    <% end %>      
   <% end %>
-<% end %>
-<hr class="uk-divider-icon">
+</table>
