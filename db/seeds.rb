@@ -13,8 +13,8 @@ categories = Category.create!([
 ])
 
 puts "seeding goods:"
-
-30.times do |good|
+seednumber=30
+seednumber.times do |good|
     good= Good.create(
         name:Faker::Food.dish,
         price:Faker::Number.between(100, 10000),
@@ -36,7 +36,7 @@ puts "seeding goods:"
     good.save
     product.save
 
-    puts product.id
+    puts "#{product.id}/#{seednumber}"
     
 
 end
