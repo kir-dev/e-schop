@@ -10,11 +10,11 @@
                     <div class="uk-grid-small uk-flex-middle" uk-grid>
                         <div class="uk-width-auto">
                             <% if g.photo.attached? %>
-                                <%= link_to image_tag(g.thumb_cart), {action: 'good_show', id: g.id} %>
+                                <%= link_to image_tag(g.photo), {action: 'good_show', id: g.id} %>
                             <% else %>
                                 <% product = Product.find_by_id(g.product_id) %>
                                 <% if product.photo.attached? %>
-                                    <%= link_to image_tag(product.thumb_cart), {action: 'good_show', id: g.id}%>
+                                    <%= link_to image_tag(product.photo), {action: 'good_show', id: g.id}%>
                                 <% end %> 
                             <% end %>
                         </div>

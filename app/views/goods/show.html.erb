@@ -9,7 +9,7 @@
                         <% else %>
                         <% product = Product.find_by_id(@good.product_id) %>
                         <% if product.photo.attached? %>
-                            <p><%= image_tag product.thumb%></p>
+                            <p><%= image_tag product.photo%></p>
                         <% end %> 
                         <% end %>
 
