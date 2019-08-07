@@ -18,7 +18,8 @@ class GoodsController < ApplicationController
   end
 
   def show
-    @good = Good.find(params[:id])
+    @good = Good.with_attached_photo.find(params[:id])
+    @product= Product.with_attached_photo.find(params[:id])
     @user = User.find_by_id(@good.seller_id)
     @order = Good.new
   end
