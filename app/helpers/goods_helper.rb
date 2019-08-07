@@ -1,9 +1,6 @@
 module GoodsHelper
 
-
-    def getImage(good)
-        
-        
+    def get_image(good)
         if good.photo.attached? 
             image=  good.photo
         else 
