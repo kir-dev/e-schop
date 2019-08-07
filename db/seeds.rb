@@ -12,6 +12,12 @@ categories = Category.create!([
     { name: 'Egyéb'}
 ])
 
+users=User.create!([
+    {email: 'user@gmail.com',password:'123456',username:"User"},
+    {email: 'client@gmail.com',password:'123456',username:"Client"},
+    {email: 'tester@gmail.com',password:'123456',username:"Tester"}
+])
+
 puts "seeding goods:"
 seednumber=30
 seednumber.times do |good|
