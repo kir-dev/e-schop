@@ -1,4 +1,6 @@
 class GoodsController < ApplicationController
+ include ProductsHelper
+
   def index
     getSelectedGoods
     @products=Product.with_attached_photo.all();
@@ -85,22 +87,22 @@ class GoodsController < ApplicationController
 
   def for_u
     @goods = Good.with_attached_photo.take(8)
-    @products=Product.with_attached_photo.where(id:@goods.ids)
+    @products=get_proucts_for_goods(@goods)
   end
 
   def food
     @goods = Good.with_attached_photo.where(category_id: 1)
-    @products=Product.with_attached_photo.where(id:@goods.ids)
+    @products=get_proucts_for_goods(@goods)
   end
 
   def drink
     @goods = Good.with_attached_photo.where(category_id: 2)
-    @products=Product.with_attached_photo.where(id:@goods.ids)
+    @products=get_proucts_for_goods(@goods)
   end
 
   def else
     @goods = Good.with_attached_photo.where(category_id: 3)
-    @products=Product.with_attached_photo.where(id:@goods.ids)
+    @products=get_proucts_for_goods(@goods)
   end
 
   def search
