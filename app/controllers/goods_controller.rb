@@ -1,10 +1,11 @@
 class GoodsController < ApplicationController
   def index
     getSelectedGoods
+    @products=Product.with_attached_photo.all();
   end
 
   def getSelectedGoods
-    @goods = Good.all.order(name: :asc, created_at: :desc)
+    @goods = Good.with_attached_photo.all.order(name: :asc, created_at: :desc)
     unless (params[:post].blank? || params[:post][:category_id].blank?)
       @goods = @goods.select{ |g| g.category_id == params[:post][:category_id].to_i }
     end
@@ -83,19 +84,23 @@ class GoodsController < ApplicationController
   end
 
   def for_u
-    @goods = Good.all
+    @goods = Good.with_attached_photo.take(8)
+    @products=Product.with_attached_photo.where(id:@goods.ids)
   end
 
   def food
-    @goods = Good.where(category_id: 1)
+    @goods = Good.with_attached_photo.where(category_id: 1)
+    @products=Product.with_attached_photo.where(id:@goods.ids)
   end
 
   def drink
-    @goods = Good.where(category_id: 2)
+    @goods = Good.with_attached_photo.where(category_id: 2)
+    @products=Product.with_attached_photo.where(id:@goods.ids)
   end
 
   def else
-    @goods = Good.where(category_id: 3)
+    @goods = Good.with_attached_photo.where(category_id: 3)
+    @products=Product.with_attached_photo.where(id:@goods.ids)
   end
 
   def search
