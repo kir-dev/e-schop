@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :check_good_id, only: [:good_show]
   include ProductsHelper
-
   def show
     @purchases = Purchase.all
     @goods = Good.all
@@ -16,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def my_goods
-    @goods = Good.without_deleted.all.order(updated_at: :desc)
+    @goods = Good.with_attached_photo.without_deleted.all.order(updated_at: :desc)
     @products=get_proucts_for_goods(@goods)
   end
 
