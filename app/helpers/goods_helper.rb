@@ -5,7 +5,7 @@ module GoodsHelper
             image=  good.photo
         else 
             if defined?@products
-                product = @products.detect{|p| p.id == good.product_id}
+                product = @products.find{|p| p.id == good.product_id}
                 if product.photo.attached? 
                     image=product.photo
                 end  
