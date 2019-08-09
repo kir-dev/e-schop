@@ -22,6 +22,11 @@ class GoodsController < ApplicationController
     @product= Product.with_attached_photo.find(params[:id])
     @user = User.find_by_id(@good.seller_id)
     @order = Good.new
+
+    unless current_user.nil?
+     add_good_tags_to_user_intrests(@good)
+    end
+
   end
 
   def edit
@@ -120,4 +125,18 @@ class GoodsController < ApplicationController
   def product_params
     params.require(:good).permit(:name, :photo, :category_id)
   end
+
+  def add_good_tags_to_user_intrests(good)
+    good.tags.each do |tag|
+      intrest_in_tag=  current_user.intrests.find{|intrest| intrest.tag==tag}
+      if intrest_in_tag.nil?
+        new_intrest=current_user.intrests.create(rate: 0)
+        new_intrest.tag=tag
+        new_intrest.save
+      else
+        intrest_in_tag.rate+=1
+      end
+    end  
+  end  
+
 end
