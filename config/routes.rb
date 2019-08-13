@@ -25,8 +25,11 @@ Rails.application.routes.draw do
   get '/drink' => 'goods#drink'
   get '/else' => 'goods#else'
   get '/search' => 'goods#search'
+  get :autocomplete, controller: :goods, format: 'json'
   delete '/goods/delete' => 'goods#delete'
   post '/goods/delete' => 'goods#delete'
+  get '/autocomplete/', to: 'goods#autocomplete'
+
 
   # post '/goods/new' => 'goods#create'
 

@@ -1,6 +1,81 @@
 <div class="uk-flex uk-flex-center">
    <div class="uk-card uk-card-body">
+<script>
 
+
+
+function removeSelectedTag(event){
+ input=$("#good_tags")
+  tags=$("#good_taged")
+  tag_container=$("#tag_container")
+  selected_tags=$("#selected_tags")
+
+   let st=selected_tags.val().split("#");
+          if(st.includes(event.target.innerText))
+          {
+              removeTargetIndex=st.indexOf(event.target.innerText);
+              //alert(removeTargetIndex);
+
+            st.splice(removeTargetIndex, 1);
+            selected_tags.val(st.join("#"));
+          }
+
+  event.target.remove()
+  }
+
+function createBadgeForTag(tagName)
+{
+   let badge = document.createElement('span');
+   let icon = document.createElement('span');
+  badge.innerHTML=tagName;
+  badge.className='uk-badge';
+   badge.addEventListener("click",removeSelectedTag);
+  badge.appendChild(icon);
+  icon.style.pointerEvents="none"
+  UIkit.icon(icon,{icon:'close'});
+
+ 
+
+  return badge
+}
+
+document.addEventListener("turbolinks:load",function()
+  {
+  input=$("#good_tags")
+  tags=$("#good_taged")
+  tag_container=$("#tag_container")
+  selected_tags=$("#selected_tags")
+
+  var options = {
+    url: function(phrase){
+      return "/autocomplete?q="+phrase
+    },
+    getValue: "name",
+    list: {
+      onChooseEvent: function(){
+        if ( selected_tags.val()=="") {
+          badge=createBadgeForTag(input.val())
+          tag_container.append(badge);
+          selected_tags.val(input.val())
+        }
+        else {
+          let st=selected_tags.val().split("#");
+          if(!st.includes(input.val()))
+          {
+            badge=createBadgeForTag(input.val())
+            tag_container.append(badge);
+            selected_tags.val(selected_tags.val()+"#"+input.val())
+          }
+        } 
+      }
+    }
+  }
+  input.easyAutocomplete(options);
+
+});
+  
+
+</script>
     <h1>Termék felvétel</h1>
 
     <div> <%= link_to 'Felvétel meglévőből', {action: 'choose', controller: 'products'} %> </div>
@@ -29,6 +104,15 @@
         <p>
           <%= form.label :Leírás %><br>
           <%= form.text_area :description ,class:"uk-textarea" %>
+        </p>
+
+         <div id="tag_container"></div>
+        <%= hidden_field_tag 'selected_tags', ''  %>         
+      <p>
+
+
+          <%= form.label :Tagek%><br>
+          <%= form.text_field :tags,class:"uk-input"%>
         </p>
 
         <p>

@@ -18,6 +18,14 @@ users=User.create!([
     {email: 'tester@gmail.com',password:'123456',username:"Tester"}
 ])
 
+tags=Tag.create!([
+    {name:'kenyér'},
+    {name:'hús'},
+    {name:'sör'},
+    {name:'alkohol mentes'}
+    
+])
+
 puts "seeding goods:"
 seednumber=30
 seednumber.times do |good|
@@ -30,6 +38,10 @@ seednumber.times do |good|
         seller_id:1,
         product_id:1
     )
+    good.tags<<Tag.find(rand(1...3))
+    good.tags<<Tag.find(rand(3...5))
+
+
     product =Product.create(
         name:good.name, 
         category_id:good.category_id

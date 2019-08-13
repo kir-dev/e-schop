@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.5'
 
+gem 'ransack', '~> 2.1', '>= 2.1.1'
+
 gem 'faker', '~> 1.9', '>= 1.9.6'
 
 gem 'devise'
