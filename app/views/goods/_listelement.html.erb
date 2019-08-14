@@ -1,7 +1,7 @@
 
 <div class="uk-text-center" width="500px" height="500px" >
         <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
-           <%=image_tag get_image(listelement)%>
+           <%=get_image(listelement)%>
             <div class="uk-transition-fade uk-position-cover  uk-overlay uk-overlay-default uk-flex uk-flex-center uk-flex-middle">
               <%if controller_name=="products"%>
                 <%= link_to "Kiválaszt", product_new_from_product_path( :good => { :product_id =>listelement.id }),:method=> :post,class: "uk-h1 uk-margin-remove" %> 

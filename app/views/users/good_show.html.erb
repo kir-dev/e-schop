@@ -36,7 +36,7 @@
   </tr>
 </table>
 
-<%=  image_tag get_image(@good) %>
+<%=   get_image(@good) %>
 
 <% if @good.seller_id == current_user.id && params[:purchase_id].nil? %>
   <p><%= link_to 'Törlés', {action: 'delete_num', controller: 'goods', id: @good.id}%></p>
