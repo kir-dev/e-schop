@@ -2,6 +2,39 @@
    <div class="uk-card uk-card-body">
 <script>
 
+$(document).on("keydown", ":input:not(textarea):not(:submit)", function(event) {
+if (event.key == "Enter") {
+    
+        event.preventDefault();
+        if(event.target.id=='good_tags'){
+         newTag();
+        }
+    }
+});
+
+function newTag()
+{
+   input=$("#good_tags")
+  tags=$("#good_taged")
+  tag_container=$("#tag_container")
+  selected_tags=$("#selected_tags")
+
+  if ( selected_tags.val()=="") {
+          badge=createBadgeForTag(input.val())
+          tag_container.append(badge);
+          selected_tags.val(input.val())
+        }
+        else {
+          let st=selected_tags.val().split("#");
+          if(!st.includes(input.val()))
+          {
+            badge=createBadgeForTag(input.val())
+            tag_container.append(badge);
+            selected_tags.val(selected_tags.val()+"#"+input.val())
+          }
+        } 
+         input.val("");
+}
 
 
 function removeSelectedTag(event){
@@ -42,10 +75,7 @@ function createBadgeForTag(tagName)
 document.addEventListener("turbolinks:load",function()
   {
   input=$("#good_tags")
-  tags=$("#good_taged")
-  tag_container=$("#tag_container")
-  selected_tags=$("#selected_tags")
-
+  
   var options = {
     url: function(phrase){
       return "/autocomplete?q="+phrase
@@ -53,21 +83,9 @@ document.addEventListener("turbolinks:load",function()
     getValue: "name",
     list: {
       onChooseEvent: function(){
-        if ( selected_tags.val()=="") {
-          badge=createBadgeForTag(input.val())
-          tag_container.append(badge);
-          selected_tags.val(input.val())
-        }
-        else {
-          let st=selected_tags.val().split("#");
-          if(!st.includes(input.val()))
-          {
-            badge=createBadgeForTag(input.val())
-            tag_container.append(badge);
-            selected_tags.val(selected_tags.val()+"#"+input.val())
-          }
-        } 
-        input.val("");
+        newTag();
+        
+       
       }
     }
   }
@@ -108,12 +126,14 @@ document.addEventListener("turbolinks:load",function()
         </p>
 
          <div id="tag_container"></div>
-        <%= hidden_field_tag 'selected_tags', ''  %>         
+        <%= hidden_field_tag :selected_tags, ''  %>         
       <p>
 
 
           <%= form.label :Tagek%><br>
           <%= form.text_field :tags,class:"uk-input"%>
+          <%= button_tag "Felvesz", :type => 'button', onclick: "newTag()",class:"uk-button uk-button-default"%>
+
         </p>
 
         <p>
