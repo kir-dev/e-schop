@@ -7,7 +7,7 @@ module GoodsHelper
            return image_tag  good.photo
             puts "good"
 
-        elsif @products.any?{|p| p.id == good.product_id}
+        elsif !@products.nil? && @products.any?{|p| p.id == good.product_id}
                 product = @products.find{|p| p.id == good.product_id}
                 if product.photo.attached? 
                   return  image_tag product.photo
