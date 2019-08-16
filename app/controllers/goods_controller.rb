@@ -147,8 +147,9 @@ before_action :force_json, only: :autocomplete
     recommendations=[]
     user_favourite_tags.each do|tag|
       
-      recommendations_per_tag= Good.limit(recommendation_per_tag_number).
-      select{|good| ( (good.tags.include?(tag))&&(!recommendations.include?(good)))}
+      recommendations_per_tag= @goods.select{|good|  good.tags.include?(tag)&&!recommendations.include?(good)}
+      recommendations_per_tag=recommendations_per_tag.first(2)
+      
       recommendations_count-=recommendations_per_tag.size
       recommendations_per_tag.each do|rec|
         recommendations.push(rec)
