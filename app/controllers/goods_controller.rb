@@ -60,6 +60,7 @@ before_action :force_json, only: :autocomplete
     @product = Product.new(product_params)
     @product.save
     @good = Good.new(good_params)
+    add_good_tags_from_params(@good)
  
     @good.seller_id = current_user.id
     @good.product_id = @product.id
@@ -121,6 +122,11 @@ before_action :force_json, only: :autocomplete
   def search
     @categories = Category.all
     getSelectedGoods
+  end
+
+  def add_good_tags_from_params(good)
+    puts params[:selected_tags]
+    #good.tags<<
   end
 
   def get_recommendations(recommendations_count)

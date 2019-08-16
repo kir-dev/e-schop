@@ -1,33 +1,41 @@
 module GoodsHelper
 
-    def get_image(good)
+    def get_image(good,format="default")
         
-    
+        formats={
+             "list" => "400x400!", 
+             "cart" => "100x100!"}
+
+        image=nil
         if good.photo.attached? 
-           return image_tag  good.photo
-            puts "good"
+            image= good.photo
 
         elsif !@products.nil? && @products.any?{|p| p.id == good.product_id}
                 product = @products.find{|p| p.id == good.product_id}
                 if product.photo.attached? 
-                  return  image_tag product.photo
-                    puts "products"
+                    image= product.photo
 
                 end
         else 
 
             product = Product.find_by_id(good.product_id)
             if product.photo.attached? 
-              return  image_tag product.photo
-                puts "database"
+                image=   product.photo
                  
             
 
             end
         end
         
-        image_tag 'default.jpg'
-        
+        if image.nil?
+         return'default.jpg'
+        else
+
+            unless format=="default"
+                image=image.variant(resize: formats[format]).processed
+            end
+            return image
+        end
     end
 
 end
