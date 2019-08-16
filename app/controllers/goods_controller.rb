@@ -125,8 +125,19 @@ before_action :force_json, only: :autocomplete
   end
 
   def add_good_tags_from_params(good)
-    puts params[:selected_tags]
-    #good.tags<<
+    selected_tags=params[:selected_tags].split("#")
+    
+    tags=Tag.all
+    selected_tags.each do |tag|
+      if  tags.any?{|t| t.name == tag}
+        good.tags<<tags.find{|t| t.name == tag}
+      else
+        new_tag=  Tag.create(name:tag)
+        good.tags<<new_tag
+      end
+    end
+
+
   end
 
   def get_recommendations(recommendations_count)
