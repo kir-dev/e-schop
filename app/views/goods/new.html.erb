@@ -18,6 +18,7 @@ function newTag()
   tags=$("#good_taged")
   tag_container=$("#tag_container")
   selected_tags=$("#selected_tags")
+  if(input.val()=="")return;
 
   if ( selected_tags.val()=="") {
           badge=createBadgeForTag(input.val())
