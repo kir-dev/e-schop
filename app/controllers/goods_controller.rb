@@ -124,6 +124,41 @@ before_action :force_json, only: :autocomplete
     getSelectedGoods
   end
 
+ 
+
+  def autocomplete
+    tag_name =params[:q].downcase
+    @tags=Tag.select{|tag| tag.name.include?(tag_name)}
+   
+    respond_to do |format|
+      format.json 
+    end
+  end
+
+  private
+
+  def good_params
+    params.require(:good).permit(:name, :price, :text, :description, :number, :category_id)
+  end
+
+  def product_params
+    params.require(:good).permit(:name, :photo, :category_id)
+  end
+
+  def add_good_tags_to_user_intrests(good)
+    good.tags.each do |tag|
+      intrest_in_tag=  current_user.intrests.find{|intrest| intrest.tag==tag}
+      if intrest_in_tag.nil?
+        new_intrest=current_user.intrests.create(rate: 1)
+        new_intrest.tag=tag
+        new_intrest.save
+      else
+        intrest_in_tag.rate+=1
+        intrest_in_tag.save
+      end
+    end  
+  end  
+
   def add_good_tags_from_params(good)
     selected_tags=params[:selected_tags].split("#")
     
@@ -186,39 +221,6 @@ before_action :force_json, only: :autocomplete
 
     total_intrest_rate
   end
-
-  def autocomplete
-    tag_name =params[:q].downcase
-    @tags=Tag.select{|tag| tag.name.include?(tag_name)}
-   
-    respond_to do |format|
-      format.json 
-    end
-  end
-
-  private
-
-  def good_params
-    params.require(:good).permit(:name, :price, :text, :description, :number, :category_id)
-  end
-
-  def product_params
-    params.require(:good).permit(:name, :photo, :category_id)
-  end
-
-  def add_good_tags_to_user_intrests(good)
-    good.tags.each do |tag|
-      intrest_in_tag=  current_user.intrests.find{|intrest| intrest.tag==tag}
-      if intrest_in_tag.nil?
-        new_intrest=current_user.intrests.create(rate: 1)
-        new_intrest.tag=tag
-        new_intrest.save
-      else
-        intrest_in_tag.rate+=1
-        intrest_in_tag.save
-      end
-    end  
-  end  
   
   def force_json
     request.format= :json 
