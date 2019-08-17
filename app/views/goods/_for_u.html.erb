@@ -1,7 +1,6 @@
 <% if !current_user.nil? && !@goods.blank? %>
   <% unless Purchase.with_deleted.where(buyer_id: current_user.id).blank? %>
         <h3><%= link_to 'Neked ajánlott', {action: 'for_u'} %></h3>
-
     <%=render partial:"slider", object:@recommendtaions%>
   <% end %>
 <% end %>

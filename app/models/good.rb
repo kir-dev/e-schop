@@ -17,5 +17,4 @@ class Good < ApplicationRecord
   def thumb_cart
     self.photo.variant(resize: '100x100!').processed
   end
-  
 end

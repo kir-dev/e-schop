@@ -14,6 +14,7 @@
 //= require activestorage
 //= require turbolinks
 
+
 //= jquery  
 
 

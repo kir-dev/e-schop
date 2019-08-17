@@ -49,11 +49,24 @@ before_action :force_json, only: :autocomplete
     end
   end
 
+  def edit
+    @good = Good.find_by_id(params[:id])
+    @categories = Category.all
+  end
+
+  def update
+    @good = Good.find_by_id(params[:id])
+
+    if @good.update_attributes(good_params)
+      redirect_to controller: 'users', action: 'good_show', id: @good.id
+    else
+      @categories = Category.all
+      render action: 'edit'
+    end
+  end
+
   def new
     @categories = Category.all
-    
-    
-   
   end
 
   def create
@@ -61,7 +74,6 @@ before_action :force_json, only: :autocomplete
     @product.save
     @good = Good.new(good_params)
     add_good_tags_from_params(@good)
- 
     @good.seller_id = current_user.id
     @good.product_id = @product.id
     if @good.save
