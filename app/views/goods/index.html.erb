@@ -1,4 +1,5 @@
 <% if Good.all.order(name: :asc, created_at: :desc) == @goods %>
   <%= render 'for_u' %>
+  
 <% end %>
 <%= render partial:'list',object:@goods %>

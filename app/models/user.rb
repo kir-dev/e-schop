@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:authsch]
-
+  
   def self.from_omniauth(access_token)
     data = access_token.extra.raw_info
     user = User.find_by(email: data['mail'])
@@ -20,6 +20,8 @@ class User < ApplicationRecord
   end
 
   has_many :goods
+  has_many :intrests
+  has_many :tags, through: :intrests
   
   acts_as_messageable
 

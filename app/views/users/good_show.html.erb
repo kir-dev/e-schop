@@ -1,49 +1,42 @@
 <table>
-<tr>
-  <td><strong>Név:</strong></td>
-  <td align = "right"><%= @good.name %></td>
-</tr>
+  <tr>
+    <td><strong>Név:</strong></td>
+    <td align = "right"><%= @good.name %></td>
+  </tr>
 
-<tr>
-  <td><strong>Ár:</strong></td> 
-  <td align = "right"><%= @good.price %></td>
-</tr>
+  <tr>
+    <td><strong>Ár:</strong></td> 
+    <td align = "right"><%= @good.price %></td>
+  </tr>
 
-<tr>
-  <td><strong>Darabszám:</strong></td>
-  <% if params[:purchase_id].nil? %>
-    <td align = "right" id = 'number'><%= @good.number %></td>
-  <% else %>
-    <td align = "right" id = 'number'><%= Purchase.find(params[:purchase_id]).number %></td>
-  <% end %>
-</tr>
+  <tr>
+    <td><strong>Darabszám:</strong></td>
+    <% if params[:purchase_id].nil? %>
+      <td align = "right" id = 'number'><%= @good.number %></td>
+    <% else %>
+      <td align = "right" id = 'number'><%= Purchase.find(params[:purchase_id]).number %></td>
+    <% end %>
+  </tr>
 
-<tr>
-  <% if @good.seller_id != current_user.id %>
-    <td><strong>Eladó:</strong></td>
-    <td align = "right">
-      <% seller = User.find_by_id(@good.seller_id) %>
-      <%= link_to seller.name, {action: 'show_other_user', id: seller.id,
-        good_id: @good.id}
-      %>
-    </td>
-  <% end %>
-</tr>
+  <tr>
+    <% if @good.seller_id != current_user.id %>
+      <td><strong>Eladó:</strong></td>
+      <td align = "right">
+        <% seller = User.find_by_id(@good.seller_id) %>
+        <%= link_to seller.name, {action: 'show_other_user', id: seller.id,
+          good_id: @good.id}
+        %>
+      </td>
+    <% end %>
+  </tr>
 
-<tr>
-  <td><strong>Leírás:</strong></td>  
-  <td align = "right"><%= @good.description %></td>
-</tr>
+  <tr>
+    <td><strong>Leírás:</strong></td>  
+    <td align = "right"><%= @good.description %></td>
+  </tr>
 </table>
 
-<% if @good.photo.attached? %>
-  <p><%= image_tag @good.thumb%></p>
-<% else %>
-  <% product = Product.find_by_id(@good.product_id) %>
-  <% if product.photo.attached? %>
-    <p><%= image_tag product.thumb%></p>
-  <% end %> 
-<% end %>
+<%=image_tag get_image(@good) %>
 
 <% if @good.seller_id == current_user.id && params[:purchase_id].nil? %>
   <p><%= link_to 'Törlés', {action: 'delete_num', controller: 'goods', id: @good.id}%></p>
