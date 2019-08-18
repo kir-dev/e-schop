@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_29_165000) do
+ActiveRecord::Schema.define(version: 2019_08_09_154217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,30 @@ ActiveRecord::Schema.define(version: 2019_06_29_165000) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_goods_on_deleted_at"
+  end
+
+  create_table "goods_and_tags_relations", force: :cascade do |t|
+    t.bigint "good_id"
+    t.bigint "tag_id"
+    t.index ["good_id"], name: "index_goods_and_tags_relations_on_good_id"
+    t.index ["tag_id"], name: "index_goods_and_tags_relations_on_tag_id"
+  end
+
+  create_table "goods_tags", id: false, force: :cascade do |t|
+    t.bigint "good_id"
+    t.bigint "tag_id"
+    t.index ["good_id"], name: "index_goods_tags_on_good_id"
+    t.index ["tag_id"], name: "index_goods_tags_on_tag_id"
+  end
+
+  create_table "intrests", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "tag_id"
+    t.integer "rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_intrests_on_tag_id"
+    t.index ["user_id"], name: "index_intrests_on_user_id"
   end
 
   create_table "mailboxer_conversation_opt_outs", id: :serial, force: :cascade do |t|
@@ -128,6 +152,12 @@ ActiveRecord::Schema.define(version: 2019_06_29_165000) do
     t.index ["deleted_at"], name: "index_purchases_on_deleted_at"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -143,6 +173,8 @@ ActiveRecord::Schema.define(version: 2019_06_29_165000) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "goods_and_tags_relations", "goods"
+  add_foreign_key "goods_and_tags_relations", "tags"
   add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", column: "conversation_id", name: "mb_opt_outs_on_conversations_id"
   add_foreign_key "mailboxer_notifications", "mailboxer_conversations", column: "conversation_id", name: "notifications_on_conversation_id"
   add_foreign_key "mailboxer_receipts", "mailboxer_notifications", column: "notification_id", name: "receipts_on_notification_id"
