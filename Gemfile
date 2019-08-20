@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
+gem 'simplecov', require: false, group: :test #test coverage visualization
+
 gem 'ransack', '~> 2.1', '>= 2.1.1' #atocomplete
 
 gem 'faker', '~> 1.9', '>= 1.9.6' #seed
@@ -77,4 +79,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
 
