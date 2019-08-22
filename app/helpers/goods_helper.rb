@@ -4,7 +4,8 @@ module GoodsHelper
         
         formats={
              "list" => "400x400!", 
-             "cart" => "100x100!"}
+             "cart" => "100x100!"
+            }
 
         image=nil
         if good.photo.attached? 
@@ -14,28 +15,22 @@ module GoodsHelper
                 product = @products.find{|p| p.id == good.product_id}
                 if product.photo.attached? 
                     image= product.photo
-
                 end
         else 
-
             product = Product.find_by_id(good.product_id)
             if product.photo.attached? 
                 image=   product.photo
-                 
-            
-
             end
         end
         
         if image.nil?
          return'default.jpg'
         else
-
             unless format=="default"
                 image=image.variant(resize: formats[format]).processed
             end
             return image
         end
     end
-
+    
 end
