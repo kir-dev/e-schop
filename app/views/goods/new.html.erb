@@ -93,7 +93,9 @@ document.addEventListener("turbolinks:load",function()
   input.easyAutocomplete(options);
 
 });
-  
+<%if @categories.nil?%>
+  <%@categories=Category.all%>
+<%end%>
 
 </script>
     <h1>Termék felvétel</h1>

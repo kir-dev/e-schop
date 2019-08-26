@@ -10,14 +10,7 @@
                 <div class="uk-card-header">
                     <div class="uk-grid-small uk-flex-middle" uk-grid>
                         <div class="uk-width-auto">
-                            <% if good.photo.attached? %>
-                                <%= link_to image_tag(good.thumb_cart), {action: 'good_show', purchase_id: p.id, id: good.id} %>
-                            <% else %>
-                                <% product = Product.find_by_id(good.product_id) %>
-                                <% if product.photo.attached? %>
-                                    <%= link_to image_tag(product.thumb_cart), {action: 'good_show', purchase_id: p.id, id: good.id}%>
-                                <% end %> 
-                            <% end %>
+                                <%= link_to image_tag(get_image(good,"cart")), {action: 'good_show', purchase_id: p.id, id: good.id} %>
                         </div>
                         <div class="uk-width-expand">
                             <h3 class="uk-card-title uk-margin-remove-bottom">
