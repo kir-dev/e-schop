@@ -1,7 +1,7 @@
 module GoodsHelper
 
     def get_image(good,format="default")
-        
+        byebug
         formats={
              "list" => "400x400!", 
              "cart" => "100x100!"}
@@ -21,16 +21,15 @@ module GoodsHelper
             product = Product.find_by_id(good.product_id)
             if product.photo.attached? 
                 image=   product.photo
-                 
-            
-
             end
         end
         
         if image.nil?
-         return'default.jpg'
+            unless format=="default"
+                return"default#{formats[format]}.jpg"
+            end
+            return "default.jpg"
         else
-
             unless format=="default"
                 image=image.variant(resize: formats[format]).processed
             end
