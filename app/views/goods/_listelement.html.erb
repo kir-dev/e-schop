@@ -1,13 +1,11 @@
-
-<div class="uk-text-center" width="500px" height="500px" >
-        <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
-           <%= image_tag get_image(listelement,"list")%>
-            <div class="uk-transition-fade uk-position-cover  uk-overlay uk-overlay-default uk-flex uk-flex-center uk-flex-middle">
-              <%if controller_name=="products"%>
-                <%= link_to "Kiválaszt", product_new_from_product_path( :good => { :product_id =>listelement.id }),:method=> :post,class: "uk-h1 uk-margin-remove" %> 
-              <%else%>
-                <%= link_to listelement.name, url_for(listelement), class: "uk-h1 uk-margin-remove" %>
-              <%end%>
-            </div>
-        </div>
-</div>
+<%= link_to url_for(listelement), class: "uk-link-reset" do %>
+  <div class="uk-card uk-card-default uk-card-hover uk-border-rounded">
+    <div class="uk-card-media-top">
+      <%= image_tag get_image(listelement,"list"), class: "uk-border-rounded"%>
+    </div>
+    <div class="uk-card-body uk-padding-small">
+      <span class="uk-badge" ><%= listelement.price%> Ft</span>
+      <div> <%= listelement.name %> </div>
+    </div>
+  </div>
+<% end %>

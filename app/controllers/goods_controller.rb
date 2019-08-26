@@ -30,7 +30,6 @@ before_action :force_json, only: :autocomplete
     unless current_user.nil?
      add_good_tags_to_user_intrests(@good)
     end
-
   end
 
   def edit

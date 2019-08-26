@@ -1,7 +1,6 @@
 <% if list.blank? %>
   <p> Nincs termék. </p>
 <% else %>
-  
 <div uk-scrollspy="target: > div; cls: uk-animation-scale-up; delay: 10; repeat:true;" class="uk-grid-small uk-child-width-1-2 uk-child-width-1-6@m uk-text-center" uk-grid>
     <% list.each do |g| %>
      
