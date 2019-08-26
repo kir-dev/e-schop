@@ -60,11 +60,11 @@ before_action :force_json, only: :autocomplete
     @product = Product.new(product_params)
     @product.save
     @good = Good.new(good_params)
-    add_good_tags_from_params(@good)
  
     @good.seller_id = current_user.id
     @good.product_id = @product.id
     if @good.save
+      add_good_tags_from_params(@good)
       redirect_to controller: 'users', action: 'good_show', id: @good.id
     else
       render action: 'new'
@@ -160,6 +160,11 @@ before_action :force_json, only: :autocomplete
   end  
 
   def add_good_tags_from_params(good)
+
+    if good.nil?
+      return
+    end
+    
     selected_tags=params[:selected_tags].split("#")
     
     tags=Tag.all
