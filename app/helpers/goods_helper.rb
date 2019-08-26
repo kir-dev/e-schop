@@ -1,7 +1,6 @@
 module GoodsHelper
 
     def get_image(good,format="default")
-        byebug
         formats={
              "list" => "400x400!", 
              "cart" => "100x100!"}
