@@ -1,5 +1,6 @@
-<%= link_to url_for(listelement), class: "uk-link-reset" do %>
-  <div class="uk-card uk-card-default uk-card-hover uk-border-rounded">
+<%= link_to good_path(listelement), class: "uk-link-reset modal-link", id:"link-#{listelement.id}", method: :post ,remote: :true do %>
+
+  <div class="uk-card uk-card-default uk-card-hover uk-border-rounded" style="pointer-events: none;">
     <div class="uk-card-media-top">
       <%= image_tag get_image(listelement,"list"), class: "uk-border-rounded"%>
     </div>
@@ -8,4 +9,13 @@
       <div> <%= listelement.name %> </div>
     </div>
   </div>
-<% end %>
+<%end%>
+
+<div id="modal-<%=listelement.id%>" class="uk-flex-top" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+       <%= render partial: "modal",object: listelement %>
+         
+    </div>
+</div>

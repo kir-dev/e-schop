@@ -3,22 +3,24 @@ class GoodsController < ApplicationController
 before_action :force_json, only: :autocomplete
 
   def index
-    getSelectedGoods
-    @products=Product.with_attached_photo.all()
+    @goods=getSelectedGoods
+    @products=Product.with_attached_photo.all
+    @sellers=find_sellers_for_goods(@goods)
+    
     unless current_user.nil?
       @recommendtaions= get_recommendations(9)
     end
   end
 
   def getSelectedGoods
-    @goods = Good.with_attached_photo.all.order(name: :asc, created_at: :desc)
+    goods = Good.with_attached_photo.all.order(name: :asc, created_at: :desc)
     unless (params[:post].blank? || params[:post][:category_id].blank?)
-      @goods = @goods.select{ |g| g.category_id == params[:post][:category_id].to_i }
+      goods = goods.select{ |g| g.category_id == params[:post][:category_id].to_i }
     end
     unless params[:scearched_prase].blank?
-      @goods = @goods.select { |g| g.name.downcase.include?(params[:scearched_prase].downcase) }
-      logger.debug
+      goods = goods.select { |g| g.name.downcase.include?(params[:scearched_prase].downcase) }
     end
+    goods
   end
 
   def show
@@ -29,6 +31,14 @@ before_action :force_json, only: :autocomplete
 
     unless current_user.nil?
      add_good_tags_to_user_intrests(@good)
+    end
+  
+  end
+
+  def view
+    unless current_user.nil?
+      good = Good.with_attached_photo.find(params[:id])
+      add_good_tags_to_user_intrests(good)
     end
   end
 
@@ -185,7 +195,6 @@ before_action :force_json, only: :autocomplete
     
     recommendations=[]
     user_favourite_tags.each do|tag|
-      
       recommendations_per_tag= @goods.select{|good|  good.tags.include?(tag)&&!recommendations.include?(good)}
       recommendations_per_tag=recommendations_per_tag.first(2)
       
@@ -231,7 +240,17 @@ before_action :force_json, only: :autocomplete
   end
  
 
+  def find_sellers_for_goods(goods)
+    seller_ids=[]
+    goods.each do|good|
+      seller_id=good.seller_id
+      unless  seller_ids.include?(seller_id)
+        seller_ids.push(seller_id)
+      end
+    end
+    User.where(id:seller_ids)
 
+  end
   
 
 end

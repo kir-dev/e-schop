@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   post '/goods/delete' => 'goods#delete'
   get '/autocomplete/', to: 'goods#autocomplete'
 
+  post '/goods/:id', to: 'goods#view'
+
 
   # post '/goods/new' => 'goods#create'
 
