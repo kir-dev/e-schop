@@ -34,9 +34,7 @@
                                 <% end %>
                                 </p>
                                 <div>
-                                    <% modal.tags.each do |tag| %>  
-                                      <span class="uk-badge"><%=tag.name%> </span>
-                                    <% end %>
+                                   <%=render partial:"tags", object:modal.tags%>
                                 </div>
 
                                 <p>

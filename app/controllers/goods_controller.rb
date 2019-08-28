@@ -151,6 +151,12 @@ before_action :force_json, only: :autocomplete
     end
   end
 
+  def show_goods_with_tag
+    @goods=Tag.find(params[:id]).goods
+    @products=get_proucts_for_goods(@goods)
+    @sellers=find_sellers_for_goods(@goods)
+  end
+
   private
 
   def good_params

@@ -1,0 +1,5 @@
+ <% tags.each do |tag| %>  
+    <%=link_to  controller:"goods",action:"show_goods_with_tag", id: tag.id do%>
+        <span class="uk-badge"><%=tag.name%> </span>
+    <% end %>
+<% end %>

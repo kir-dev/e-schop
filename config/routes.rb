@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get '/autocomplete/', to: 'goods#autocomplete'
 
   post '/goods/:id', to: 'goods#view'
+  get '/tags/:id', to: 'goods#show_goods_with_tag'
 
 
   # post '/goods/new' => 'goods#create'
