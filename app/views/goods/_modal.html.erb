@@ -24,11 +24,11 @@
 
                                 <p>
                                
-                                <%@user=@sellers.select{|seller| seller.id==modal.seller_id}.first%>
-                                <% if current_user != @user || current_user.nil? %>
+                                <% seller=@sellers.select{|seller| seller.id==modal.seller_id}.first%>
+                                <% if current_user != seller || current_user.nil? %>
                                     <strong>Eladó:</strong> 
-                                    <%= link_to @user.username, { action: 'show_other_user', controller: 'users',
-                                                                id: @user.id, good_id: modal.id }  %>
+                                    <%= link_to seller.username, { action: 'show_other_user', controller: 'users',
+                                                                id: seller.id, good_id: modal.id }  %>
                                 <% else %>
                                     <strong>saját termék</strong>
                                 <% end %>
@@ -39,7 +39,7 @@
                                 <%= modal.description %>
                                 </p>
                                 <%@order = Good.new%>
-                                <% if current_user != @user && !current_user.nil? %>
+                                <% if current_user != seller && !current_user.nil? %>
                                 <%= form_for @order, :url => url_for(action: 'to_cart', controller: 'purchases',
                                                                     id: modal.id) do |f| %>
                                     <div>
