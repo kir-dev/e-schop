@@ -85,6 +85,13 @@ before_action :force_json, only: :autocomplete
     @number = Good.new
   end
 
+  def destroy
+    @good = Good.find_by_id(params[:id])
+    @good.update_attributes(number: 0)
+    @good.destroy
+    redirect_to controller: 'users', action: 'my_goods'
+  end
+
   def delete
     @good = Good.find(params[:id])
     if params[:good].nil?

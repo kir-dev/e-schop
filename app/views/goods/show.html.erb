@@ -38,7 +38,7 @@
                                 <%= @good.description %>
                                 </p>
 
-                                <% if current_user != @user %>
+                                <% if current_user != @user && !current_user.nil? %>
                                 <%= form_for @order, :url => url_for(action: 'to_cart', controller: 'purchases',
                                                                     id: @good.id) do |f| %>
                                     <div>

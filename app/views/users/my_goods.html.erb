@@ -27,13 +27,14 @@
                 <div class="uk-card-footer">                    
                     <div align = 'center'>
                         <%= link_to action: 'edit', controller: 'goods', id: g.id do %> <span uk-icon="icon: file-edit" uk-tooltip="title: Szerkesztés; pos: bottom"></span><%end%>
-                        <%= link_to action: 'delete_num', controller: 'goods', id: g.id do %> <span uk-icon="icon: trash" uk-tooltip="title: Összes törlése; pos: bottom"></span><%end%>
+                        <% uzenet = "Biztos kitörölsz " + g.number.to_s + " db terméket?" %>
+                        <%= link_to g, method: :delete, data: {confirm: uzenet} do %> <span uk-icon="icon: trash" uk-tooltip="title: Összes törlése; pos: bottom"></span><%end%>
                     </div>
                 </div>
             </div>
         </div>
       <% end %>  
-    <% end %>
+    <% end %>   
 </div>
 <% if has_goods == false %>
     <h2 align='center'> Jelenleg nem árulsz semmit </h2>
