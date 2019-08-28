@@ -18,13 +18,12 @@ users=User.create!([
 {email: 'tester@gmail.com',password:'123456',username:"Tester"}
 ])
 
-tags=Tag.create!([
-{name:'kenyér'},
-{name:'hús'},
-{name:'sör'},
-{name:'alkohol mentes'}
 
-])
+
+tagnumber=10
+tagnumber.times do |tag|
+    Tag.create!(name: Faker::Food.unique.ingredient)
+end
 
 puts "seeding goods:"
 seednumber=30
@@ -38,8 +37,9 @@ good= Good.create(
     seller_id:1,
     product_id:1
 )
-good.tags<<Tag.find(rand(1...3))
-good.tags<<Tag.find(rand(3...5))
+
+good.tags<<Tag.find(rand(1...tagnumber-1))
+
 
 
 product =Product.create(
