@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get :autocomplete, controller: :goods, format: 'json'
   delete '/goods/delete' => 'goods#delete'
   post '/goods/delete' => 'goods#delete'
+  post '/goods/delete_all' => 'goods#delete_all'
   get '/autocomplete/', to: 'goods#autocomplete'
 
   post '/goods/:id', to: 'goods#view'
