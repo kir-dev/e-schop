@@ -33,6 +33,11 @@
                                     <strong>saját termék</strong>
                                 <% end %>
                                 </p>
+                                <div>
+                                    <% modal.tags.each do |tag| %>  
+                                      <span class="uk-badge"><%=tag.name%> </span>
+                                    <% end %>
+                                </div>
 
                                 <p>
                                 <strong>Leírás:</strong>

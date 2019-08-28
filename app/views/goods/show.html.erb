@@ -33,6 +33,12 @@
                                 <% end %>
                                 </p>
 
+                                <div>
+                                    <% @good.tags.each do |tag| %>  
+                                      <span class="uk-badge"><%=tag.name%> </span>
+                                    <% end %>
+                                </div>
+
                                 <p>
                                 <strong>Leírás:</strong>
                                 <%= @good.description %>
