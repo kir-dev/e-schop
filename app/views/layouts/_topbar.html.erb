@@ -20,11 +20,12 @@
                     <li> <%= link_to 'Ital', drink_path,class:"uk-visible@m" %> </li>
                     <li> <%= link_to 'Egyéb', else_path,class:"uk-visible@m" %> </li>
                     <li style="position: relative; top: 19px;">
-                        <form class="uk-search uk-search-default" action="/goods" accept-charset="UTF-8" method="get">
+                        <form class="uk-search uk-search-default" action="/goods" accept-charset="UTF-8" method="get" id="nameform">
                             <input name="utf8" type="hidden" value="&#x2713;" />
-                            <button class="uk-search-icon-flip" uk-search-icon></button>
+                            <button id="gg" type="submit" form="nameform" class="uk-search-icon-flip" uk-search-icon></button>
                             <input name="scearched_prase" id="scearched_prase" class="uk-search-input" type="search" placeholder="Keresés...">
                         </form>
+                        <%# <button id="gg" type="submit" form="nameform" class="uk-search-icon-flip" uk-search-icon></button>  %>
                     </li>
                 
             <li>

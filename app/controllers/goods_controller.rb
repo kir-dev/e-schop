@@ -136,8 +136,25 @@ before_action :force_json, only: :autocomplete
   end
 
   def search
-    @categories = Category.all
-    getSelectedGoods
+    term =params[:scearched_prase].downcase
+    @tags=Tag.select{|tag| tag.name.include?(term)}
+    @goods=Good.select{|good| good.name.include?(term)}
+  
+    respond_to  do|format|
+      format.html{}
+      format.json{
+        puts"xxxxxxxx" 
+      @tags= @tags.take(3)
+        @goods= @goods.take(3)
+       
+      }
+    end
+
+    # @tags=Tag.all
+    # @goods=Good.all
+
+    # @categories = Category.all
+    # getSelectedGoods
   end
 
  
