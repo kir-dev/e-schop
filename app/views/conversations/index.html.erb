@@ -108,13 +108,13 @@
 						<% if message.user == current_user %>	
 							<div class="uk-width-expand@m">
 								<div class="uk-card uk-card-body uk-padding-small">
-									<div class="uk-border-rounded uk-card uk-card-body uk-card-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-right"> <%= message.body %> </div>
+									<div style="width: 50%" class="uk-border-rounded uk-card uk-card-body uk-card-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-right"> <%= message.body %> </div>
 								</div>										
 							</div>
 						<% else %>
 						  <div class="uk-width-expand@m">
 								<div class="uk-card uk-card-body uk-padding-small">
-									<div class="uk-border-rounded uk-card uk-card-body uk-card-default uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-left"> <%= message.body %> </div>
+									<div style="width: 50%" class="uk-border-rounded uk-card uk-card-body uk-card-default uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-left"> <%= message.body %> </div>
 								</div>										
 							</div>
 						<% end %>               
