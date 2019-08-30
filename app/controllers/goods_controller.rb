@@ -123,16 +123,19 @@ before_action :force_json, only: :autocomplete
 
     @goods = Good.with_attached_photo.where(category_id: 1)
     @products=get_proucts_for_goods(@goods)
+    @sellers=find_sellers_for_goods(@goods)
   end
 
   def drink
     @goods = Good.with_attached_photo.where(category_id: 2)
     @products=get_proucts_for_goods(@goods)
+    @sellers=find_sellers_for_goods(@goods)
   end
 
   def else
     @goods = Good.with_attached_photo.where(category_id: 3)
     @products=get_proucts_for_goods(@goods)
+    @sellers=find_sellers_for_goods(@goods)
   end
 
   def search
