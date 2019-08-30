@@ -4635,6 +4635,7 @@ select.uk-form-width-xsmall {
 /* line 3642, /home/akos989/Asztal/rails/e-schop/app/assets/stylesheets/uikit.css */
 .uk-search-default {
   width: 180px;
+  border: 0px;
 }
 
 /*
@@ -4646,13 +4647,14 @@ select.uk-form-width-xsmall {
   padding-left: 6px;
   padding-right: 6px;
   background: transparent;
-  border: 1px solid #e5e5e5;
+  border: 0px;
 }
 
 /* Focus */
 /* line 3656, /home/akos989/Asztal/rails/e-schop/app/assets/stylesheets/uikit.css */
 .uk-search-default .uk-search-input:focus {
   background-color: transparent;
+  border: 0px;
 }
 
 /*
