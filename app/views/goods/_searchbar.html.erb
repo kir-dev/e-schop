@@ -1,4 +1,7 @@
 <div>
+<%if @categories.nil?%>
+  <% @categories= Category.all%>
+  <%end%>
   <%= form_tag(goods_path, method: "get") do %>
       <%= collection_select(:post,:category_id, @categories, :id, :name,
       :include_blank => "Összes") %>

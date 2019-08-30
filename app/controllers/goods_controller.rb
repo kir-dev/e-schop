@@ -123,21 +123,40 @@ before_action :force_json, only: :autocomplete
 
     @goods = Good.with_attached_photo.where(category_id: 1)
     @products=get_proucts_for_goods(@goods)
+    @sellers=find_sellers_for_goods(@goods)
   end
 
   def drink
     @goods = Good.with_attached_photo.where(category_id: 2)
     @products=get_proucts_for_goods(@goods)
+    @sellers=find_sellers_for_goods(@goods)
   end
 
   def else
     @goods = Good.with_attached_photo.where(category_id: 3)
     @products=get_proucts_for_goods(@goods)
+    @sellers=find_sellers_for_goods(@goods)
   end
 
   def search
-    @categories = Category.all
-    getSelectedGoods
+    term =params[:scearched_prase].downcase
+    @tags=Tag.select{|tag| tag.name.include?(term)}
+    @goods=Good.select{|good| good.name.include?(term)}
+  
+    respond_to  do|format|
+      format.html{}
+      format.json{
+      @tags= @tags.take(3)
+        @goods= @goods.take(3)
+       
+      }
+    end
+
+    # @tags=Tag.all
+    # @goods=Good.all
+
+    # @categories = Category.all
+    # getSelectedGoods
   end
 
  
