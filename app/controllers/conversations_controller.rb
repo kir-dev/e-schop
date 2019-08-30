@@ -1,33 +1,40 @@
 class ConversationsController < ApplicationController
-  def index
-    @conversations = current_user.mailbox.conversations
-  end
-
-  def show
-    @conversation = current_user.mailbox.conversations.find(params[:id])
-    @partner = (@conversation.participants - [current_user])[0]
-    @receipts = @conversation.receipts_for(current_user).order(created_at: :asc)
-
-    respond_to do |format|
-      format.js { render layout: false }
+  before_action do
+    @conversations = Conversation.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)
+    @conversations.each do |c|
+      number = c.messages.count
+      if number == 0 
+        c.destroy
+      end
     end
   end
-
-  def new
-    @recipients = User.all - [current_user]
-
-    respond_to do |format|
-      format.js { render layout: false }
+  
+  def index
+    @conversations = Conversation.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id).order(updated_at: :desc)
+    if params[:conversation_id].nil?
+      @conversation = @conversations.first
+    else
+      @conversation = Conversation.find_by_id(params[:conversation_id])
+    end
+    if !@conversation.nil?
+      @messages = @conversation.messages
+      @messages.where("user_id != ? AND read = ?", current_user.id, false).update_all(read: true)
+      @message = @conversation.messages.new
     end
   end
 
   def create
-    if params[:subject].empty?
-      flash.now[:alert] = t(:no_subject)
+    if Conversation.between(params[:sender_id], params[:receiver_id]).present?
+      @conversation = Conversation.between(params[:sender_id], params[:receiver_id]).first
     else
-      recipient = User.find(params[:user_id])
-      current_user.send_message(recipient, params[:body], params[:subject])
-      redirect_to conversations_path(current_user)
+      @conversation = Conversation.create!(conversation_params)
     end
+
+    redirect_to conversation_messages_path(@conversation)
   end
+
+  private
+    def conversation_params
+      params.permit(:sender_id, :receiver_id)
+    end
 end

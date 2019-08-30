@@ -1,35 +1,135 @@
-<div class="messaging">
-    <div class="conversations">
-        <div class="header">
-            <h1>Beszélgetések</h1>
-            <h2 class="unread-num">Olvasatlanok száma: <%= current_user.unread_inbox_count %></h2>
-        </div>
-        
-        <div class="inbox">
-        <dl class="inbox uk-description-list">
-        <% @conversations.each do |conversation| %>
-            <%= link_to conversation_path(conversation), class: "conversation-link", remote: true do %>
-            <dt class="inbox-conversation-partner">
-                <% if conversation.is_unread?(current_user) %><b><% end %>
-                <%= (conversation.participants - [current_user])[0].username %>
-                <% if conversation.is_unread?(current_user) %></b><% end %>
-            </dt>
-            <dd class="inbox-conversation-subject">
-                <%= conversation.subject %>
-            </dd>
+<head>
+<meta charset="utf-8">
+<title>Independent CSS scrolling panels (with inertia)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>		
+			* {
+				-webkit-box-sizing: border-box;
+				        box-sizing: border-box;
+			}
+			/*This just stops me getting horizontal scrolling if anything overflows the width*/
+			body {
+				overflow-x: hidden;
+			}
+			/*This is our main wrapping element, it's made 100vh high to ensure it is always the correct size and then moved into place and padded with negative margin and padding*/
+			.Container {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: -ms-flexbox;
+				display: flex;
+				overflow: hidden;
+				height: 100vh;
+				margin-top: -100px;
+				padding-top: 80px;
+				position: relative;
+				width: 100%;
+				-webkit-backface-visibility: hidden;
+				        backface-visibility: hidden;
+				will-change: overflow;
+			}
+			/*All the scrollable sections should overflow and be whatever height they need to be. As they are flex-items (due to being inside a flex container) they could be made to stretch full height at all times if needed.
+			WebKit inertia scrolling is being added here for any present/future devices that are able to make use of it.
+			*/
+			.Left,
+			.Middle {
+				overflow: auto;
+				height: auto;
+				padding: 0px;
+				-webkit-overflow-scrolling: touch;
+				-ms-overflow-style: none;
+			}
+			/*Entirely optional – just wanted to remove the scrollbar on WebKit browsers as I find them ugly*/
+			.Left::-webkit-scrollbar,
+			.Middle::-webkit-scrollbar {
+				display: none;
+			}
+			/*	Left and Right are set sizes while the Middle is set to flex one so it occupies all remaining space. This could be set as a width too if prefereable, perhaps using calc.*/
+			.Left {
+				width: 30%;
+			}
+
+			.Middle {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				    -ms-flex: 1;
+				        flex: 1;
+			}
+			.wrapper {
+				display: flex;
+				flex-direction: column-reverse;
+				max-height: 100vh;
+				overflow: auto;
+			}
+		</style>
+</head>
+<body>
+    <div class="Container">
+        <div class="Left">
+            <div class="uk-card uk-padding-small uk-card-default uk-padding-remove-top uk-padding-remove-bottom" uk-sticky="offset: 80; bottom: #top">
+                <div class="uk-card-body uk-padding-small uk-padding-remove-bottom">
+                    <h2  class="uk-margin-remove-bottom">Beszélgetések
+						<%=link_to conversations_path do %>
+							<span uk-tooltip="title: Új üzenet; pos: bottom" class="uk-badge uk-align-right uk-margin-small-top uk-margin-remove-bottom uk-padding-small uk-padding-remove-top uk-padding-remove-bottom" uk-icon="pencil"></span>
+						<% end %>
+					</h2>
+                </div>
+                <div class="uk-card-footer uk-padding-small uk-padding-remove-top uk-padding-remove-bottom">
+                    <div >Keresés</div>
+                </div>
+            </div>
+
+            <% @conversations.each do |conversation| %>
+                <% recipient = conversation.sender_id == current_user.id ? conversation.receiver : conversation.sender %>
+                <% if conversation == @conversation %>
+				  <%= link_to conversations_path(conversation_id: conversation.id), class: "uk-link-reset" do %>
+					<div class="uk-card uk-card-primary uk-padding-small uk-padding-remove-top uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
+						<div class="uk-card-body uk-padding-small">
+							<h3 class=" uk-margin-remove-bottom"><%= recipient.name%></h3>
+							<p class="uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00">April 01, 2016</time></p>
+						</div>
+					</div>
+				<% end %>
+				<% else %>
+				  <%= link_to conversations_path(conversation_id: conversation.id), class: "uk-link-reset" do %>
+					<div class="uk-card uk-padding-small uk-padding-remove-top uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
+						<div class="uk-card-body uk-padding-small">
+							<h3 class=" uk-margin-remove-bottom"><%= recipient.name%></h3>
+							<p class="uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00">April 01, 2016</time></p>
+						</div>
+					</div>
+				<% end %>
+				<% end %>
             <% end %>
-        <% end %>
-        </dl>
         </div>
-        
-        <%= link_to "Új beszélgetés", new_conversation_path, class: 'new-conversation-link uk-button uk-button-basic', remote: true %>
+        <div class="Middle">
+            <% if !@messages.nil? %>          
+                <% @messages.each do |message| %>
+                    <% if message.body %>                  
+						<% if message.user == current_user %>	
+							<div class="uk-width-expand@m">
+								<div class="uk-card uk-card-body uk-padding-small">
+									<div class="uk-border-rounded uk-card uk-card-body uk-card-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-right"> <%= message.body %> </div>
+								</div>										
+							</div>
+						<% else %>
+						  <div class="uk-width-expand@m">
+								<div class="uk-card uk-card-body uk-padding-small">
+									<div class="uk-border-rounded uk-card uk-card-body uk-card-default uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-left"> <%= message.body %> </div>
+								</div>										
+							</div>
+						<% end %>               
+                    <% end %>
+                <% end %>
+            
+
+                <%= form_for [@conversation, @message] do |f| %>
+                <div align="right" class="field">
+                    <%= f.text_area :body, placeholder: "Your message" %>
+					<%= f.submit "Send" %>
+                </div>
+                <% end %>
+            <% end %>
+        </div>
     </div>
 
-    <div class="chat" id="current_conversation">
-    
-    </div>
-
-    <div class="partner-details">
-
-    </div>
-</div>
+</body>

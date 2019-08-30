@@ -34,6 +34,11 @@
                 <a href="#" class="uk-visible@m"><%= current_user.username %></a>
                 <div uk-dropdown class="uk-visible@m">
                     <ul class="uk-nav uk-dropdown-nav">
+                        <li>
+                            <%=link_to conversations_path do %>
+                                Üzenetek
+                            <%end%>
+                        </li>
                         <% @purchases = Purchase.all %>
                             <% @goods = Good.all %>
                             <% cart_num = 0 %>
