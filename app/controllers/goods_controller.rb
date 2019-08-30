@@ -143,7 +143,6 @@ before_action :force_json, only: :autocomplete
     respond_to  do|format|
       format.html{}
       format.json{
-        puts"xxxxxxxx" 
       @tags= @tags.take(3)
         @goods= @goods.take(3)
        
