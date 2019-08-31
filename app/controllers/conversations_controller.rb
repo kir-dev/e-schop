@@ -44,8 +44,9 @@ class ConversationsController < ApplicationController
     end
   end
 
-  def view;
-    
+  def view
+
+      render plain: params[:q].inspect
   end
 
   private

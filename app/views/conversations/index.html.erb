@@ -5,10 +5,16 @@
 <script>
 	document.addEventListener("turbolinks:load",function(){
 	input = $("#q")
-	console.log("-")
+	users=null
+		
+	
 	var options = {
 		getValue: "name",
 		url: function(phrase){
+			$.getJSON('/conversations/search.json?q='+phrase, function(data) {
+			users=data	
+			});
+		
 		return "/conversations/search.json?q=" + phrase
 		},
 		categories: [
@@ -19,9 +25,12 @@
 		],
 		list: {
 		onChooseEvent: function() {
-			input.val(input.val() + "+" + getValue:"id");  
-			document.forms["search_form"].submit();
-		}
+				var index=input.getSelectedItemIndex()
+				input.val(users.users[index].id)
+
+				
+				document.forms["search_form"].submit();
+			}
 		}
 
 	}
