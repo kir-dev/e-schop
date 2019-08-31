@@ -60,6 +60,7 @@
 				max-height: 100vh;
 				overflow: auto;
 			}
+
 		</style>
 </head>
 <body>
@@ -67,11 +68,7 @@
         <div class="Left">
             <div class="uk-card uk-padding-small uk-card-default uk-padding-remove-top uk-padding-remove-bottom" uk-sticky="offset: 80; bottom: #top">
                 <div class="uk-card-body uk-padding-small uk-padding-remove-bottom">
-                    <h2  class="uk-margin-remove-bottom">Beszélgetések
-						<%=link_to conversations_path do %>
-							<span uk-tooltip="title: Új üzenet; pos: bottom" class="uk-badge uk-align-right uk-margin-small-top uk-margin-remove-bottom uk-padding-small uk-padding-remove-top uk-padding-remove-bottom" uk-icon="pencil"></span>
-						<% end %>
-					</h2>
+                    <h2  class="uk-margin-remove-bottom">Beszélgetések</h2>
                 </div>
                 <div class="uk-card-footer uk-padding-small uk-padding-remove-top uk-padding-remove-bottom">
                     <div >Keresés</div>
@@ -85,7 +82,7 @@
 					<div class="uk-card uk-card-primary uk-padding-small uk-padding-remove-top uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
 						<div class="uk-card-body uk-padding-small">
 							<h3 class=" uk-margin-remove-bottom"><%= recipient.name%></h3>
-							<p class="uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00">April 01, 2016</time></p>
+							<p class="uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00"><%= conversation.updated_at.to_s(:db)%></time></p>
 						</div>
 					</div>
 				<% end %>
@@ -94,39 +91,34 @@
 					<div class="uk-card uk-padding-small uk-padding-remove-top uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
 						<div class="uk-card-body uk-padding-small">
 							<h3 class=" uk-margin-remove-bottom"><%= recipient.name%></h3>
-							<p class="uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00">April 01, 2016</time></p>
+							<p class="uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00"><%= conversation.updated_at.to_s(:db)%></time></p>
 						</div>
 					</div>
 				<% end %>
 				<% end %>
             <% end %>
         </div>
-        <div class="Middle">
-            <% if !@messages.nil? %>          
-                <% @messages.each do |message| %>
-                    <% if message.body %>                  
-						<% if message.user == current_user %>	
-							<div class="uk-width-expand@m">
-								<div class="uk-card uk-card-body uk-padding-small">
-									<div class="uk-border-rounded uk-card uk-card-body uk-card-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-right"> <%= message.body %> </div>
-								</div>										
-							</div>
-						<% else %>
-						  <div class="uk-width-expand@m">
-								<div class="uk-card uk-card-body uk-padding-small">
-									<div class="uk-border-rounded uk-card uk-card-body uk-card-default uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-left"> <%= message.body %> </div>
-								</div>										
-							</div>
-						<% end %>               
-                    <% end %>
-                <% end %>
-            
-
-                <%= form_for [@conversation, @message] do |f| %>
+        <div class="Middle wrapper">
+			<%= form_for [@conversation, @message] do |f| %>
                 <div align="right" class="field">
                     <%= f.text_area :body, placeholder: "Your message" %>
 					<%= f.submit "Send" %>
                 </div>
+            <% end %>
+            <% if !@messages.nil? %>          
+                <% @messages.each do |message| %>
+                    <% if message.body %>                  
+						<% if message.user == current_user %>	
+								<div class="uk-card uk-card-body uk-padding-small">
+									<div style="max-width: 50%" class="uk-border-rounded uk-card uk-card-body uk-card-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-right"> <%= message.body %> </div>
+								</div>										
+						<% else %>
+								<div class="uk-card uk-card-body uk-padding-small">
+									<div style="max-width: 50%" class="uk-border-rounded uk-card uk-card-body uk-card-default uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-left"> <%= message.body %> </div>
+								</div>										
+						<% end %>               
+              
+                    <% end %>
                 <% end %>
             <% end %>
         </div>

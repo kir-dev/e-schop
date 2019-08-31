@@ -17,7 +17,7 @@ class ConversationsController < ApplicationController
       @conversation = Conversation.find_by_id(params[:conversation_id])
     end
     if !@conversation.nil?
-      @messages = @conversation.messages
+      @messages = @conversation.messages.order(created_at: :desc)
       @messages.where("user_id != ? AND read = ?", current_user.id, false).update_all(read: true)
       @message = @conversation.messages.new
     end
