@@ -33,6 +33,21 @@ class ConversationsController < ApplicationController
     redirect_to conversation_messages_path(@conversation)
   end
 
+  def search
+    term =params[:q].downcase
+    @users = User.select{|user| user.name.downcase.include?(term)}
+    respond_to do |format|
+      format.html {}
+      format.json {
+        @users = @users.take(5)
+      }
+    end
+  end
+
+  def view;
+    
+  end
+
   private
     def conversation_params
       params.permit(:sender_id, :receiver_id)

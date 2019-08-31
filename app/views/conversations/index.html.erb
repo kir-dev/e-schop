@@ -2,6 +2,32 @@
 <meta charset="utf-8">
 <title>Independent CSS scrolling panels (with inertia)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+	document.addEventListener("turbolinks:load",function(){
+	input = $("#q")
+	console.log("-")
+	var options = {
+		getValue: "name",
+		url: function(phrase){
+		return "/conversations/search.json?q=" + phrase
+		},
+		categories: [
+		{   
+			listLocation: "users",
+			header: "<strong>Felhasználók<strong>",
+		}
+		],
+		list: {
+		onChooseEvent: function() {
+			input.val(input.val() + "+" + getValue:"id");  
+			document.forms["search_form"].submit();
+		}
+		}
+
+	}
+	input.easyAutocomplete(options)
+	});
+</script>
 <style>		
 			* {
 				-webkit-box-sizing: border-box;
@@ -71,7 +97,11 @@
                     <h2  class="uk-margin-remove-bottom">Beszélgetések</h2>
                 </div>
                 <div class="uk-card-footer uk-padding-small uk-padding-remove-top uk-padding-remove-bottom">
-                    <div >Keresés</div>
+                    
+					<%= form_with url: url_for(action: 'view', controller: 'conversations'), local: true, method: :get, id: 'search_form' do |form| %>
+						<%= form.text_field :q, placeholder: "Search" %>
+					<% end %>							
+										
                 </div>
             </div>
 
@@ -90,8 +120,17 @@
 				  <%= link_to conversations_path(conversation_id: conversation.id), class: "uk-link-reset" do %>
 					<div class="uk-card uk-padding-small uk-padding-remove-top uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
 						<div class="uk-card-body uk-padding-small">
-							<h3 class=" uk-margin-remove-bottom"><%= recipient.name%></h3>
-							<p class="uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00"><%= conversation.updated_at.to_s(:db)%></time></p>
+							<% unless conversation.unread_message_count(current_user).zero? %>
+								<h3 class="uk-text-secondary uk-text-bold uk-margin-remove-bottom"><%= recipient.name%>
+									<div class="uk-badge uk-background-secondary uk-align-right  uk-align-right uk-margin-small-top uk-margin-remove-bottom uk-padding-small uk-padding-remove-top uk-padding-remove-bottom">
+										<%= conversation.unread_message_count(current_user) %>
+									</div>
+								</h3>
+								<p class="uk-text-secondary uk-text-bold uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00"><%= conversation.updated_at.to_s(:db)%></time></p>
+							<% else %>
+								<h3 class="uk-margin-remove-bottom"><%= recipient.name%></h3>
+								<p class="uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00"><%= conversation.updated_at.to_s(:db)%></time></p>
+							<% end %>
 						</div>
 					</div>
 				<% end %>
@@ -101,7 +140,7 @@
         <div class="Middle wrapper">
 			<%= form_for [@conversation, @message] do |f| %>
                 <div align="right" class="field">
-                    <%= f.text_area :body, placeholder: "Your message" %>
+                    <%= f.text_area :body, placeholder: "Üzenet", class: "uk-input"  %>
 					<%= f.submit "Send" %>
                 </div>
             <% end %>
@@ -110,11 +149,11 @@
                     <% if message.body %>                  
 						<% if message.user == current_user %>	
 								<div class="uk-card uk-card-body uk-padding-small">
-									<div style="width: 50%" class="uk-border-rounded uk-card uk-card-body uk-card-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-right"> <%= message.body %> </div>
+									<div style="word-wrap: break-word; max-width: 50%; display: block;" class="uk-border-rounded uk-card uk-card-body uk-card-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-right"> <%= message.body %> </div>
 								</div>										
 						<% else %>
 								<div class="uk-card uk-card-body uk-padding-small">
-									<div style="width: 50%" class="uk-border-rounded uk-card uk-card-body uk-card-default uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-left"> <%= message.body %> </div>
+									<div style="word-wrap: break-word; max-width: 50%; display: block;" class="uk-border-rounded uk-card uk-card-body uk-card-default uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-left"> <%= message.body %> </div>
 								</div>										
 						<% end %>               
               

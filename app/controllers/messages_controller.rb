@@ -24,6 +24,7 @@ class MessagesController < ApplicationController
     @message.user = current_user
 
     if @message.save
+      @conversation.update_attributes(updated_at: Time.current)
       redirect_to action: 'index', controller: 'conversations', conversation_id: @conversation.id
     end
   end

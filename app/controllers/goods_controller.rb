@@ -59,10 +59,7 @@ before_action :force_json, only: :autocomplete
   end
 
   def new
-    @categories = Category.all
-    
-    
-   
+    @categories = Category.all   
   end
 
   def create
@@ -141,7 +138,7 @@ before_action :force_json, only: :autocomplete
   def search
     term =params[:scearched_prase].downcase
     @tags=Tag.select{|tag| tag.name.include?(term)}
-    @goods=Good.select{|good| good.name.include?(term)}
+    @goods=Good.select{|good| good.name.downcase.include?(term)}
   
     respond_to  do|format|
       format.html{}
@@ -151,15 +148,7 @@ before_action :force_json, only: :autocomplete
        
       }
     end
-
-    # @tags=Tag.all
-    # @goods=Good.all
-
-    # @categories = Category.all
-    # getSelectedGoods
-  end
-
- 
+  end 
 
   def autocomplete
     tag_name =params[:q].downcase

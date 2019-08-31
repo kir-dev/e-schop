@@ -1,5 +1,4 @@
 document.addEventListener("turbolinks:load",function(){
-    console.log("+")
     input=$("#scearched_prase");
 
     var options = {

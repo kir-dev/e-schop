@@ -3,10 +3,27 @@ class PurchasesController < ApplicationController
     @purchase = Purchase.new(buyer_id: current_user.id, good_id: params[:id],
                             number: params[:good][:number])
     good = Good.find(params[:id])
+
+    if Conversation.between(current_user.id, good.seller_id).present?
+      @conversation = Conversation.between(current_user.id, good.seller_id).first
+    else
+      @conversation = Conversation.create!(sender_id: current_user.id, receiver_id: good.seller_id)
+    end
+    @message = @conversation.messages.new
+    @message.body = current_user.name + " megrendelt a(z) " + good.name + " termékedből " +
+      @purchase.number.to_s + " darabot.\n" + Time.current.to_s(:db)
+    @message.user = current_user
+
     if @purchase.number < good.number && @purchase.save
+      if @message.save
+        @conversation.update_attributes(updated_at: Time.current)
+      end
       good.update_attributes(number: good.number - @purchase.number)
       redirect_to action: 'my_cart', controller: 'users'
     elsif @purchase.number == good.number && @purchase.save
+      if @message.save
+        @conversation.update_attributes(updated_at: Time.current)
+      end
       good.update_attributes(number: 0)
       good.destroy
       redirect_to action: 'my_cart', controller: 'users'
@@ -23,6 +40,19 @@ class PurchasesController < ApplicationController
     good.update_attributes(deleted_at: nil)
     flash[:notice] = t(:back_from_cart)
     @purchase.destroy
+
+    if Conversation.between(current_user.id, good.seller_id).present?
+      @conversation = Conversation.between(current_user.id, good.seller_id).first
+    else
+      @conversation = Conversation.create!(sender_id: current_user.id, receiver_id: good.seller_id)
+    end
+    @message = @conversation.messages.new
+    @message.body = current_user.name + " lemondta a rendelést a(z) " + good.name + " termékedről.\n" + Time.current.to_s(:db)
+    @message.user = current_user
+    if @message.save
+      @conversation.update_attributes(updated_at: Time.current)
+    end
+
     redirect_to action: 'my_cart', controller: 'users'
   end
 

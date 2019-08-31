@@ -33,9 +33,16 @@
                 <a href="#" class="uk-visible@m"><%= current_user.username %></a>
                 <div uk-dropdown class="uk-visible@m">
                     <ul class="uk-nav uk-dropdown-nav">
+                        <%@conversations = Conversation.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)%>
+                        <% message_num = 0 %>
+                        <% @conversations.each do |conversation| %>
+                            <% unless conversation.unread_message_count(current_user).zero? %>
+                                <% message_num += 1 %>
+                            <% end %>
+                        <% end %>
                         <li>
                             <%=link_to conversations_path do %>
-                                Üzenetek
+                                Üzenetek <span class="uk-badge"><%=message_num.to_s%></span>
                             <%end%>
                         </li>
                         <% @purchases = Purchase.all %>
