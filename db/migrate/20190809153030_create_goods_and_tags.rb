@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGoodsAndTags < ActiveRecord::Migration[5.2]
   create_table :goods_tags, id: false do |t|
     t.belongs_to :good, index: true

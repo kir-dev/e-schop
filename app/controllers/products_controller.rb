@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProductsController < ApplicationController
   def choose
     @products = Product.all
@@ -14,7 +16,7 @@ class ProductsController < ApplicationController
     product = Product.find_by_id(params[:product_id])
     @good = Good.new(good_params)
     @good.seller_id = current_user.id
-    if !params[:good][:photo].nil?
+    unless params[:good][:photo].nil?
       product = Product.new(product_params)
       product.save
     end

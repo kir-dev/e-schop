@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MessagesController < ApplicationController
   before_action do
     @conversation = Conversation.find(params[:conversation_id])
@@ -5,12 +7,12 @@ class MessagesController < ApplicationController
 
   def index
     @messages = @conversation.messages
-    @messages.where("user_id != ? AND read = ?", current_user.id, false).update_all(read: true)
+    @messages.where('user_id != ? AND read = ?', current_user.id, false).update_all(read: true)
     @message = @conversation.messages.new
     if @messages.count == 0
       redirect_to action: 'new', conversation_id: @conversation.id
     else
-      redirect_to controller: 'conversations', action: 'index', conversation_id: @conversation.id      
+      redirect_to controller: 'conversations', action: 'index', conversation_id: @conversation.id
     end
   end
 
@@ -30,7 +32,8 @@ class MessagesController < ApplicationController
   end
 
   private
-    def message_params
-      params.require(:message).permit(:body, :user_id)
-    end
+
+  def message_params
+    params.require(:message).permit(:body, :user_id)
+  end
 end

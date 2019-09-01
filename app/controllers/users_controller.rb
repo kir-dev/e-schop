@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :check_good_id, only: [:good_show]
   include ProductsHelper
@@ -16,7 +18,7 @@ class UsersController < ApplicationController
 
   def my_goods
     @goods = Good.with_attached_photo.without_deleted.all.order(updated_at: :desc)
-    @products=get_proucts_for_goods(@goods)
+    @products = get_proucts_for_goods(@goods)
   end
 
   def sold_goods

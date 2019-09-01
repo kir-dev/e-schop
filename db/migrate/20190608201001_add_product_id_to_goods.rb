@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class AddProductIdToGoods < ActiveRecord::Migration[5.2]
   def change
-    #add_column :goods, :product_id, :integer
+    # add_column :goods, :product_id, :integer
   end
 end

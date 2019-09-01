@@ -12,7 +12,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to root_path, alert: @user.errors.full_messages.join('\n')
     end
   end
-  
+
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
 

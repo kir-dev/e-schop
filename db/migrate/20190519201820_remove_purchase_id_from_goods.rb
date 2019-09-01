@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class RemovePurchaseIdFromGoods < ActiveRecord::Migration[5.2]
   def change
-    #remove_column :goods, :purchase_id, :integer
+    # remove_column :goods, :purchase_id, :integer
   end
 end

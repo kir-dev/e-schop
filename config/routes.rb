@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
@@ -12,7 +14,7 @@ Rails.application.routes.draw do
   get '/user/sold_goods' => 'users#sold_goods'
   get '/user/purchase_show' => 'users#purchase_show'
 
-  resources :goods, only: [:new, :create, :show, :index, :destroy]
+  resources :goods, only: %i[new create show index destroy]
   # get '/good/show' => 'goods#show'
   post '/goods/new' => 'goods#new'
   get '/good/edit' => 'goods#edit'
@@ -24,7 +26,7 @@ Rails.application.routes.draw do
   get '/food' => 'goods#food'
   get '/drink' => 'goods#drink'
   get '/else' => 'goods#else'
- # get '/search' => 'goods#search'
+  # get '/search' => 'goods#search'
   get :autocomplete, controller: :goods, format: 'json'
   delete '/goods/delete' => 'goods#delete'
   post '/goods/delete' => 'goods#delete'
@@ -34,7 +36,6 @@ Rails.application.routes.draw do
 
   post '/goods/:id', to: 'goods#view'
   get '/tags/:id', to: 'goods#show_goods_with_tag'
-
 
   # post '/goods/new' => 'goods#create'
 
@@ -53,5 +54,4 @@ Rails.application.routes.draw do
   resources :conversations do
     resources :messages
   end
-
 end
