@@ -18,7 +18,7 @@ module GoodsHelper
       else
 
         product = Product.find_by_id(item.product_id)
-        image = product.photo if product.photo.attached?
+        image = product.photo if !product.nil?&& product.photo.attached?
       end
     end
 

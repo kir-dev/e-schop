@@ -107,7 +107,6 @@ class GoodsController < ApplicationController
   end
 
   def for_u
-    byebug
     @goods = Good.with_attached_photo.limit(8)
     @products = get_proucts_for_goods(@goods)
   end
