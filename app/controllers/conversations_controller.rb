@@ -5,7 +5,9 @@ class ConversationsController < ApplicationController
     @conversations = Conversation.where('sender_id = ? OR receiver_id = ?', current_user.id, current_user.id)
     @conversations.each do |c|
       number = c.messages.count
-      c.destroy if number == 0
+      if number == 0 && !params[:new_conv]
+        c.destroy
+      end
     end
   end
 
@@ -35,7 +37,7 @@ class ConversationsController < ApplicationController
 
   def search
     term = params[:q].downcase
-    @users = User.select { |user| user.name.downcase.include?(term) }
+    @users = User.select { |user| user.name.downcase.include?(term) } - [current_user]
     respond_to do |format|
       format.html {}
       format.json do
@@ -45,7 +47,13 @@ class ConversationsController < ApplicationController
   end
 
   def view
-    render plain: params[:q].inspect
+    if Conversation.between(current_user.id, params[:q]).present?
+      @conversation = Conversation.between(current_user.id, params[:q]).first
+    else
+      @conversation = Conversation.create!(sender_id: current_user.id, receiver_id: params[:q])
+    end
+
+    redirect_to conversation_messages_path(@conversation)
   end
 
   private
