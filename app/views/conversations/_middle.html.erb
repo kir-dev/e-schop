@@ -1,23 +1,44 @@
 <%= form_for [@conversation, @message] do |f| %>
-                <div align = "center" class = "uk-align-center">
-					<%= f.text_field :body, placeholder: "Üzenet", autocomplete: :off, class: "uk-input uk-width-3-4 uk-border-pill"  %>
-					<button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-border-pill">
-						<span uk-icon="arrow-up"></span>
-					</button>
+	<div align = "center" class = "uk-align-center">
+		<%= f.text_field :body, placeholder: "Üzenet", autocomplete: :off, class: "uk-input uk-width-3-4 uk-border-pill"  %>
+		<%= hidden_field_tag(:mobile, "middle")%>
+		<button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-border-pill">
+			<span uk-icon="arrow-up"></span>
+		</button>
+	</div>
+<% end %>
+<% if !@messages.nil? %>          
+	<% @messages.each do |message| %>
+		<% if message.body %>                  
+			<div class="uk-card uk-card-body uk-padding-small">
+				<%= message.chat_indentation %>
+			</div>
+		<% end %>
+	<% end %>
+<% end %>
+<br class = "uk-hidden@m">
+<br class = "uk-hidden@m">
+<br class = "uk-hidden@m">
+<% recipient = @conversation.sender_id == current_user.id ? @conversation.receiver : @conversation.sender %>
+<div style = "position: absolute; top: 80px; width: 100%; margin: 0px; padding: 0px;" class="uk-card uk-padding-small uk-card-default uk-padding-remove-top uk-padding-remove-bottom uk-hidden@m">
+	<div class="uk-card-body uk-padding-small uk-padding-remove-bottom">
+		<div class="uk-grid-small uk-child-width-1-3 uk-text-center" uk-grid>
+			<div>
+				<div class="uk-card uk-align-left">
+					<%= link_to conversations_path(conversation_id: @conversation.id, mobile: "left"), class: "uk-link-reset" do %>
+						<button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-border-rounded">
+							<span uk-icon="arrow-left"></span>
+						</button>
+					<% end %>
 				</div>
-			<% end %>
-            <% if !@messages.nil? %>          
-                <% @messages.each do |message| %>
-                    <% if message.body %>                  
-						<% if message.user == current_user %>	
-								<div class="uk-card uk-card-body uk-padding-small">
-									<div style="word-wrap: break-word; max-width: 60%; display: block;" class="uk-border-rounded uk-card uk-card-body uk-card-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-right uk-margin-small-right"> <%= message.body %> </div>
-								</div>										
-						<% else %>
-								<div class="uk-card uk-card-body uk-padding-small">
-									<div style="word-wrap: break-word; max-width: 60%; display: block;" class="uk-border-rounded uk-card uk-card-body uk-card-default uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-left uk-margin-small-left"> <%= message.body %> </div>
-								</div>										
-						<% end %>                         
-                    <% end %>
-                <% end %>
-            <% end %>
+			</div>
+			<div>
+				<div class="uk-card uk-padding-remove-bottom uk-padding-remove-bottom">
+					<%= link_to conversations_path(conversation_id: @conversation.id, mobile: "right"), class: "uk-link-reset" do %>
+						<h2><%= recipient.name %></h2>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -96,6 +96,10 @@
 				width: 25%;
 			}
 
+			.mobile {
+				width: 100%;
+			}
+
 			.wrapper {
 				display: flex;
 				flex-direction: column-reverse;
@@ -106,7 +110,7 @@
 		</style>
 </head>
 <body>
-    <div class="Container">
+    <div class="Container uk-visible@m">
         <div class="Left">
             <div class="uk-card uk-padding-small uk-card-default uk-padding-remove-top uk-padding-remove-bottom" uk-sticky="offset: 80; bottom: #top">
                 <div class="uk-card-body uk-padding-small uk-padding-remove-bottom">
@@ -160,4 +164,19 @@
 			<%= render partial: 'right' %>
 		</div>
     </div>
+	<div class = "Container uk-hidden@m">
+		<% if @mobile == "middle" %>
+		<div class = "Middle wrapper">
+			<%= render partial: 'middle' %>
+		</div>
+		<% elsif @mobile == "right" %>
+			<div class = "Right mobile">
+		  		<%= render partial: 'right' %>
+		  	</div>
+		<% else %>
+			<div class = "Left mobile">
+				<%= render partial: 'left' %>
+			</div>
+		<% end %>
+	</div>
 </body>

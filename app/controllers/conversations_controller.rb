@@ -19,9 +19,11 @@ class ConversationsController < ApplicationController
                       Conversation.find_by_id(params[:conversation_id])
                     end
     unless @conversation.nil?
-      @messages = @conversation.messages.order(created_at: :desc)
-      @messages.where('user_id != ? AND read = ?', current_user.id, false).update_all(read: true)
+      @messages = MessageDecorator.decorate_collection(@conversation.messages.order(created_at: :desc))      
       @message = @conversation.messages.new
+    end
+    unless params[:mobile].nil?
+      @mobile = params[:mobile]
     end
   end
 
