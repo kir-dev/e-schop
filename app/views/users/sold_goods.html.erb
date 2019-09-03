@@ -30,7 +30,8 @@
                 </div>
                 <div class="uk-card-footer">                    
                     <div align = 'center'>
-                        <%=link_to "Kifizetve", { action: 'delete', controller: 'purchases', id: p.id } %>
+                        <% uzenet = "Valóban kifezette " + User.find_by_id(p.buyer_id).username + " a vásárlást?"%>
+                        <%=link_to "Kifizetve", { action: 'delete', controller: 'purchases', id: p.id }, data: {confirm: uzenet} %>
                     </div>
                 </div>
             </div>

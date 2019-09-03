@@ -1,0 +1,23 @@
+<%= form_for [@conversation, @message] do |f| %>
+                <div align = "center" class = "uk-align-center">
+					<%= f.text_field :body, placeholder: "Üzenet", autocomplete: :off, class: "uk-input uk-width-3-4 uk-border-pill"  %>
+					<button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-border-pill">
+						<span uk-icon="arrow-up"></span>
+					</button>
+				</div>
+			<% end %>
+            <% if !@messages.nil? %>          
+                <% @messages.each do |message| %>
+                    <% if message.body %>                  
+						<% if message.user == current_user %>	
+								<div class="uk-card uk-card-body uk-padding-small">
+									<div style="word-wrap: break-word; max-width: 60%; display: block;" class="uk-border-rounded uk-card uk-card-body uk-card-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-right uk-margin-small-right"> <%= message.body %> </div>
+								</div>										
+						<% else %>
+								<div class="uk-card uk-card-body uk-padding-small">
+									<div style="word-wrap: break-word; max-width: 60%; display: block;" class="uk-border-rounded uk-card uk-card-body uk-card-default uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-left uk-margin-small-left"> <%= message.body %> </div>
+								</div>										
+						<% end %>                         
+                    <% end %>
+                <% end %>
+            <% end %>

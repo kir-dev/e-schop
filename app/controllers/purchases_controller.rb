@@ -6,22 +6,21 @@ class PurchasesController < ApplicationController
                              number: params[:good][:number])
     good = Good.find(params[:id])
 
-    if Conversation.between(current_user.id, good.seller_id).present?
-      @conversation = Conversation.between(current_user.id, good.seller_id).first
-    else
-      @conversation = Conversation.create!(sender_id: current_user.id, receiver_id: good.seller_id)
-    end
-    @message = @conversation.messages.new
-    @message.body = current_user.name + ' megrendelt a(z) ' + good.name + ' termékedből ' +
+    body = current_user.name + ' megrendelt a(z) ' + good.name + ' termékedből ' +
                     @purchase.number.to_s + " darabot.\n" + Time.current.to_s(:db)
-    @message.user = current_user
-
+    seller = User.find_by_id(good.seller_id)
     if @purchase.number < good.number && @purchase.save
-      @conversation.update_attributes(updated_at: Time.current) if @message.save
       good.update_attributes(number: good.number - @purchase.number)
+      send_message(body: body, receiver_id: seller.id)
+      UserMailer.with(receiver: seller, purchase_id: @purchase.id,
+                      good_id: good.id, body: @message.body).to_sold_goods_mail.deliver_now
+      flash[:notice] = "Az eladót üzenetben értesítettük a rendelésről."
       redirect_to action: 'my_cart', controller: 'users'
     elsif @purchase.number == good.number && @purchase.save
-      @conversation.update_attributes(updated_at: Time.current) if @message.save
+      send_message(body: body, receiver_id: seller.id)
+      UserMailer.with(receiver: seller, purchase_id: @purchase.id,
+                      good_id: good.id, body: @message.body).to_sold_goods_mail.deliver_now
+      flash[:notice] = "Az eladót üzenetben értesítettük a rendelésről." 
       good.update_attributes(number: 0)
       good.destroy
       redirect_to action: 'my_cart', controller: 'users'
@@ -32,30 +31,42 @@ class PurchasesController < ApplicationController
   end
 
   def back_from_cart
-    @purchase = Purchase.find(params[:id])
+    @purchase = Purchase.find_by_id(params[:id])
     good = Good.with_deleted.find(@purchase.good_id)
     good.number += @purchase.number
     good.update_attributes(deleted_at: nil)
     flash[:notice] = t(:back_from_cart)
     @purchase.destroy
 
-    if Conversation.between(current_user.id, good.seller_id).present?
-      @conversation = Conversation.between(current_user.id, good.seller_id).first
-    else
-      @conversation = Conversation.create!(sender_id: current_user.id, receiver_id: good.seller_id)
-    end
-    @message = @conversation.messages.new
-    @message.body = current_user.name + ' lemondta a rendelést a(z) ' + good.name + " termékedről.\n" + Time.current.to_s(:db)
-    @message.user = current_user
-    @conversation.update_attributes(updated_at: Time.current) if @message.save
+    body = current_user.name + ' lemondta a rendelést a(z) ' + good.name + " termékedről.\n" + Time.current.to_s(:db) 
+    seller = User.find_by_id(good.seller_id)
+    send_message(body: body, receiver_id: seller.id)
+    UserMailer.with(receiver: seller, body: body).to_sold_goods_mail.deliver_now
 
     redirect_to action: 'my_cart', controller: 'users'
   end
 
   def delete
     @purchase = Purchase.find(params[:id])
+    body = "Az eladó, " + current_user.name + " jóváhagyta a termék kifizetését. " + Time.current.to_s(:db) 
+    buyer = User.find_by_id(@purchase.buyer_id)
+    send_message(body: body, receiver_id: buyer.id)
+    UserMailer.with(receiver: buyer, body: body).purchase_paid_mail.deliver_now
     @purchase.destroy
-    flash[:notice] = 'Jeleztet a termék kifizetését'
     redirect_to action: 'sold_goods', controller: 'users'
+  end
+
+  private
+
+  def send_message(receiver_id:, body:)
+    if Conversation.between(current_user.id, receiver_id).present?
+      @conversation = Conversation.between(current_user.id, receiver_id).first
+    else
+      @conversation = Conversation.create!(sender_id: current_user.id, receiver_id: receiver_id)
+    end
+    @message = @conversation.messages.new
+    @message.body = body
+    @message.user = current_user
+    @conversation.update_attributes(updated_at: Time.current) if @message.save
   end
 end

@@ -41,7 +41,7 @@ Rails.application.routes.draw do
 
   get '/purchases/to_cart' => 'purchases#to_cart'
   post '/purchases/to_cart' => 'purchases#to_cart'
-  get '/purchases/back_from_cart' => 'purchases#back_from_cart'
+  get '/purchases/back_from_cart' => 'purchases#back_from_cart', as: "back_from_cart"
   get '/purchases/delete' => 'purchases#delete'
 
   get '/product/choose' => 'products#choose'

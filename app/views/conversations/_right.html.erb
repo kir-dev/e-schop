@@ -1,0 +1,13 @@
+<% recipient = @conversation.sender_id == current_user.id ? @conversation.receiver : @conversation.sender %>
+<div class="uk-card uk-padding-small uk-card-default " uk-sticky="offset: 80; bottom: #top">
+    <div class="uk-card-body uk-padding-small">
+        <h2  class="uk-margin-remove-bottom"><%= recipient.name %></h2>
+    </div>
+    <div class="uk-card-footer uk-padding-small">
+        Szobaszám: <%= recipient.roomnumber %>
+    </div>
+</div>
+    <% @goods = Good.all.where(seller_id: recipient.id).order(created_at: :desc) %>
+<div>
+    <%= render partial:'goods/list',object: @goods %>
+</div>

@@ -23,8 +23,8 @@
                                 </p>
 
                                 <p>
-                               
-                                <% seller=@sellers.select{|seller| seller.id==modal.seller_id}.first%>
+                                <!--@sellers.select{|seller| seller.id==modal.seller_id}.first-->
+                                <% seller = User.find_by_id(modal.seller_id)%>
                                 <% if current_user != seller || current_user.nil? %>
                                     <strong>Eladó:</strong> 
                                     <%= link_to seller.username, { action: 'show_other_user', controller: 'users',
@@ -34,7 +34,7 @@
                                 <% end %>
                                 </p>
                                 <div>
-                                   <%=render partial:"tags", object:modal.tags%>
+                                   <%=render partial:"goods/tags", object:modal.tags%>
                                 </div>
 
                                 <p>
