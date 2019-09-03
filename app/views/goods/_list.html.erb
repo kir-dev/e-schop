@@ -4,15 +4,40 @@
 
 <script>
 
+
 function OpenModal()
 {
-    // alert(event.target.id);
      element= document.getElementById("modal-"+event.target.id.split('-')[1]);
      element.style.visibility="visible";
      UIkit.modal(element).show();
 }
 
+function removeDuplicateModals()
+{
+    modals=($(".uk-modal"));
+    filtered = []
+     for (let i = 0; i < modals.length; i++) {
+    in_filtered=false
+         for (let j = 0; j < filtered.length; j++) 
+         {
+            if(filtered[j].id==modals[i].id)
+            {
+               in_filtered=true
+            }
+
+         }
+    if (!in_filtered){filtered.push(modals[i])}
+    else{modals[i].remove()}
+     }
+     for (let i = 0; i < filtered.length; i++) 
+     {
+         document.body.appendChild(filtered[i]);
+     }
+}
+
  $(document).ready(function(){
+
+    removeDuplicateModals();
     links=($(".modal-link"));
     for (let i = 0; i < links.length; i++) {
        link=links[i];
