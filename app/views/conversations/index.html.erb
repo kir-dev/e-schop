@@ -26,7 +26,7 @@
 		list: {
 		onChooseEvent: function() {
 				var index=input.getSelectedItemIndex()
-				input.val(users.users[index].id)
+				$("#selected_user_id").val(users.users[index].id)
 
 				
 				document.forms["search_form"].submit();
@@ -122,6 +122,7 @@
                     
 					<%= form_with url: url_for(action: 'view', controller: 'conversations'), local: true, method: :get, id: 'search_form', class: "uk-padding-small uk-padding-remove-left uk-padding-remove-right" do |form| %>
 						<%= form.text_field :q, placeholder: "Keresés a felhasználók között" %>
+						<%= hidden_field_tag :selected_user_id, ''  %> 
 					<% end %>							
 										
                 </div>
