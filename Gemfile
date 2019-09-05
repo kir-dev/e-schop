@@ -4,6 +4,9 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
+
+gem 'simplecov', require: false, group: :test #test coverage visualization
+
 gem 'image_processing', '~> 1.0' # resize
 
 gem 'ransack', '~> 2.1', '>= 2.1.1' # atocomplete
@@ -62,6 +65,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails', '~> 5.0', '>= 5.0.2'
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :development do

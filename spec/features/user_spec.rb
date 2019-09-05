@@ -1,5 +1,6 @@
-require "application_system_test_case"
-class GoodsTest < ApplicationSystemTestCase
+require 'rails_helper'
+
+RSpec.feature "Users", type: :feature do
 
   setup do
     create(:user)
@@ -9,8 +10,7 @@ class GoodsTest < ApplicationSystemTestCase
   end
 
 
-  test "login" do
-
+  it 'Check login' do
     visit (goods_path)
 
     within find('#topbar') do
@@ -23,5 +23,4 @@ class GoodsTest < ApplicationSystemTestCase
     
     assert_current_path(root_path)
   end
-  
 end
