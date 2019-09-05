@@ -24,7 +24,7 @@
                     <% end %>
                 <% end %>
                 <li>
-                    <%=link_to conversations_path do %>
+                    <%=link_to conversations_path(mobile: 'left') do %>
                         Üzenetek <span class="uk-badge"><%=message_num.to_s%></span>
                     <%end%>
                 </li>

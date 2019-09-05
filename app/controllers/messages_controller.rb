@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
     @messages = @conversation.messages
     @messages.where('user_id != ? AND read = ?', current_user.id, false).update_all(read: true)
     @message = @conversation.messages.new
-      redirect_to controller: 'conversations', action: 'index', conversation_id: @conversation.id, new_conv: true
+    redirect_to controller: 'conversations', action: 'index', conversation_id: @conversation.id, new_conv: true
   end
 
   def create

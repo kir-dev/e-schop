@@ -9,7 +9,10 @@ class PurchasesController < ApplicationController
     body = current_user.name + ' megrendelt a(z) ' + good.name + ' termékedből ' +
                     @purchase.number.to_s + " darabot.\n" + Time.current.to_s(:db)
     seller = User.find_by_id(good.seller_id)
-    if @purchase.number < good.number && @purchase.save
+    if @purchase.number.nil? || @purchase.number == 0
+      flash[:alert] = "Nem vásároltál terméket"
+      redirect_to action: 'show', controller: 'goods', id: params[:id]
+    elsif @purchase.number < good.number && @purchase.save
       good.update_attributes(number: good.number - @purchase.number)
       send_message(body: body, receiver_id: seller.id)
       UserMailer.with(receiver: seller, purchase_id: @purchase.id,
