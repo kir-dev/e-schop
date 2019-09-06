@@ -29,7 +29,6 @@ class GoodsTest < ApplicationSystemTestCase
 
     within('#main') do
       page.all(:xpath, './a')[0].click
-      byebug
     end
   end
 end
