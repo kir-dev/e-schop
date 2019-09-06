@@ -1,6 +1,6 @@
 <%= form_for [@conversation, @message] do |f| %>
-	<div align = "center" class = "uk-align-center">
-		<%= f.text_field :body, placeholder: "Üzenet", autocomplete: :off, class: "uk-input uk-width-3-4 uk-border-pill" %>
+	<div align = "center" class = "uk-align-center" id = "message_form">
+		<%= f.text_field :body, placeholder: "Üzenet", autocomplete: :off, class: "uk-input uk-width-3-4 uk-border-pill", autofocus: true %>
 		<%= hidden_field_tag(:mobile, "middle")%>
 		<button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-border-pill">
 			<span uk-icon="arrow-up"></span>

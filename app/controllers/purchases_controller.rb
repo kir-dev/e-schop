@@ -38,14 +38,13 @@ class PurchasesController < ApplicationController
     good = Good.with_deleted.find(@purchase.good_id)
     good.number += @purchase.number
     good.update_attributes(deleted_at: nil)
-    flash[:notice] = t(:back_from_cart)
     @purchase.destroy
 
     body = current_user.name + ' lemondta a rendelést a(z) ' + good.name + " termékedről.\n" + Time.current.to_s(:db) 
     seller = User.find_by_id(good.seller_id)
     send_message(body: body, receiver_id: seller.id)
     UserMailer.with(receiver: seller, body: body).to_sold_goods_mail.deliver_now
-
+    flash[:notice] = t(:back_from_cart)
     redirect_to action: 'my_cart', controller: 'users'
   end
 

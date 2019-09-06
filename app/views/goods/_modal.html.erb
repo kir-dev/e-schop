@@ -25,10 +25,12 @@
                     <p>
                     <!--@sellers.select{|seller| seller.id==modal.seller_id}.first-->
                     <% seller = User.find_by_id(modal.seller_id)%>
-                    <% if current_user != seller || current_user.nil? %>
+                    <% if current_user.nil? %>
+                        <strong>Eladó:</strong> <%= seller.username %>
+                    <% elsif current_user != seller %>
                         <strong>Eladó:</strong> 
-                        <%= link_to seller.username, { action: 'show_other_user', controller: 'users',
-                                                    id: seller.id, good_id: modal.id }  %>
+                        <%= link_to seller.username, conversations_path(sender_id: current_user.id, 
+                                                    receiver_id: seller.id), method: :post %>
                     <% else %>
                         <strong>saját termék</strong>
                     <% end %>

@@ -14,7 +14,15 @@
             <% else %>           
                 <li class="uk-nav-header">
                     <a href="#"><%= current_user.username %></a>
-                    </li>
+                </li>
+                <li>
+                    <%=link_to user_path(current_user.id) do %>
+                        Profilom 
+                        <% if current_user.roomnumber.nil? %>
+                            <span class="uk-badge uk-background-secondary"> ! </span>
+                        <% end %>
+                    <%end%>
+                </li>
 
                 <%@conversations = Conversation.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)%>
                 <% message_num = 0 %>

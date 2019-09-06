@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_29_125135) do
+ActiveRecord::Schema.define(version: 2019_09_05_215410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,13 @@ ActiveRecord::Schema.define(version: 2019_08_29_125135) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_goods_on_deleted_at"
+  end
+
+  create_table "goods_and_tags_relations", force: :cascade do |t|
+    t.bigint "good_id"
+    t.bigint "tag_id"
+    t.index ["good_id"], name: "index_goods_and_tags_relations_on_good_id"
+    t.index ["tag_id"], name: "index_goods_and_tags_relations_on_tag_id"
   end
 
   create_table "goods_tags", id: false, force: :cascade do |t|
@@ -179,11 +186,14 @@ ActiveRecord::Schema.define(version: 2019_08_29_125135) do
     t.datetime "updated_at", null: false
     t.string "username"
     t.integer "roomnumber"
+    t.text "description"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "goods_and_tags_relations", "goods"
+  add_foreign_key "goods_and_tags_relations", "tags"
   add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", column: "conversation_id", name: "mb_opt_outs_on_conversations_id"
   add_foreign_key "mailboxer_notifications", "mailboxer_conversations", column: "conversation_id", name: "notifications_on_conversation_id"
   add_foreign_key "mailboxer_receipts", "mailboxer_notifications", column: "notification_id", name: "receipts_on_notification_id"

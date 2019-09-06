@@ -5,14 +5,11 @@ Rails.application.routes.draw do
 
   get '/' => 'goods#index'
   root to: 'goods#index'
-
-  get '/user/show' => 'users#show'
+  resources :users, only: %i[show update]
   get '/user/good_show' => 'users#good_show'
   get '/user/my_cart' => 'users#my_cart'
   get '/user/my_goods' => 'users#my_goods'
-  get '/user/show_other_user' => 'users#show_other_user'
   get '/user/sold_goods' => 'users#sold_goods'
-  get '/user/purchase_show' => 'users#purchase_show'
 
   resources :goods, only: %i[new create show index destroy]
   # get '/good/show' => 'goods#show'

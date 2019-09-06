@@ -1,30 +1,27 @@
-<h2> <%=current_user.username%> profil adatok </h2>
-<div> <%=link_to "Adatok módosítása", {action: 'edit'} %> </div>
+<div class="uk-flex uk-flex-center">
+   <div class="uk-card uk-card-body">
 
-<% cart_num = 0 %>
-<% @purchases.each do |p| %>
-    <% if p.buyer_id == current_user.id%>
-       <% cart_num += 1 %>
+    <h1> <%= current_user.name %> </h1>
+
+    <%= form_with url: user_path, method: :patch do |form| %>
+      <% if current_user.roomnumber.nil? %>
+        <h3 class = "uk-text-danger" > Szobaszám: </h3>
+        <%= form.text_field :new_room, value: current_user.roomnumber, class: "uk-form-danger" %>
+      <% else %>
+        <h3> Szobaszám: </h3>
+        <%= form.text_field :new_room, value: current_user.roomnumber %>
+      <% end %>
+      <h3 align = 'left' class = "uk-margin-remove-top "> Leírás: </h3>
+      <%= form.text_area :new_description, value: current_user.description, class: "uk-textarea" %>
+      <button class="uk-button uk-button-primary">Mentés</button>
     <% end %>
-<%end%>
-<% felirat = "Kosaram (" + cart_num.to_s + ")" %>
-<div> <%=link_to felirat, {action: 'my_cart', controller: 'users'} %> </div>
 
-<% good_num = 0 %>
-<% @goods.each do |g| %>
-    <% if g.seller_id == current_user.id %>
-       <% good_num += 1 %>
-    <% end %>
-<%end%>
-<% felirat = "Termékeim (" + good_num.to_s + ")" %>
-<div> <%=link_to felirat, {action: 'my_goods', controller: 'users'} %> </div>
+    <h3 class = "uk-padding-small uk-padding-remove-left uk-margin-remove"> <%= link_to 'Üzenetek', conversations_path %> </h3>
+    <h3 class = "uk-padding-small uk-padding-remove-left uk-margin-remove"> <%= link_to 'Kosaram', user_my_cart_path %> </h3>
+    <h3 class = "uk-padding-small uk-padding-remove-left uk-margin-remove"> <%= link_to 'Termékeim', user_my_goods_path %> </h3>
+    <h3 class = "uk-padding-small uk-padding-remove-left uk-margin-remove"> <%= link_to 'Megrendelt termékeim', user_sold_goods_path %> </h3>
 
-<% good_num = 0 %>
-<% @purchases.each do |p| %>
-    <% if Good.with_deleted.find_by_id(p.good_id).seller_id == current_user.id %>
-       <% good_num += 1 %>
-    <% end %>
-<%end%>
-<% felirat = "Megrendelt termékeim (" + good_num.to_s + ")" %>
-<div> <%=link_to felirat, {action: 'sold_goods', controller: 'users'} %> </div>
-
+  </div>
+</div>
+  
+    

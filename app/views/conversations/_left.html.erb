@@ -22,13 +22,12 @@
 		list: {
 		onChooseEvent: function() {
 				var index=input.getSelectedItemIndex()
-				input.val(users.users[index].id)
+				$("#selected_user_id").val(users.users[index].id)
 
 				
 				document.forms["search_form"].submit();
 			}
 		}
-
 	}
 	input.easyAutocomplete(options)
 	});

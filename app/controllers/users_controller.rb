@@ -25,7 +25,15 @@ class UsersController < ApplicationController
     @purchases = Purchase.all.order(created_at: :desc)
   end
 
-  def show_other_user
-    @user = User.find(params[:id])
+  def show; end
+
+  def update
+    if params[:new_room]
+      current_user.update_attributes(roomnumber: params[:new_room])
+    end
+    if params[:new_description]
+      current_user.update_attributes(description: params[:new_description])
+    end
+    redirect_to user_path
   end
 end
