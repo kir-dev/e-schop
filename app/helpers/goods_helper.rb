@@ -47,5 +47,14 @@ module GoodsHelper
     seller
   end
 
+  def find_sellers_for_goods(goods)
+    seller_ids = []
+    goods.each do |good|
+      seller_id = good.seller_id
+      seller_ids.push(seller_id) unless seller_ids.include?(seller_id)
+    end
+    User.where(id: seller_ids)
+  end
+
 
 end

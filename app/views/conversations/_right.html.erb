@@ -22,7 +22,11 @@
 </div>
 <h3 class = "uk-padding-small uk-padding-remove-left" uk-tooltip="title: Leírás; pos: bottom"> <%=recipient.description%> </h3>
 
-      <%@goods = Good.all.where(seller_id: recipient.id).order(created_at: :desc).limit(5)%>      
+      <%@goods = Good.all.with_attached_photo.where(seller_id: recipient.id).order(created_at: :desc).limit(5)
+	  .includes(:tags)%> 
+	   <% @products=get_proucts_for_goods(@goods)%>
+	   <%@sellers= find_sellers_for_goods(@goods)%>
+	  <%puts "QUERY rIGHT"%>     
 <div>
     <%= render partial:'goods/list',object: @goods, locals: {conversation: true} %>
 </div>
