@@ -1,21 +1,21 @@
 <% recipient = @conversation.sender_id == current_user.id ? @conversation.receiver : @conversation.sender %>
 <div class="uk-card uk-padding-small uk-card-default " uk-sticky="offset: 80; bottom: #top">
     <div class="uk-grid-small uk-child-width-1-3 uk-text-center" uk-grid>
-			<div>
-				<div class="uk-card uk-align-left uk-hidden@m">
-					<%= link_to conversations_path(conversation_id: @conversation.id, mobile: "middle"), class: "uk-link-reset" do %>
-						<button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-border-rounded">
-							<span uk-icon="arrow-left"></span>
-						</button>
-					<% end %>
-				</div>
-			</div>
-			<div>
-				<div class="uk-card">
-					<h2><%= recipient.name %></h2>
-				</div>
+		<div>
+			<div class="uk-card uk-align-left uk-hidden@m">
+				<%= link_to conversations_path(conversation_id: @conversation.id, mobile: "middle"), class: "uk-link-reset" do %>
+					<button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-border-rounded">
+						<span uk-icon="arrow-left"></span>
+					</button>
+				<% end %>
 			</div>
 		</div>
+		<div>
+			<div class="uk-card">
+				<h2><%= recipient.name %></h2>
+			</div>
+		</div>
+	</div>
     <div class="uk-card-footer uk-padding-small">
         Szobaszám: <%= recipient.roomnumber %>
     </div>

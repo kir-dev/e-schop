@@ -52,7 +52,7 @@
     <% if conversation == @conversation %>
         <div class = "uk-visible@m">
             <%= link_to conversations_path(conversation_id: conversation.id), class: "uk-link-reset" do %>
-                <div class="uk-card uk-card-primary uk-padding-small uk-padding-remove-top uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
+                <div class="uk-card uk-card-primary uk-padding-small uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
                     <div class="uk-card-body uk-padding-small">
                         <h3 class=" uk-margin-remove-bottom"><%= recipient.name%></h3>
                         <p class="uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00"><%= conversation.updated_at.to_s(:db)%></time></p>
@@ -62,7 +62,7 @@
         </div>
         <div class = "uk-hidden@m">
             <%= link_to conversations_path(conversation_id: conversation.id, mobile: "middle"), class: "uk-link-reset" do %>
-                <div class="uk-card uk-padding-small uk-padding-remove-top uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
+                <div class="uk-card uk-padding-small uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
                     <div class="uk-card-body uk-padding-small">
                         <% unless conversation.unread_message_count(current_user).zero? %>
                             <h3 class="uk-text-secondary uk-text-bold uk-margin-remove-bottom"><%= recipient.name%>
@@ -81,7 +81,7 @@
         </div>    
     <% else %>
         <%= link_to conversations_path(conversation_id: conversation.id, mobile: "middle"), class: "uk-link-reset" do %>
-            <div class="uk-card uk-padding-small uk-padding-remove-top uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
+            <div class="uk-card uk-padding-small uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
                 <div class="uk-card-body uk-padding-small">
                     <% unless conversation.unread_message_count(current_user).zero? %>
                         <h3 class="uk-text-secondary uk-text-bold uk-margin-remove-bottom"><%= recipient.name%>

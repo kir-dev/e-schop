@@ -22,7 +22,7 @@
 <br class = "uk-hidden@m">
 <br class = "uk-hidden@m">
 <% recipient = @conversation.sender_id == current_user.id ? @conversation.receiver : @conversation.sender %>
-<div style = "position: absolute; top: 80px; width: 100%; margin: 0px; padding: 0px;" class="uk-card uk-padding-small uk-card-default uk-padding-remove-top uk-padding-remove-bottom uk-hidden@m">
+<div style = "position: absolute; top: 80px; width: 100%; margin: 0px;" class="uk-card uk-padding-small uk-card-default uk-padding-remove-bottom uk-hidden@m">
 	<div class="uk-card-body uk-padding-small uk-padding-remove-bottom">
 		<div class="uk-grid-small uk-child-width-1-3 uk-text-center" uk-grid>
 			<div>
@@ -35,7 +35,7 @@
 				</div>
 			</div>
 			<div>
-				<div class="uk-card uk-padding-remove-bottom uk-padding-remove-bottom">
+				<div class="uk-card">
 					<%= link_to conversations_path(conversation_id: @conversation.id, mobile: "right"), class: "uk-link-reset" do %>
 						<h2><%= recipient.name %></h2>
 					<% end %>

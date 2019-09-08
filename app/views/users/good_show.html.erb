@@ -35,14 +35,13 @@
           <% if @good.seller_id != current_user.id %>
             <strong>Eladó:</strong>
             <% seller = User.find_by_id(@good.seller_id) %>
-            <%= link_to seller.username, { action: 'show_other_user',
-                                           id: seller.id, good_id: @good.id }  %>
+            
+            <%= link_to seller.username, conversations_path(sender_id: current_user.id, receiver_id: seller.id), method: :post  %>
           <% elsif @good.seller_id == current_user.id && !params[:purchase_id].nil? %>
             <strong>Vevő:</strong>
             <% purchase = Purchase.find(params[:purchase_id]) %>
             <% buyer = User.find_by_id(purchase.buyer_id) %>
-            <%= link_to buyer.username, { action: 'show_other_user',
-                                           id: buyer.id, good_id: @good.id }  %>
+            <%= link_to buyer.username, conversations_path(sender_id: current_user.id, receiver_id: buyer.id), method: :post  %>
           <% end %>
         </p>
 
@@ -54,7 +53,7 @@
         </p>
 
         <% if @good.seller_id == current_user.id && params[:purchase_id].nil? %>
-          <p><%= link_to 'Törlés', {action: 'delete_num', controller: 'goods', id: @good.id}%></p>
+          <a href="#modal-center" uk-toggle>Törlés</a>
           <p><%= link_to 'Szerkesztés', {action: 'edit', controller: 'goods', id: @good.id}%></p>
         <% end %>
         <% if !params[:purchase_id].nil? %>
@@ -74,4 +73,18 @@
       </div>
     </div>   
   </div>
+</div>
+
+<div id="modal-center" class="uk-flex-top" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <% @number = Good.new %>
+        <div align = "center">
+          <%= form_for @number, :url => url_for(action: 'delete', controller: 'goods'), class: "uk-form-horizontal uk-margin-large" do |f| %>
+              <%= f.select :number, options_for_select(0..@good.number)%>   
+            <%= hidden_field_tag(:id, @good.id)%>
+            <%= f.submit "Törlés" %>
+          <% end %>
+        </div>
+    </div>
 </div>

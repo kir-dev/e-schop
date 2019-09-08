@@ -21,22 +21,21 @@ function newTag()
   if(input.val()=="")return;
 
   if ( selected_tags.val()=="") {
-          badge=createBadgeForTag(input.val())
-          tag_container.append(badge);
-          selected_tags.val(input.val())
-        }
-        else {
-          let st=selected_tags.val().split("#");
-          if(!st.includes(input.val()))
-          {
-            badge=createBadgeForTag(input.val())
-            tag_container.append(badge);
-            selected_tags.val(selected_tags.val()+"#"+input.val())
-          }
-        } 
-         input.val("");
+    badge=createBadgeForTag(input.val())
+    tag_container.append(badge);
+    selected_tags.val(input.val())
+  }
+  else {
+    let st=selected_tags.val().split("#");
+    if(!st.includes(input.val()))
+    {
+      badge=createBadgeForTag(input.val())
+      tag_container.append(badge);
+      selected_tags.val(selected_tags.val()+"#"+input.val())
+    }
+  } 
+    input.val("");
 }
-
 
 function removeSelectedTag(event){
  input=$("#good_tags")
@@ -93,34 +92,73 @@ document.addEventListener("turbolinks:load",function()
   input.easyAutocomplete(options);
 
 });
-<%if @categories.nil?%>
-  <%@categories=Category.all%>
-<%end%>
+
+function errorNotification(message) {
+  UIkit.notification({message: message, status: 'danger', timeout: 2500});
+}
+
+function submitValidation() {
+  var name = document.getElementById("good_name").value
+  var price = Number(document.getElementById("good_price").value)
+  var main_tag = document.getElementById("good_main_tag").value
+  var number = Number(document.getElementById("good_number").value)
+  
+  var error = false
+
+  if (name == "") {
+    error = true
+    errorNotification("Üres a név")
+  }
+  if (price == "") {
+    error = true
+    errorNotification("Üres az ár")
+  } else if (isNaN(price)) {
+    error = true
+    errorNotification("Ár nem szám")
+  }
+  if (main_tag == "") {
+    error = true
+    errorNotification("Üres a kategória")
+  }
+  if (number == "") {
+    error = true
+    errorNotification("Üres a darabszám")
+  } else if (isNaN(number)) {
+    error = true    
+    errorNotification("Darabszám nem szám")
+  }
+  if (error) {
+    return false;
+  }
+}
+function buttonEnable() {
+  document.getElementById("my_button").disabled = false;
+}
 
 </script>
     <h1>Termék felvétel</h1>
 
     <div> <%= link_to 'Felvétel meglévőből', {action: 'choose', controller: 'products'} %> </div>
 
-        <%= form_with url: "/goods", scope: :good, local: true do |form| %>
+        <%= form_with url: "/goods", scope: :good, local: true,  html: { onsubmit: "return submitValidation();"} do |form| %>
         <p>
           <%= form.label :Név %><br>
-          <%= form.text_field :name,class:"uk-input" %>
+          <%= form.text_field :name,class:"uk-input", id: "good_name", onchange: "buttonEnable();" %>
         </p>
 
         <p>
           <%= form.label :Ár %><br>
-          <%= form.text_field :price ,class:"uk-input" %>
+          <%= form.text_field :price ,class:"uk-input", onchange: "buttonEnable();" %>
         </p>
 
         <p>
           <%= form.label :Kategória %><br>
-          <%= form.collection_select(:category_id, @categories, :id, :name,{},{:class=>'uk-select'})%>
+          <%= form.collection_select(:main_tag, @main_tags, :name, :name, { include_blank: true },{:class=>'uk-select', onchange: "buttonEnable();"})%>
         </p>
 
         <p>
           <%= form.label :Darabszám %><br>
-          <%= form.text_field :number ,class:"uk-input"%>
+          <%= form.text_field :number ,class:"uk-input", onchange: "buttonEnable();"%>
         </p>
         
         <p>
@@ -130,13 +168,10 @@ document.addEventListener("turbolinks:load",function()
 
          <div id="tag_container"></div>
         <%= hidden_field_tag :selected_tags, ''  %>         
-      <p>
-
-
+        <p>
           <%= form.label :Tagek%><br>
           <%= form.text_field :tags,class:"uk-input"%>
           <%= button_tag "Felvesz", :type => 'button', onclick: "newTag()",class:"uk-button uk-button-default"%>
-
         </p>
 
         <p>
@@ -149,7 +184,7 @@ document.addEventListener("turbolinks:load",function()
         </p>
 
         <p>
-          <%= form.submit "Felvétel" ,class:"uk-button uk-button-default" %>
+          <%= form.submit "Felvétel" ,class:"uk-button uk-button-default", id: "my_button" %>
         </p>
       <% end %>
   </div>

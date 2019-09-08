@@ -56,7 +56,7 @@ class GoodsController < ApplicationController
   end
 
   def new
-    @categories = Category.all
+    @main_tags = Tag.where(category: true)
   end
 
   def create
@@ -81,9 +81,11 @@ class GoodsController < ApplicationController
 
   def destroy
     @good = Good.find_by_id(params[:id])
+    number = @good.number
     @good.update_attributes(number: 0)
     @good.destroy
-    redirect_to controller: 'users', action: 'my_goods'
+    flash[:notice] = number.to_s + " terméket töröltél"
+    redirect_to controller: 'users', action: 'my_goods', method: :get
   end
 
   def delete
@@ -96,18 +98,17 @@ class GoodsController < ApplicationController
       if @good.number > number
         new_num = @good.number - number
         @good.update_attributes(number: new_num)
-        flash[:alert] = t(:good_deleted)
-        redirect_to controller: 'users', action: 'good_show', id: @good.id
+        flash[:notice] = t(:good_deleted)
+        redirect_to controller: 'users', action: 'good_show', id: @good.id, method: :get
       else
         @good.destroy
-        flash[:alert] = t(:good_deleted)
-        redirect_to controller: 'users', action: 'my_goods'
+        flash[:notice] = t(:good_deleted)
+        redirect_to controller: 'users', action: 'my_goods', method: :get
       end
     end
   end
 
   def for_u
-    byebug
     @goods = Good.with_attached_photo.limit(8)
     @products = get_proucts_for_goods(@goods)
   end
@@ -187,7 +188,7 @@ class GoodsController < ApplicationController
     return if good.nil?
 
     selected_tags = params[:selected_tags].split('#')
-
+    selected_tags.unshift(params[:good][:main_tag])
     tags = Tag.all
     selected_tags.each do |tag|
       if tags.any? { |t| t.name == tag }
