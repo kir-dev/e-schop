@@ -36,10 +36,12 @@ module GoodsHelper
 
   def find_seller(id)
   
-    seller = @sellers.select{|seller| seller.id==id}
-    if seller.nil?
+    if @sellers.nil?
       seller = User.find(id)
-    elsif seller.kind_of?(Array)
+    elsif
+      seller = @sellers.select{|seller| seller.id==id}
+    end
+    if seller.kind_of?(Array)
       seller = seller.first 
     end
     seller
