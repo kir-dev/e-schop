@@ -190,7 +190,7 @@ function buttonEnable() {
         <%= hidden_field_tag :selected_tags, ''  %>         
       <p>
         <%= form.label :Tagek%><br>
-        <%= form.text_field :tags,class:"uk-input"%>
+        <%= form.text_field :tags, value: "", class:"uk-input"%>
         <%= button_tag "Felvesz", :type => 'button', onclick: "newTag()",class:"uk-button uk-button-default"%>
       </p>
         <% if @product.photo.attached?%>

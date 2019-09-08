@@ -10,15 +10,10 @@ class ProductsController < ApplicationController
     @product = Product.find_by_id(params[:good][:product_id])
     @good = Good.new(name: @product.name, category_id: @product.category_id)
     @tag_array = Array.new
-    #@product.tags.each do |t|
-     # @tag_array.push t.name
-    #end
-    #@tag_array.shift
-    @tag_array.push("műzli")
-    @tag_array.push("finom")
-    @tag_array.push("egészség")
-    @tag_array.push("fitness")
-    
+    @product.tags.each do |t|
+      @tag_array.push t.name
+    end
+    @tag_array.shift    
     @main_tags = Tag.where(category: true)
   end
 

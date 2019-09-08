@@ -68,6 +68,8 @@ class GoodsController < ApplicationController
     @good.product_id = @product.id
     if @good.save
       add_good_tags_from_params(@good)
+      @product.tags = @good.tags
+      @product.save
       redirect_to controller: 'users', action: 'good_show', id: @good.id
     else
       render action: 'new'

@@ -48,7 +48,7 @@ seednumber.times do |good|
 
   product = Product.create(
     name: good.name,
-    tags: good.tags,
+    tags: good.tags
   )
 
   #     image = open("https://source.unsplash.com/featured/?food")
