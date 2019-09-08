@@ -111,8 +111,10 @@ class GoodsController < ApplicationController
   end
 
   def for_u
-    @goods = Good.with_attached_photo.limit(8)
+    @goods = Good.with_attached_photo.all
+    @recommendtaions = get_recommendations(50) unless current_user.nil?
     @products = get_proucts_for_goods(@goods)
+
   end
 
   def food
@@ -202,8 +204,8 @@ class GoodsController < ApplicationController
     end
   end
 
-  def get_recommendations(recommendations_count)
-    recommendation_per_tag_number = 2
+  def get_recommendations(recommendations_count,recommendation_per_tag_number = 2)
+    
 
     recommendations = []
     user_favourite_tags.each do |tag|
