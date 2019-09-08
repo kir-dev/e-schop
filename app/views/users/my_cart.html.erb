@@ -32,11 +32,15 @@
                             <tr>
                                 <th style="uk-preserve-width,width:20%" rowspan="3">
                                         <% if good.photo.attached? %>
-                                            <%= link_to image_tag(good.photo), {action: 'good_show', id: good.id, purchase_id: p.id} %>
+                                            <%= link_to action: 'good_show', id: good.id, purchase_id: p.id do %>
+                                                <%= image_tag(good.photo) %>
+                                            <% end %>
                                         <% else %>
                                             <% product = Product.find_by_id(good.product_id) %>
                                             <% if product.photo.attached? %>
-                                                <%= link_to image_tag(product.photo), {action: 'good_show', id: good.id, purchase_id: p.id}%>
+                                                <%= link_to action: 'good_show', id: good.id, purchase_id: p.id do %>
+                                                    <%= image_tag(product.photo) %>
+                                                <% end %>
                                             <% end %> 
                                         <% end %>
                                         </th>
@@ -45,8 +49,8 @@
                                 </th>
                                 <th style="width:10%">
                                     <div align = 'center'>
-                                    <% uzenet = "Tényleg törölni akarod a rendelést?"%>                                       
-                                        
+                                    <% uzenet = "Tényleg törölni akarod a rendelést?"%>                                      
+                                        <%= link_to back_from_cart_path(id: p.id), data: {confirm: uzenet} do %> <span uk-icon="icon: trash" uk-tooltip="title: Rendelés törlése; pos: bottom"></span><%end%> </div>
                                     </div>
                                 </th>
                             </tr>
