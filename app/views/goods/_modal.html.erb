@@ -24,7 +24,7 @@
 
                     <p>
                     <!--@sellers.select{|seller| seller.id==modal.seller_id}.first-->
-                    <% seller = User.find_by_id(modal.seller_id)%>
+                    <% seller = find_seller(modal.seller_id)%>
                     <% if current_user.nil? %>
                         <strong>Eladó:</strong> <%= seller.username %>
                     <% elsif current_user != seller %>

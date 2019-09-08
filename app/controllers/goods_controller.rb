@@ -13,7 +13,7 @@ class GoodsController < ApplicationController
   end
 
   def getSelectedGoods
-    goods = Good.with_attached_photo.all.order(name: :asc, created_at: :desc)
+    goods = Good.with_attached_photo.all.order(name: :asc, created_at: :desc).includes(:tags)
     unless params[:post].blank? || params[:post][:category_id].blank?
       goods = goods.select { |g| g.category_id == params[:post][:category_id].to_i }
     end

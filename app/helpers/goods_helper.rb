@@ -33,4 +33,17 @@ module GoodsHelper
       return image
     end
   end
+
+  def find_seller(id)
+  
+    seller = @sellers.select{|seller| seller.id==id}
+    if seller.nil?
+      seller = User.find(id)
+    elsif seller.kind_of?(Array)
+      seller = seller.first 
+    end
+    seller
+  end
+
+
 end
