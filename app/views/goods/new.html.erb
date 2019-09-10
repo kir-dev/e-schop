@@ -97,6 +97,20 @@ document.addEventListener("turbolinks:load",function()
   <%@categories=Category.all%>
 <%end%>
 
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(400)
+                    .height(400);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
     <h1>Termék felvétel</h1>
 
@@ -130,23 +144,20 @@ document.addEventListener("turbolinks:load",function()
 
          <div id="tag_container"></div>
         <%= hidden_field_tag :selected_tags, ''  %>         
-      <p>
-
-
+        <p>
           <%= form.label :Tagek%><br>
           <%= form.text_field :tags,class:"uk-input"%>
           <%= button_tag "Felvesz", :type => 'button', onclick: "newTag()",class:"uk-button uk-button-default"%>
-
         </p>
 
         <p>
-            <%= form.label "Kép feltöltése" %><br>
           <div uk-form-custom>
-            <%= form.file_field :photo %>
-            <button class="uk-button uk-button-default" type="button" tabindex="-1">Választ</button>
-           
+            <%= form.file_field :photo ,onchange:"readURL(this);" %>
+            <input class="uk-input uk-form-width-medium" type="text" placeholder="Select file" >
           </div>
         </p>
+
+          <img id="blah" src="#" alt="fénykép" />
 
         <p>
           <%= form.submit "Felvétel" ,class:"uk-button uk-button-default" %>
