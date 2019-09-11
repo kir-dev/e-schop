@@ -33,6 +33,13 @@ class ProductsController < ApplicationController
       render action: 'new'
     end
   end
+  
+  def search
+    term = params[:scearched_prase].downcase
+    @tags = Tag.select { |tag| tag.name.include?(term) }
+    @products = Product.select { |product| product.name.downcase.include?(term)|| (@tags&product.tags).length>0}
+    render "choose"
+  end
 
   private
 

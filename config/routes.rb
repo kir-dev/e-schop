@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   post '/product/new_from_product' => 'products#new_from_product'
   get '/product/new_from_product' => 'products#new_from_product'
   post '/product/create_from_product' => 'products#create_from_product'
+  get 'product/search'=> 'products#search'
 
   get '/conversations/search/', to: 'conversations#search'
   get '/conversations/view', to: 'conversations#view'
