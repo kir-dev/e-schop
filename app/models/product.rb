@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
-  has_one :category
   has_one_attached :photo
-
+  has_and_belongs_to_many :tags
   def thumb
     photo.variant(resize: '300x300').processed
   end

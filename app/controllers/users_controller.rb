@@ -34,6 +34,12 @@ class UsersController < ApplicationController
     if params[:new_description]
       current_user.update_attributes(description: params[:new_description])
     end
+    if params[:want_email] == "Igen"
+      current_user.update_attributes(want_email: true)
+    else
+      current_user.update_attributes(want_email: false)
+    end
+
     redirect_to user_path
   end
 end

@@ -11,7 +11,23 @@
         <h3> Szobaszám: </h3>
         <%= form.text_field :new_room, value: current_user.roomnumber %>
       <% end %>
-      <h3 align = 'left' class = "uk-margin-remove-top "> Leírás: </h3>
+      <% options = ["Igen", "Nem"]%>
+      <% if current_user.want_email %>
+        <% which = "Igen" %>
+      <% else %>
+        <% which = "Nem" %>
+      <% end %>
+      <h3> E-mail értesítések a termékeid megrendeléséről/lemondásáról: </h3>
+      <% options.each do |option| %>
+        <% if which == option %>
+          <%= form.radio_button :want_email, option, checked: true, class: "uk-radio" %>
+          <%= label_tag(option) %>
+        <% else %>
+          <%= form.radio_button :want_email, option, checked: false, class: "uk-radio" %>
+          <%= label_tag(option) %>
+        <% end %>
+      <% end %>
+      <h3 align = 'left'> Leírás: </h3>
       <%= form.text_area :new_description, value: current_user.description, class: "uk-textarea" %>
       <button class="uk-button uk-button-primary">Mentés</button>
     <% end %>

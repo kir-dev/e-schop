@@ -31,7 +31,7 @@
                 <%= link_to 'Bejelentkezés', new_user_session_path ,class:"uk-visible@m"%> 
             <% else %>
                 <a href="#" class="uk-visible@m"><%= current_user.username %></a>
-                <div uk-dropdown="mode: click" class="uk-visible@m">
+                <div uk-dropdown="mode: click" class="uk-visible@m" style="z-index: -1;">
                     <ul class="uk-nav uk-dropdown-nav">
                         <li>
                             <%=link_to user_path(current_user.id) do %>
@@ -90,7 +90,7 @@
                                     Megrendelt termékeim <span class="uk-badge"><%=good_num.to_s%></span>
                                 <%end%>
                             </li>
-                                <li><%= link_to 'Új termék felvétele', new_good_path %></li> 
+                                <li><%= link_to 'Új termék felvétele', new_good_path, method: :get %></li> 
                             <li><%= link_to 'Kijelentkezés', destroy_user_session_path, method: :delete %></li>
                     </ul>
                 </div>

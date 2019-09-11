@@ -4,7 +4,9 @@
     Válassz a terméksablonok közül!
   </h1>
 </div>
-
+ <form class="uk-search uk-search-default" action="/product/search" accept-charset="UTF-8" method="get" id="nameform">
+                            <input name="scearched_prase" id="scearched_prase" class="uk-search-input" type="search" placeholder="Keresés...">
+                        </form>
 <div uk-scrollspy="target: > div; cls: uk-animation-scale-up; delay: 10; repeat:true;" class="uk-grid-small uk-child-width-1-2 uk-child-width-1-6@m uk-text-center" uk-grid>
     <% @products.each do |g| %>
      

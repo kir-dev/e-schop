@@ -9,7 +9,9 @@
                 <div class="uk-card-header">
                     <div class="uk-grid-small uk-flex-middle" uk-grid>
                         <div class="uk-width-auto">
-                              <%= link_to image_tag get_image(g,"list"), {action: 'good_show', id: g.id} %>
+                            <%= link_to action: 'good_show', id: g.id do %>
+                                <%= image_tag get_image(g,"list") %>
+                            <% end %>
                         </div>
                         <div class="uk-width-expand">
                             <h3 class="uk-card-title uk-margin-remove-bottom">

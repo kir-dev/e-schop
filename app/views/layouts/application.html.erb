@@ -13,7 +13,6 @@
   </head>
  
   <body>
-
    <%=render 'layouts/topbar'%>
    <%=render 'layouts/sidebar'%>
 
@@ -24,7 +23,6 @@
     <% unless alert.nil? %>
       <script>UIkit.notification({message: '<%= alert %>', status: 'danger', timeout: 3000})</script>
     <% end %>
-      
     <%= yield %>
   </body>
 </html>

@@ -81,18 +81,21 @@
 			<div class="Left">
 				<%= render partial: 'left' %>
 			</div>  
-			
-			<div class="Middle wrapper">
-				<%= render partial: 'middle' %>
-			</div>
+			<% unless @conversation.nil? %>
+			  	<div class="Middle" id = "Middle">
+					<%= render partial: 'middle' %>
+				</div>
+			<% end %>			
 		<% end %>
-		<div class = "Right">
-			<%= render partial: 'right' %>
-		</div>
+		<% unless @conversation.nil? %>
+		  	<div class = "Right">
+				<%= render partial: 'right' %>
+			</div>
+		<% end %>		
     </div>
 	<div class = "Container uk-hidden@m">
 		<% if @mobile == "middle" %>
-		<div class = "Middle wrapper">
+		<div class = "Middle" id = "Middle_phone">
 			<%= render partial: 'middle' %>
 		</div>
 		<% elsif @mobile == "right" %>

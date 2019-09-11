@@ -74,7 +74,7 @@
                         <%end%>
                 </li>
 
-                <li><%= link_to 'Új termék felvétele', new_good_path %></li> 
+                <li><%= link_to 'Új termék felvétele', new_good_path, method: :get %></li> 
                 <li><%= link_to 'Kijelentkezés', destroy_user_session_path, method: :delete %></li>                  
             <%end%>
           </ul>
