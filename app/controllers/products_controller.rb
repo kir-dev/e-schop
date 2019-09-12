@@ -35,10 +35,21 @@ class ProductsController < ApplicationController
   end
   
   def search
-    term = params[:scearched_prase].downcase
+    term = params[:product_search].downcase
     @tags = Tag.select { |tag| tag.name.include?(term) }
     @products = Product.select { |product| product.name.downcase.include?(term)|| (@tags&product.tags).length>0}
-    render "choose"
+    
+    respond_to do |format|
+      format.html {
+        render "choose"
+      }
+      format.json do
+        @products
+      end
+    end
+   
+
+    
   end
 
   private

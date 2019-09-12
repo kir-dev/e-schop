@@ -1,12 +1,35 @@
 
+<script>
+document.addEventListener("turbolinks:load",function()
+  {
+  input=$("#product_search")
+  
+  var options = {
+    url: function(phrase){
+     
+      return "/product/search.json?product_search="+phrase
+    },
+    getValue: "name",
+    list: {
+      onChooseEvent: function(){
+        
+       
+      }
+    }
+  }
+  input.easyAutocomplete(options);
+
+});
+</script>
 <div class="uk-block uk-block-primary">
   <h1 class="uk-text-center">
     Válassz a terméksablonok közül!
   </h1>
 </div>
- <form class="uk-search uk-search-default" action="/product/search" accept-charset="UTF-8" method="get" id="nameform">
-                            <input name="scearched_prase" id="scearched_prase" class="uk-search-input" type="search" placeholder="Keresés...">
-                        </form>
+ <form class="uk-search uk-search-default" action="/product/search" accept-charset="UTF-8" method="get" id="product_form">
+                            <input name="product_search" id="product_search" class="uk-search-input" type="search" placeholder="Keresés...">
+                          
+                        </form>  <button type="submit" form="product_form"  class="uk-search-icon-flip" uk-search-icon></button>
 <div uk-scrollspy="target: > div; cls: uk-animation-scale-up; delay: 10; repeat:true;" class="uk-grid-small uk-child-width-1-2 uk-child-width-1-6@m uk-text-center" uk-grid>
     <% @products.each do |g| %>
      
