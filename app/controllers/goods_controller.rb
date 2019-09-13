@@ -6,7 +6,7 @@ class GoodsController < ApplicationController
   before_action :force_json, only: :autocomplete
 
   def index
-    @goods = getSelectedGoods
+    @goods = getSelectedGoods.paginate(page: params[:page], per_page: 25)
     @products = Product.with_attached_photo.all
     @sellers = find_sellers_for_goods(@goods)
 
@@ -42,16 +42,17 @@ class GoodsController < ApplicationController
 
   def edit
     @good = Good.find_by_id(params[:id])
-    @categories = Category.all
+    @main_tags = Tag.where(category: true)
   end
 
   def update
     @good = Good.find_by_id(params[:id])
 
     if @good.update_attributes(good_params)
+      add_good_tags_from_params(@good)
       redirect_to controller: 'users', action: 'good_show', id: @good.id
     else
-      @categories = Category.all
+      @main_tags = Tag.where(category: true)
       render action: 'edit'
     end
   end
@@ -193,7 +194,9 @@ class GoodsController < ApplicationController
     return if good.nil?
 
     selected_tags = params[:selected_tags].split('#')
-    selected_tags.unshift(params[:good][:main_tag])
+    unless params[:good][:main_tag].nil?
+      selected_tags.unshift(params[:good][:main_tag])
+    end
     tags = Tag.all
     selected_tags.each do |tag|
       if tags.any? { |t| t.name == tag }

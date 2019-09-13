@@ -1,27 +1,155 @@
 <div class="uk-flex uk-flex-center">
    <div class="uk-card uk-card-body">
+<script>
 
-    <h1>Termék módosítása</h1>
-        <%= form_for @good, :url => url_for(:action => 'update') do |form| %>
+$(document).on("keydown", ":input:not(textarea):not(:submit)", function(event) {
+if (event.key == "Enter") {
+    
+        event.preventDefault();
+        if(event.target.id=='good_tags'){
+         newTag();
+        }
+    }
+});
+
+function newTag()
+{
+   input=$("#good_tags")
+  tags=$("#good_taged")
+  tag_container=$("#tag_container")
+  selected_tags=$("#selected_tags")
+  if(input.val()=="")return;
+
+  if ( selected_tags.val()=="") {
+    badge=createBadgeForTag(input.val())
+    tag_container.append(badge);
+    selected_tags.val(input.val())
+  }
+  else {
+    let st=selected_tags.val().split("#");
+    if(!st.includes(input.val()))
+    {
+      badge=createBadgeForTag(input.val())
+      tag_container.append(badge);
+      selected_tags.val(selected_tags.val()+"#"+input.val())
+    }
+  } 
+    input.val("");
+}
+
+function removeSelectedTag(event){
+ input=$("#good_tags")
+  tags=$("#good_taged")
+  tag_container=$("#tag_container")
+  selected_tags=$("#selected_tags")
+
+   let st=selected_tags.val().split("#");
+          if(st.includes(event.target.innerText))
+          {
+              removeTargetIndex=st.indexOf(event.target.innerText);
+              //alert(removeTargetIndex);
+
+            st.splice(removeTargetIndex, 1);
+            selected_tags.val(st.join("#"));
+          }
+
+  event.target.remove()
+  }
+
+function createBadgeForTag(tagName)
+{
+   let badge = document.createElement('span');
+   let icon = document.createElement('span');
+  badge.innerHTML=tagName;
+  badge.className='uk-badge';
+   badge.addEventListener("click",removeSelectedTag);
+  badge.appendChild(icon);
+  icon.style.pointerEvents="none"
+  UIkit.icon(icon,{icon:'close'});
+
+ 
+
+  return badge
+}
+
+document.addEventListener("turbolinks:load",function()
+  {
+  input=$("#good_tags")
+  
+  var options = {
+    url: function(phrase){
+      return "/autocomplete?q="+phrase
+    },
+    getValue: "name",
+    list: {
+      onChooseEvent: function(){
+        newTag();
+        
+       
+      }
+    }
+  }
+  input.easyAutocomplete(options);
+
+});
+
+function errorNotification(message) {
+  UIkit.notification({message: message, status: 'danger', timeout: 2500});
+}
+
+function submitValidation() {
+  var name = document.getElementById("good_name").value
+  var price = Number(document.getElementById("good_price").value)
+  var number = Number(document.getElementById("good_number").value)
+  
+  var error = false
+
+  if (name == "") {
+    error = true
+    errorNotification("Üres a név")
+  }
+  if (price == "") {
+    error = true
+    errorNotification("Üres az ár")
+  } else if (isNaN(price)) {
+    error = true
+    errorNotification("Ár nem szám")
+  }
+  if (number == "") {
+    error = true
+    errorNotification("Üres a darabszám")
+  } else if (isNaN(number)) {
+    error = true    
+    errorNotification("Darabszám nem szám")
+  }
+  if (error) {
+    return false;
+  }
+  
+}
+function buttonEnable() {
+  document.getElementById("my_button").disabled = false;
+}
+
+
+</script>
+    <h1>Szerkesztés</h1>
+
+        <%= form_with url: url_for(action: 'update'), scope: :good, local: true,  html: { onsubmit: "return submitValidation();"} do |form| %>
         <%= hidden_field_tag(:id, @good.id)%>
         <p>
           <%= form.label :Név %><br>
-          <%= form.text_field :name,class:"uk-input" %>
+          <%= form.text_field :name,class:"uk-input", id: "good_name", onchange: "buttonEnable();" %>
         </p>
 
         <p>
           <%= form.label :Ár %><br>
-          <%= form.text_field :price ,class:"uk-input" %>
-        </p>
-
-        <p>
-          <%= form.label :Kategória %><br>
-          <%= form.collection_select(:category_id, @categories, :id, :name,{},{:class=>'uk-select'})%>
+          <%= form.text_field :price ,class:"uk-input", onchange: "buttonEnable();" %>
         </p>
 
         <p>
           <%= form.label :Darabszám %><br>
-          <%= form.text_field :number ,class:"uk-input"%>
+          <%= form.text_field :number ,class:"uk-input", onchange: "buttonEnable();"%>
         </p>
         
         <p>
@@ -29,8 +157,16 @@
           <%= form.text_area :description ,class:"uk-textarea" %>
         </p>
 
+        <div id="tag_container"></div>
+        <%= hidden_field_tag :selected_tags, ''  %>         
         <p>
-          <%= form.submit "Mentés" ,class:"uk-button uk-button-default" %>
+          <%= form.label :Tagek, 'Új tagek'%><br>
+          <%= form.text_field :tags, value: "", class:"uk-input"%>
+          <%= button_tag "Felvesz", :type => 'button', onclick: "newTag()",class:"uk-button uk-button-default"%>
+        </p>
+
+        <p>
+          <%= form.submit "Mentés" ,class:"uk-button uk-button-default", id: "my_button" %>
         </p>
       <% end %>
   </div>
