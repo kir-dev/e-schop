@@ -1,5 +1,5 @@
 document.addEventListener("turbolinks:load",function(){
-    input=$("#scearched_prase");
+    input2=$("#scearched_prase");
 
     var options = {
         getValue: "name",
@@ -20,8 +20,10 @@ document.addEventListener("turbolinks:load",function(){
        
         list: {
           onChooseEvent: function(){
-            var url=input.getSelectedItemData().url
-            input.val("");
+
+            var url=input2.getSelectedItemData().url
+            
+            input2.val("");
             Turbolinks.visit(url)
             
            
@@ -29,5 +31,5 @@ document.addEventListener("turbolinks:load",function(){
         }
       }
 
-    input.easyAutocomplete(options);
+    input2.easyAutocomplete(options);
 });

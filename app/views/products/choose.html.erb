@@ -2,7 +2,7 @@
 <script>
 document.addEventListener("turbolinks:load",function()
   {
-  input=$("#product_search")
+  input1=$("#product_search")
   
   var options = {
     url: function(phrase){
@@ -12,12 +12,11 @@ document.addEventListener("turbolinks:load",function()
     getValue: "name",
     list: {
       onChooseEvent: function(){
-        
-       
+       input1.closest("form").submit();
       }
     }
   }
-  input.easyAutocomplete(options);
+  input1.easyAutocomplete(options);
 
 });
 </script>
