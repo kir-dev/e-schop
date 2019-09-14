@@ -142,7 +142,10 @@ class GoodsController < ApplicationController
     @goods = Good.select { |good| good.name.downcase.include?(term) }
 
     respond_to do |format|
-      format.html {}
+      format.html {
+        @goods = Good.select { |good| good.name.downcase.include?(term)|| (@tags&good.tags).length>0 }
+        
+      }
       format.json do
         @tags = @tags.take(3)
         @goods = @goods.take(3)
