@@ -11,5 +11,6 @@ json.tags do
   json.array!(@tags) do |tag|
     json.name tag.name
     json.url "/tags/#{tag.id}"
+    json.image asset_url ("empty.png")
   end
 end
