@@ -153,6 +153,25 @@ class GoodsController < ApplicationController
     end
   end
 
+  def index_search
+    term = params[:index_phrase].downcase
+    @tags = Tag.select { |tag| tag.name.include?(term) }
+    @goods = Good.select { |good| good.name.downcase.include?(term) }
+
+    respond_to do |format|
+      format.html {
+        @goods = Good.select { |good| good.name.downcase.include?(term)|| (@tags&good.tags).length>0 }
+        
+      }
+      format.json do
+        @tags = @tags.take(3)
+        @goods = @goods.take(3)
+        render "search.json"
+      end
+    end
+    
+  end
+
   def autocomplete
     tag_name = params[:q].downcase
     @tags = Tag.select { |tag| tag.name.include?(tag_name) }

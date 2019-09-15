@@ -8,6 +8,7 @@ class Good < ApplicationRecord
   has_one_attached :photo
   has_and_belongs_to_many :tags
 
+  
   def thumb
     photo.variant(resize: '300x300!').processed
   end

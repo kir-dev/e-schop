@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   post '/goods/delete_all' => 'goods#delete_all'
   get '/autocomplete/', to: 'goods#autocomplete'
   get '/search/', to: 'goods#search'
+  get '/index_search/', to: 'goods#index_search'
 
   post '/goods/:id', to: 'goods#view'
   get '/tags/:id', to: 'goods#show_goods_with_tag'

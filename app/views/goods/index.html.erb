@@ -1,8 +1,53 @@
+<script>
+document.addEventListener("turbolinks:load",function(){
+    index_input=$("#index_input");
+
+    var options = {
+        getValue: "name",
+        template: {
+		type: "iconRight",
+		fields: {
+			iconSrc: "image"
+		}
+	},
+        url: function(phrase){
+          return "/index_search?index_phrase="+phrase
+        },
+        categories: [
+            {   
+                listLocation: "goods",
+                header: "<strong>Termékek<strong>"
+            }, 
+            {   
+                listLocation: "tags",
+                header: "<strong>Cimke<strong>"           
+             }
+        ],
+
+       
+        list: {
+          onChooseEvent: function(){
+
+            var url=index_input.getSelectedItemData().url
+            
+            index_input.val("");
+            Turbolinks.visit(url)
+            
+           
+          }
+        }
+      }
+
+    index_input.easyAutocomplete(options);
+});
+</script>
 <div uk-grid>
     <div class="uk-width-1-4@m">Reklám hely</div>
     <div class="uk-width-1-2@m">
-      <%= render 'for_u' %>
-      <%= render partial:'list',object:@goods %>
+      <form class="uk-search uk-search-default" action="/search/" accept-charset="UTF-8" method="get" id="index_form">
+        <input name="index_phrase" id="index_input" class="uk-search-input" type="search" placeholder="Keresés...">
+      </form>
+      <button type="submit" form="index_form" class="uk-search-icon-flip" uk-search-icon></button> 
     </div>
     <div class="uk-width-1-4@m">Reklám hely</div>
 </div>
