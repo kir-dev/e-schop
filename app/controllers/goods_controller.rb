@@ -6,6 +6,7 @@ class GoodsController < ApplicationController
   before_action :force_json, only: :autocomplete
 
   def index
+    @index=true
     @goods = getSelectedGoods
     @products = Product.with_attached_photo.all
     @sellers = find_sellers_for_goods(@goods)
@@ -137,7 +138,13 @@ class GoodsController < ApplicationController
   end
 
   def search
-    term = params[:scearched_prase].downcase
+
+    unless  params[:index_phrase].nil?
+      term = params[:index_phrase].downcase
+    else
+      term = params[:scearched_prase].downcase
+    end
+   
     @tags = Tag.select { |tag| tag.name.include?(term) }
     @goods = Good.select { |good| good.name.downcase.include?(term) }
 

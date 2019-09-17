@@ -44,10 +44,11 @@ document.addEventListener("turbolinks:load",function(){
 <div uk-grid>
     <div class="uk-width-1-4@m">Reklám hely</div>
     <div class="uk-width-1-2@m">
-      <form class="uk-search uk-search-default" action="/search/" accept-charset="UTF-8" method="get" id="index_form">
+      <form class="uk-search uk-search-default uk-search-navbar" action="/search/" accept-charset="UTF-8" method="get" id="index_form">
         <input name="index_phrase" id="index_input" class="uk-search-input" type="search" placeholder="Keresés...">
+              <button type="submit" form="index_form" class="uk-search-icon-flip" uk-search-icon></button> 
+
       </form>
-      <button type="submit" form="index_form" class="uk-search-icon-flip" uk-search-icon></button> 
     </div>
     <div class="uk-width-1-4@m">Reklám hely</div>
 </div>

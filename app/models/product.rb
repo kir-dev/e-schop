@@ -8,7 +8,6 @@ class Product < ApplicationRecord
   end
 
   def thumb_list
-    byebug
     photo.variant(resize: '320!x320!').processed
   end
 
