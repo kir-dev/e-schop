@@ -11,7 +11,7 @@
 <br class = "uk-hidden@m">
 <br class = "uk-hidden@m">
 <% if !@messages.nil? %>          
-	<% @messages.each do |message| %>
+	<% @messages.reverse.each do |message| %>
 		<% if message.body %>                  
 			<div class="uk-card uk-card-body uk-padding-small">
 				<%= message.chat_indentation %>
