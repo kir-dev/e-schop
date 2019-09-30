@@ -82,8 +82,10 @@
 				<%= render partial: 'left' %>
 			</div>  
 			<% unless @conversation.nil? %>
-			  	<div class="Middle" id = "Middle">
+			  <div class="Middle" id = "Middle">
 					<%= render partial: 'middle' %>
+					<div id="channel-id" data-conversation-id="<%= @conversation.id %>" style="display: hidden; height: 0px; width: 0px;">
+					</div>
 				</div>
 			<% end %>			
 		<% end %>

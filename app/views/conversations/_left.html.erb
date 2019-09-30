@@ -54,7 +54,7 @@
             <%= link_to conversations_path(conversation_id: conversation.id), class: "uk-link-reset" do %>
                 <div class="uk-card uk-card-primary uk-padding-small uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
                     <div class="uk-card-body uk-padding-small">
-                        <h3 class=" uk-margin-remove-bottom"><%= recipient.name%></h3>
+                        <h3 class=" uk-margin-remove-bottom"><%= conversation.id.to_s + " " + recipient.name %></h3>
                         <p class="uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00"><%= conversation.updated_at.to_s(:db)%></time></p>
                     </div>
                 </div>
