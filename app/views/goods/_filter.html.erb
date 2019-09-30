@@ -1,0 +1,148 @@
+<script>
+    function addFloor(id = 0) {
+        if (id != 0) {
+            index = id.split("_");
+            selected_floors=$("#selected_floors");
+            let array;
+            if ( selected_floors.val() == "") {
+                selected_floors.val(index[0]);
+            }
+            else {
+                array = selected_floors.val().split("#");
+                if( !array.includes(index[0]) ) {
+                    selected_floors.val(selected_floors.val() + "#" + index[0])
+                }
+                else {
+                    for ( i = 0; i < array.length; i++ ) {
+                        if ( array[i] == index[0] ) {
+                            array.splice(i,1);
+                        }
+                    }
+                    selected_floors.val("");
+                    if (array[0] != null)
+                        selected_floors.val(array[0]);
+                    for ( i = 1; i < array.length; i++ ) {
+                        selected_floors.val(selected_floors.val() + "#" + array[i])
+                    }
+                }
+            }
+        }
+    }
+    function addTag(id = 0) {
+        if (id != 0) {
+            var index = id.split("[yes]");
+            selected_tags=$("#selected_tags");
+            let array;
+            if ( selected_tags.val() == "") {
+                selected_tags.val(index[0]);
+            }
+            else {
+                array = selected_tags.val().split("#");
+                if( !array.includes(index[0]) ) {
+                    selected_tags.val(selected_tags.val() + "#" + index[0])
+                }
+                else {
+                    for ( i = 0; i < array.length; i++ ) {
+                        if ( array[i] == index[0] ) {
+                            array.splice(i,1);
+                        }
+                    }
+                    selected_tags.val("");
+                    if (array[0] != null)
+                        selected_tags.val(array[0]);
+                    for ( i = 1; i < array.length; i++ ) {
+                        selected_tags.val(selected_tags.val() + "#" + array[i])
+                    }
+                }
+            }
+        }
+    }
+    function setFilters() {
+        let array = <%= @selected_floors.inspect.html_safe %>
+        for (i = 0; i < array.length; i++) {
+            let id = array[i] + "_yes";
+            document.getElementById(id).checked = true;
+            addFloor(id);
+        }
+    }
+    function setFiltersTags() {
+        let array = <%= @selected_tags.inspect.html_safe %>
+        for (i = 0; i < array.length; i++) {
+            let id = array[i];
+            console.log(id)
+            document.getElementById(id).checked = true;
+            addTag(id);
+        }
+    }
+</script>
+<%= form_tag goods_index_get_path, method: :get do %>
+    <h3 style = "display: inline;">Szürők</h3>
+    <%= button_tag(type: "submit", class: "uk-align-right uk-button uk-button-primary uk-border-circle uk-padding-small uk-padding-remove-top uk-padding-remove-bottom") do %>
+        <span uk-icon="icon: settings" uk-tooltip="title: Mehet!; pos: bottom" ></span>
+    <% end %>
+    <h4> Elérhető szintek</h4>
+    <% num = 0%>
+    <% @levels.each do |l|%>
+        <% num += 1%>
+        <% if num <= 7 %>
+          <div class="uk-margin-small uk-padding-small uk-padding-remove-bottom uk-padding-remove-top">
+            <span class = "uk-text-emphasis"><%= l.id %></span>
+            <span class = "uk-text-muted"><%= " (" + l.good_number.to_s + ")" %></span>
+            <%= check_box l.id, "yes", onchange:"addFloor(this.id);", class: "uk-checkbox uk-border-circle" %>
+        </div>
+        <% else %>
+          <div class="toggle-animation-queued uk-margin-small uk-padding-small uk-padding-remove-bottom uk-padding-remove-top" hidden>
+            <span class = "uk-text-emphasis"><%= l.id %></span>
+            <span class = "uk-text-muted"><%= " (" + l.good_number.to_s + ")" %></span>
+            <%= check_box l.id, "yes", onchange:"addFloor(this.id);", class: "uk-checkbox uk-border-circle" %>
+        </div>
+        <% end %>
+    <% end %>
+    <% if num > 7 %>
+        <button class="uk-margin-medium-left toggle-animation-queued uk-button uk-button-default uk-border-circle uk-padding-small uk-padding-remove-top uk-padding-remove-bottom " type="button" uk-toggle="target: .toggle-animation-queued;">
+            <span uk-icon="chevron-down"></span>
+        </button>
+        <button class="uk-margin-medium-left toggle-animation-queued uk-button uk-button-default uk-border-circle uk-padding-small uk-padding-remove-top uk-padding-remove-bottom " type="button" uk-toggle="target: .toggle-animation-queued;" hidden>
+            <span uk-icon="chevron-up"></span>
+        </button>
+    <% end %>
+    
+    <%= hidden_field_tag :selected_floors, ''  %>
+    <hr>
+    <h4>Tagek</h4>
+    <% num = 0%>
+    <% @tags.each do |t|%>
+        <% num += 1%>
+        <% if num <= 7 %>
+        <div class="uk-margin-small uk-padding-small uk-padding-remove-bottom uk-padding-remove-top">
+            <span class = "uk-text-emphasis"><%= t.name %></span>
+            <span class = "uk-text-muted"><%= " (" + t.number.to_s + ")"%></span>
+            <%= check_box t.name, "yes", id: t.name, onchange:"addTag(this.name);", class: "uk-checkbox uk-border-circle" %>
+        </div>
+        <% else %>
+        <div class="toggle-animation-queued-2 uk-margin-small uk-padding-small uk-padding-remove-bottom uk-padding-remove-top" hidden>
+            <span class = "uk-text-emphasis"><%= t.name %></span>
+            <span class = "uk-text-muted"><%= " (" + t.number.to_s + ")"%></span>
+            <%= check_box t.name, "yes", id: t.name, onchange:"addTag(this.name);", class: "uk-checkbox uk-border-circle" %>
+        </div>
+        <% end %>
+    <% end %>
+    <% if num > 7 %>
+        <button class="uk-margin-medium-left toggle-animation-queued-2 uk-button uk-button-default uk-border-circle uk-padding-small uk-padding-remove-top uk-padding-remove-bottom " type="button" uk-toggle="target: .toggle-animation-queued-2;">
+            <span uk-icon="chevron-down"></span>
+        </button>
+        <button class="uk-margin-medium-left toggle-animation-queued-2 uk-button uk-button-default uk-border-circle uk-padding-small uk-padding-remove-top uk-padding-remove-bottom " type="button" uk-toggle="target: .toggle-animation-queued-2;" hidden>
+            <span uk-icon="chevron-up"></span>
+        </button>
+    <% end %>
+
+    <%= hidden_field_tag :selected_tags, ''  %>
+    <%= hidden_field_tag :order_by, @order_by  %>
+    <%= hidden_field_tag :order_direction, @order_direction  %> 
+<% end %>
+<% unless @selected_floors.nil? %>
+    <%= javascript_tag "setFilters()" %>
+<% end %>
+<% unless @selected_tags.nil? %>
+    <%= javascript_tag "setFiltersTags()" %>
+<% end %>

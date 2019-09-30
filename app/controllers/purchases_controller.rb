@@ -25,6 +25,8 @@ class PurchasesController < ApplicationController
                       good_id: good.id, body: @message.body).to_sold_goods_mail.deliver_now
       flash[:notice] = "Az eladót üzenetben értesítettük a rendelésről." 
       good.update_attributes(number: 0)
+      level_num_update(-1, seller.roomnumber)
+      tag_num_update(-1, good.tags)
       good.destroy
       redirect_to action: 'my_cart', controller: 'users'
     else
@@ -37,11 +39,16 @@ class PurchasesController < ApplicationController
     @purchase = Purchase.find_by_id(params[:id])
     good = Good.with_deleted.find(@purchase.good_id)
     good.number += @purchase.number
-    good.update_attributes(deleted_at: nil)
+    seller = User.find_by_id(good.seller_id)
+    unless good.deleted_at.nil?
+      level_num_update(1, seller.roomnumber)
+      tag_num_update(1, good.tags)
+      good.update_attributes(deleted_at: nil)
+    end
+    
     @purchase.destroy
 
     body = current_user.name + ' lemondta a rendelést a(z) ' + good.name + " termékedről.\n" + Time.current.to_s(:db) 
-    seller = User.find_by_id(good.seller_id)
     send_message(body: body, receiver_id: seller.id)
     UserMailer.with(receiver: seller, body: body).to_sold_goods_mail.deliver_now
     flash[:notice] = t(:back_from_cart)

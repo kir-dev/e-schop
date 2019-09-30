@@ -19,7 +19,7 @@ class ConversationsController < ApplicationController
                       Conversation.find_by_id(params[:conversation_id])
                     end
     unless @conversation.nil?
-      @messages = MessageDecorator.decorate_collection(@conversation.messages.order(created_at: :desc))      
+      @messages = MessageDecorator.decorate_collection(@conversation.messages.order(created_at: :asc))      
       @message = @conversation.messages.new
     end
     unless params[:mobile].nil?

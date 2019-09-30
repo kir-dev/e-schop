@@ -33,13 +33,33 @@
 
 
 <div uk-grid>
-    <div class="uk-width-1-4@m">Reklám hely</div>
+    <div class="uk-width-1-4@m">
+        <% if request.env['mobvious.device_type'].to_s == "desktop" %>
+          <%= render partial: 'sort' %>
+          <%= render partial: 'filter' %>
+        <% end %>        
+      </div>
     <div class="uk-width-1-2@m">
       <%= render 'for_u' %>
+      <% if request.env['mobvious.device_type'].to_s == "mobile" || request.env['mobvious.device_type'].to_s == "tablet" %>
+      <div align = "center" class = "uk-margin-large">
+          <button class="uk-button uk-button-default uk-hidden@m uk-border-pill" type="button" uk-toggle="target: #offcanvas-flip">
+            <span uk-icon="icon: settings"></span>
+          </button>
+          <div id="offcanvas-flip" uk-offcanvas="flip: true; overlay: true">
+              <div class="uk-offcanvas-bar">
+                  <button class="uk-offcanvas-close" type="button" uk-close></button>
+                  <%= render partial: 'sort' %>
+                  <%= render partial: 'filter' %>
+              </div>
+          </div>
+      </div>
+      <% end %>
       <%= render partial:'list',object:@goods %>
       <div class="apple_pagination">
-        <%= will_paginate @goods, previous_label: "<span uk-pagination-previous></span>", next_label: "<span uk-pagination-next></span>", inner_window: 1, outer_window: 1 %>
+        <%= will_paginate @goods, params: {floors: @selected_floors, tags: @selected_tags}, previous_label: "<span uk-pagination-previous></span>", next_label: "<span uk-pagination-next></span>", inner_window: 1, outer_window: 1 %>
       </div>
     </div>
     <div class="uk-width-1-4@m">Reklám hely</div>
 </div>
+<%= params.inspect %>

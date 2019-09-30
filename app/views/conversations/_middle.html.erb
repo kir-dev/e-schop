@@ -19,15 +19,19 @@
 		<% end %>
 	<% end %>
 <% end %>
-<%= form_for [@conversation, @message] do |f| %>
-	<div align = "center" class = "uk-align-center" id = "message_form">
-		<%= f.text_field :body, placeholder: "Üzenet", autocomplete: :off, class: "uk-input uk-width-3-4 uk-border-pill", autofocus: true %>
-		<%= hidden_field_tag(:mobile, "middle")%>
-		<button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-border-pill">
-			<span uk-icon="arrow-up"></span>
-		</button>
-	</div>
-<% end %>
+<br>
+<br>
+<div class = "uk-card uk-card-default uk-card-body uk-width-1-2@m uk-width-1-1@s uk-padding-remove-top uk-padding-remove-bottom uk-border-rounded" style = "position: fixed; bottom: 0;">
+	<%= form_for [@conversation, @message] do |f| %>
+		<div align = "center" class = "uk-align-center uk-margin-small" id = "message_form">
+			<%= f.text_field :body, placeholder: "Üzenet", autocomplete: :off, class: "uk-input uk-width-3-4 uk-border-pill", autofocus: true %>
+			<%= hidden_field_tag(:mobile, "middle")%>
+			<button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-border-pill">
+				<span uk-icon="arrow-up"></span>
+			</button>
+		</div>
+	<% end %>
+</div>
 <% recipient = @conversation.sender_id == current_user.id ? @conversation.receiver : @conversation.sender %>
 <div style = "position: absolute; top: 80px; width: 100%; margin: 0px;" class="uk-card uk-padding-small uk-card-default uk-padding-remove-bottom uk-hidden@m">
 	<div class="uk-card-body uk-padding-small uk-padding-remove-bottom">
@@ -43,7 +47,7 @@
 			</div>
 			<div>
 				<div class="uk-card">
-					<%= link_to conversations_path(conversation_id: @conversation.id, mobile: "right"), class: "uk-link-reset" do %>
+					<%= link_to conversations_path(conversation_id: @conversation.id, mobile: "right", new_conv: params[:new_conv]), class: "uk-link-reset" do %>
 						<h2><%= recipient.name %></h2>
 					<% end %>
 				</div>

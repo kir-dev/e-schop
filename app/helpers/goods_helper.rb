@@ -56,5 +56,14 @@ module GoodsHelper
     User.where(id: seller_ids)
   end
 
+  def goods_floor_count(floor) 
+    count = 0
+    Good.all.each do |g|
+      if g.floor == floor
+        count += 1
+      end
+    end
+    count
+  end
 
 end

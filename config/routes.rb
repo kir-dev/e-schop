@@ -3,7 +3,8 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
-  get '/' => 'goods#index'
+  get '/' => 'goods#index', as: 'goods_index_get' 
+  post '/' => 'goods#index', as: 'goods_index'
   root to: 'goods#index'
   resources :users, only: %i[show update]
   get '/user/good_show' => 'users#good_show'

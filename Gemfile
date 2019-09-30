@@ -9,6 +9,8 @@ gem 'draper'
 
 gem 'will_paginate', '~> 3.1.0'
 
+gem 'mobvious'
+
 gem 'image_processing', '~> 1.0' # resize
 
 gem 'ransack', '~> 2.1', '>= 2.1.1' # atocomplete

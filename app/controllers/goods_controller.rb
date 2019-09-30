@@ -6,10 +6,18 @@ class GoodsController < ApplicationController
   before_action :force_json, only: :autocomplete
 
   def index
-    @goods = getSelectedGoods.paginate(page: params[:page], per_page: 25)
+    @goods = get_selected_goods().paginate(page: params[:page], per_page: 25)
+    @order_by = params[:order_by]
+    @order_direction = params[:order_direction]
+
+    @selected_floors = set_selected_floors()
+    @selected_tags = set_selected_tags()   
+
     @products = Product.with_attached_photo.all
     @sellers = find_sellers_for_goods(@goods)
 
+    @levels = Level.where('good_number != ?', 0).order(number: :asc)
+    @tags = Tag.where('number >= ?', 2).order(number: :desc)
     @recommendtaions = get_recommendations(9) unless current_user.nil?
   end
 
@@ -49,7 +57,9 @@ class GoodsController < ApplicationController
     @good = Good.find_by_id(params[:id])
 
     if @good.update_attributes(good_params)
+      tag_num_update(-1, @good.tags)
       add_good_tags_from_params(@good)
+      tag_num_update(1, @good.tags)
       redirect_to controller: 'users', action: 'good_show', id: @good.id
     else
       @main_tags = Tag.where(category: true)
@@ -69,7 +79,9 @@ class GoodsController < ApplicationController
     @good.seller_id = current_user.id
     @good.product_id = @product.id
     if @good.save
+      level_num_update(1, current_user.roomnumber)
       add_good_tags_from_params(@good)
+      tag_num_update(1, @good.tags)
       @product.tags = @good.tags
       @product.save
       redirect_to controller: 'users', action: 'good_show', id: @good.id
@@ -87,6 +99,8 @@ class GoodsController < ApplicationController
     @good = Good.find_by_id(params[:id])
     number = @good.number
     @good.update_attributes(number: 0)
+    level_num_update(-1, current_user.roomnumber)
+    tag_num_update(-1, @good.tags)
     @good.destroy
     flash[:notice] = number.to_s + " terméket töröltél"
     redirect_to controller: 'users', action: 'my_goods', method: :get
@@ -95,6 +109,8 @@ class GoodsController < ApplicationController
   def delete
     @good = Good.find(params[:id])
     if params[:good].nil?
+      level_num_update(-1, current_user.roomnumber)
+      tag_num_update(-1, @good.tags)
       @good.destroy
       redirect_to controller: 'users', action: 'my_goods'
     else
@@ -105,6 +121,8 @@ class GoodsController < ApplicationController
         flash[:notice] = t(:good_deleted)
         redirect_to controller: 'users', action: 'good_show', id: @good.id, method: :get
       else
+        tag_num_update(-1, @good.tags)
+        level_num_update(-1, current_user.roomnumber)
         @good.destroy
         flash[:notice] = t(:good_deleted)
         redirect_to controller: 'users', action: 'my_goods', method: :get
@@ -250,6 +268,142 @@ class GoodsController < ApplicationController
 
   def force_json
     request.format = :json
+  end
+
+  def filter_floor(goods)
+    array = Array.new
+    if params[:selected_floors].nil? || params[:selected_floors] == ""
+      if params[:floors].nil?
+        array = goods
+      else
+        selected_floors = params[:floors]
+      end
+    else
+      selected_floors = params[:selected_floors].split('#')
+    end
+    unless selected_floors.nil?
+      goods.each do |g|
+        if selected_floors.include?(g.floor.to_s)
+          array.push g
+        end
+      end
+    end
+    array
+  end
+  def filter_tag(goods)
+    array = Array.new
+    if params[:selected_tags].nil? || params[:selected_tags] == ""
+      if params[:tags].nil?
+        array = goods
+      else
+        selected_tags = params[:tags]
+      end
+    else
+      selected_tags = params[:selected_tags].split('#')
+    end
+    unless selected_tags.nil?
+      goods.each do |g|
+        van = false
+        g.tags.each do |t|
+          if selected_tags.include?(t.name)
+            van = true
+          end
+        end
+        if van
+          array.push g
+        end
+      end
+    end
+    array
+  end
+
+  def set_selected_floors
+    if !params[:selected_floors].nil?
+      selected_floors = params[:selected_floors].split('#')
+    elsif !params[:floors].nil?
+      selected_floors = params[:floors] 
+    end
+    selected_floors
+  end
+  
+  def set_selected_tags
+    if !params[:selected_tags].nil?
+      selected_tags = params[:selected_tags].split('#')
+    elsif !params[:tags].nil?
+      selected_tags = params[:tags]
+    end
+    selected_tags
+  end
+
+  def get_selected_goods
+    if params[:order_by] == "floor"
+      goods = order_by_floor()
+    else
+      if params[:order_by].nil? || params[:order_by] == "" || params[:order_direction] == ""
+        order_by = "created_at"
+        order_direction = "desc"
+      else
+        order_by = params[:order_by]
+        order_direction = params[:order_direction]
+      end
+      goods = Good.with_attached_photo.all.order(order_by => order_direction).includes(:tags)
+    end
+    floor_arr = filter_floor(goods)
+    tag_arr = filter_tag(goods)
+    goods = floor_arr & tag_arr
+    goods
+  end
+
+  def order_by_floor
+    good = Array.new
+    Good.with_attached_photo.all.order(created_at: :desc).includes(:tags).each do |g|
+      good << g
+    end
+    array = Array.new
+    user_level = current_user.roomnumber / 100
+    i = 0
+    while i < good.length do
+      if good[i].floor == user_level
+        array << good[i]
+        good.delete_at(i)
+        i -= 1
+      end
+      i += 1
+    end
+    j = user_level - 1
+    k = user_level + 1
+
+    n = (user_level - 10).abs + 10
+    for l in 1..n
+      while j > 0 do
+        i = 0
+        while i < good.length do
+          if good[i].floor == j
+            array << good[i]
+            good.delete_at(i)
+            i -= 1
+          end
+          i += 1
+        end
+        j -= 1
+        break
+      end
+      while k <= 20 do
+        i = 0
+        while i < good.length do
+          if good[i].floor == k
+            array << good[i]
+            good.delete_at(i)
+            i -= 1
+          end
+          i += 1
+        end
+        k += 1
+        break
+      end
+    end
+
+    array
   end
 
 end
