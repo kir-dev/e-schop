@@ -50,6 +50,8 @@ Rails.application.routes.draw do
   get '/conversations/search/', to: 'conversations#search'
   get '/conversations/view', to: 'conversations#view'
 
+  mount ActionCable.server => '/cable'
+  
   resources :conversations do
     resources :messages
   end
