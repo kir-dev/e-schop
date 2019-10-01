@@ -1,0 +1,63 @@
+//= require rails-ujs
+//= require jquery
+
+// nr of subscriptions > nr of conversations -> remove all, resub to all
+// nr of subscriptions < nr of conversations -> sub to missing ones
+// nr of subscriptions == nr of conversations -> :)
+$(document).on("turbolinks:load", function() {
+  if(App.cable.subscriptions.subscriptions.length > <%= Conversation.all.length %>){
+    for(let subscription of App.cable.subscriptions.subscriptions){
+      console.log("removed subscription " + subscription.identifier);
+      App.cable.subscriptions.remove(subscription);
+    }
+    <% Conversation.all.each do |conversation| %>
+      createSubscription(<%= conversation.id %>);
+    <% end %>
+  }
+  else if(App.cable.subscriptions.subscriptions.length < <%= Conversation.all.length %>){
+    let subscription_ids = Array();
+    for(let subscription of App.cable.subscriptions.subscriptions)
+      subscription_ids.push(subscription.identifier.id);
+    <% Conversation.all.each do |conversation| %>
+      if(!subscription_ids.includes(<%= conversation.id %>)){
+        createSubscription(<%= conversation.id %>);
+      }
+    <% end %>
+  }
+  else console.log("nr of subscriptions: " + App.cable.subscriptions.subscriptions.length);
+});
+
+function createSubscription(conversation_id){
+  return App.cable.subscriptions.create({
+    channel: "ConversationChannel",
+    id: conversation_id
+  }, {
+    connected: function() {
+      console.log("connected to ConversationChannel id: " + conversation_id);
+    },
+
+    disconnected: function() {
+      console.log("disconnected");
+    },
+
+    rejected: function() {
+      console.log("rejected");
+    },
+
+    received: function(data) {
+      var current_conversation_id = $('#channel-id').attr('data-conversation-id');
+      if(current_conversation_id == conversation_id){
+        console.log(data);
+        var msg = '<div class="uk-card uk-card-body uk-padding-small"><div class="uk-border-rounded uk-card uk-card-body uk-card-default uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-align-left uk-margin-small-left", style: "word-wrap: break-word; max-width: 60%; display: block;">' + data + "</div></div>";
+        $(".new_message").before(msg);
+        var middle;
+        if($("#Middle") != null) middle = $("#Middle");
+        else middle = $("#Middle_phone");
+        middle.animate({ scrollTop: middle.prop("scrollHeight") }, 500);
+      }
+      else{
+        //másiknál jelezni hogy olvasatlan van
+      }
+    }
+  });
+}
