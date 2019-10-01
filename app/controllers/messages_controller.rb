@@ -18,7 +18,8 @@ class MessagesController < ApplicationController
 
     if @message.save
       @conversation.update_attributes(updated_at: Time.current)
-      ConversationChannel.broadcast_to @conversation, @message.body
+      # ConversationChannel.broadcast_to @conversation, @message.body
+      MessageBroadcastJob.perform_now @conversation, @message.body
       redirect_to action: 'index', controller: 'conversations', conversation_id: @conversation.id, mobile: params[:mobile]
     end
   end
