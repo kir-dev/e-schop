@@ -61,17 +61,20 @@
         let array = <%= @selected_floors.inspect.html_safe %>
         for (i = 0; i < array.length; i++) {
             let id = array[i] + "_yes";
-            document.getElementById(id).checked = true;
-            addFloor(id);
+            if (document.getElementById(id) != null ) {
+                document.getElementById(id).checked = true;
+                addFloor(id);
+            }
         }
     }
     function setFiltersTags() {
         let array = <%= @selected_tags.inspect.html_safe %>
         for (i = 0; i < array.length; i++) {
             let id = array[i];
-            console.log(id)
-            document.getElementById(id).checked = true;
-            addTag(id);
+            if (id != null) {
+                document.getElementById(id).checked = true;
+                addTag(id);
+            }
         }
     }
 </script>
@@ -79,22 +82,26 @@
     <h3 style = "display: inline;">Szürők</h3>
     <%= button_tag(type: "submit", class: "uk-align-right uk-button uk-button-primary uk-border-circle uk-padding-small uk-padding-remove-top uk-padding-remove-bottom") do %>
         <span uk-icon="icon: settings" uk-tooltip="title: Mehet!; pos: bottom" ></span>
+    <% end %>    
+    <% if @searched_phrase.nil? %>
+       <% @searched_phrase = ""%>
     <% end %>
+    <div class = "uk-padding-small uk-padding-remove-left uk-padding-remove-right uk-padding-remove-bottom"><%= text_field_tag :searched_phrase, @searched_phrase, class: "uk-input uk-border-pill uk-form-width-medium", placeholder: "Keresés" %></div>
     <h4> Elérhető szintek</h4>
     <% num = 0%>
     <% @levels.each do |l|%>
         <% num += 1%>
         <% if num <= 7 %>
           <div class="uk-margin-small uk-padding-small uk-padding-remove-bottom uk-padding-remove-top">
-            <span class = "uk-text-emphasis"><%= l.id %></span>
+            <span class = "uk-text-emphasis"><%= l.number %></span>
             <span class = "uk-text-muted"><%= " (" + l.good_number.to_s + ")" %></span>
-            <%= check_box l.id, "yes", onchange:"addFloor(this.id);", class: "uk-checkbox uk-border-circle" %>
+            <%= check_box l.number, "yes", onchange:"addFloor(this.id);", class: "uk-checkbox uk-border-circle" %>
         </div>
         <% else %>
           <div class="toggle-animation-queued uk-margin-small uk-padding-small uk-padding-remove-bottom uk-padding-remove-top" hidden>
-            <span class = "uk-text-emphasis"><%= l.id %></span>
+            <span class = "uk-text-emphasis"><%= l.number %></span>
             <span class = "uk-text-muted"><%= " (" + l.good_number.to_s + ")" %></span>
-            <%= check_box l.id, "yes", onchange:"addFloor(this.id);", class: "uk-checkbox uk-border-circle" %>
+            <%= check_box l.number, "yes", onchange:"addFloor(this.id);", class: "uk-checkbox uk-border-circle" %>
         </div>
         <% end %>
     <% end %>
@@ -106,10 +113,16 @@
             <span uk-icon="chevron-up"></span>
         </button>
     <% end %>
-    
+   
     <%= hidden_field_tag :selected_floors, ''  %>
     <hr>
-    <h4>Tagek</h4>
+    <h4 style = "display: inline;">Tagek</h4>
+    <% if !@prev_tags_str.nil? && @prev_tags_str.count("a-zA-Z") > 0 %>
+        <span class = "uk-align-right">
+            <%= link_to 'Szűrés törlése', goods_index_get_path(prev_tags: "") %>
+        </span>
+    <% end %>
+    <div class = "uk-padding-small"> <%= render partial: 'prev_tags_badges' %> </div>
     <% num = 0%>
     <% @tags.each do |t|%>
         <% num += 1%>
@@ -137,12 +150,14 @@
     <% end %>
 
     <%= hidden_field_tag :selected_tags, ''  %>
+    <%= hidden_field_tag :prev_tags, @prev_tags_str  %>
     <%= hidden_field_tag :order_by, @order_by  %>
     <%= hidden_field_tag :order_direction, @order_direction  %> 
 <% end %>
 <% unless @selected_floors.nil? %>
     <%= javascript_tag "setFilters()" %>
 <% end %>
-<% unless @selected_tags.nil? %>
+<!--<% unless @selected_tags.nil? && @selected_tags != "" %>
     <%= javascript_tag "setFiltersTags()" %>
 <% end %>
+-->

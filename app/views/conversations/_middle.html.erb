@@ -1,10 +1,3 @@
-<script>
-	c= document.getElementById("Middle");
-	c.scrollTop = c.scrollHeight;
-	d= document.getElementById("Middle_phone");
-	d.scrollTop = d.scrollHeight;
-</script>>
-
 <br class = "uk-hidden@m">
 <br class = "uk-hidden@m">
 <br class = "uk-hidden@m">
@@ -21,7 +14,7 @@
 <% end %>
 <br>
 <br>
-<div class = "uk-card uk-card-default uk-card-body uk-width-1-2@m uk-width-1-1@s uk-padding-remove-top uk-padding-remove-bottom uk-border-rounded" style = "position: fixed; bottom: 0;">
+<div class = "uk-card uk-card-body uk-width-1-2@m uk-width-1-1@s uk-padding-remove-top uk-padding-remove-bottom uk-border-rounded" style = "position: fixed; bottom: 0; background-color: white;">
 	<%= form_for [@conversation, @message] do |f| %>
 		<div align = "center" class = "uk-align-center uk-margin-small" id = "message_form">
 			<%= f.text_field :body, placeholder: "Üzenet", autocomplete: :off, class: "uk-input uk-width-3-4 uk-border-pill", autofocus: true %>

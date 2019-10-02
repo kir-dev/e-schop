@@ -6,18 +6,18 @@ class GoodsController < ApplicationController
   before_action :force_json, only: :autocomplete
 
   def index
-    @goods = get_selected_goods().paginate(page: params[:page], per_page: 25)
+    @goods, @levels = get_selected_goods()
     @order_by = params[:order_by]
     @order_direction = params[:order_direction]
 
     @selected_floors = set_selected_floors()
-    @selected_tags = set_selected_tags()   
+    @prev_tags_arr, @prev_tags_str = set_selected_tags()   
+    @searched_phrase = params[:searched_phrase]
 
     @products = Product.with_attached_photo.all
     @sellers = find_sellers_for_goods(@goods)
-
-    @levels = Level.where('good_number != ?', 0).order(number: :asc)
-    @tags = Tag.where('number >= ?', 2).order(number: :desc)
+    @tags = set_tags(@goods, @prev_tags_arr)
+    @goods = @goods.paginate(page: params[:page], per_page: 25)
     @recommendtaions = get_recommendations(9) unless current_user.nil?
   end
 
@@ -290,16 +290,16 @@ class GoodsController < ApplicationController
     end
     array
   end
-  def filter_tag(goods)
+  def filter_tag(goods, searched_tags = "")
     array = Array.new
-    if params[:selected_tags].nil? || params[:selected_tags] == ""
-      if params[:tags].nil?
-        array = goods
-      else
-        selected_tags = params[:tags]
-      end
+    selected_tags_s = params[:selected_tags]
+    if searched_tags != ""
+        selected_tags_s = searched_tags
+    end
+    if selected_tags_s.nil? || selected_tags_s == ""
+      array = goods
     else
-      selected_tags = params[:selected_tags].split('#')
+      selected_tags = selected_tags_s.split('#')
     end
     unless selected_tags.nil?
       goods.each do |g|
@@ -327,15 +327,23 @@ class GoodsController < ApplicationController
   end
   
   def set_selected_tags
-    if !params[:selected_tags].nil?
-      selected_tags = params[:selected_tags].split('#')
-    elsif !params[:tags].nil?
-      selected_tags = params[:tags]
+    prev_tags_arr = Array.new
+    prev_tags_str = ""
+    if !params[:prev_tags].nil? && params[:prev_tags] != ""
+      prev_tags_str = prev_tags_str + params[:prev_tags]
     end
-    selected_tags
+    if !params[:selected_tags].nil? && params[:selected_tags] != ""
+      prev_tags_str = prev_tags_str + "&&" + params[:selected_tags]
+    end
+    i = 0
+    prev_tags_str.split("&&").each do |s|
+      prev_tags_arr[i] = s.split("#")
+      i += 1
+    end
+    return prev_tags_arr, prev_tags_str
   end
 
-  def get_selected_goods
+  def get_selected_goods    
     if params[:order_by] == "floor"
       goods = order_by_floor()
     else
@@ -348,17 +356,127 @@ class GoodsController < ApplicationController
       end
       goods = Good.with_attached_photo.all.order(order_by => order_direction).includes(:tags)
     end
-    floor_arr = filter_floor(goods)
-    tag_arr = filter_tag(goods)
-    goods = floor_arr & tag_arr
-    goods
+
+    if !params[:prev_tags].nil? && params[:prev_tags] != ""
+      if !params[:deleted_tag].nil? && params[:deleted_tag] != ""
+        params[:prev_tags].slice! (params[:deleted_tag] + "#")
+        params[:prev_tags].slice! ("#" + params[:deleted_tag])
+        params[:prev_tags].slice! params[:deleted_tag]
+      end
+      params[:prev_tags].split("&&").each do |t|
+        goods = filter_tag(goods, t)
+      end
+    end
+    goods = filter_tag(goods)    
+    goods_from_goods = searched_goods(goods)
+    goods_from_tags = searched_tags(goods)
+    goods = (goods_from_goods + goods_from_tags).uniq {|t| t.id }
+
+    levels = set_levels(goods)
+    goods = filter_floor(goods)
+    
+    return goods, levels
+  end
+
+  def searched_tags(goods)
+    searched_tags = ""
+    if !params[:searched_phrase].nil?
+      Tag.all.each do |t|
+          if t.name.include?(params[:searched_phrase])
+            searched_tags = searched_tags + "#" + t.name
+          end
+      end
+    end
+    filtered = Array.new
+    unless searched_tags == ""
+      filtered = filter_tag(goods, searched_tags)
+    end
+    return filtered
+  end
+
+  def searched_goods(goods)
+    if params[:searched_phrase].nil? || params[:searched_phrase] == ""
+      good_array = goods
+    else
+      good_array = Array.new
+      goods.each do |g|
+        if g.name.downcase == params[:searched_phrase]
+          good_array.unshift(g)
+        elsif g.name.downcase.include?(params[:searched_phrase])
+          good_array << g
+        end
+      end
+    end
+    return good_array
+  end
+
+  def set_tags(goods, prev_tags_arr)
+    if search_params_nil
+      tags_o = Tag.where('number >= ?', 1).order(number: :desc, name: :asc)
+    else
+      tags = Array.new
+      goods.each do |g|
+        g.tags.each do |t|
+          tags << t.name
+        end
+      end
+      tags = tags.uniq
+      prev_tags_arr.each do |t_arr|
+        tags = tags - t_arr
+      end
+      tags_o = Array.new
+      tags.each do |t|
+        num = 0
+        goods.each do |g|
+          unless g.tags.select { |s| s.name == t}.first.nil?
+            num += 1
+          end
+        end
+        tags_o << Tag.new(name: t, number: num)
+      end
+      tags_o.sort_by!(&:name).reverse!
+      tags_o.sort_by!(&:number).reverse!
+    end
+    tags_o
+  end
+
+  def set_levels(goods)
+    levels = Level.where('good_number != ?', 0)
+    unless search_params_nil
+      levels_arr = Array.new
+      levels.each do |l|
+        num = 0
+        goods.each do |g|
+          if g.floor == l.number
+            num += 1
+          end
+        end
+        if num > 0
+          levels_arr << Level.new(number: l.number, good_number: num)
+        end
+      end
+      levels = levels_arr
+    end
+    
+    return levels.sort_by!(&:number)
+  end
+
+  def search_params_nil
+    if params[:searched_phrase] == "" && params[:searched_phrase].nil? &&
+       params[:prev_tags] == "" && params[:prev_tags].nil &&
+       params[:selected_tags] == "" && params[:selected_tags]
+       
+       return true
+    else
+      return false
+    end
   end
 
   def order_by_floor
     good = Array.new
     Good.with_attached_photo.all.order(created_at: :desc).includes(:tags).each do |g|
       good << g
-    end
+    end 
     array = Array.new
     user_level = current_user.roomnumber / 100
     i = 0
@@ -402,8 +520,8 @@ class GoodsController < ApplicationController
         break
       end
     end
-
     array
   end
+
 
 end

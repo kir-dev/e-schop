@@ -2,17 +2,17 @@
 <% unless current_user.nil? %>
     <% unless current_user.roomnumber.nil? %>
         <div class = "uk-padding-small uk-padding-remove-bottom uk-padding-remove-top " >
-            <%= link_to 'Szint', root_path(floors: @selected_floors, tags: @selected_tags, order_by: "floor") %>
+            <%= link_to 'Szint', root_path(prev_tags: @prev_tags_str ,floors: @selected_floors, order_by: "floor") %>
         </div>   
     <% end %>
 <% end %>
 <div class = "uk-padding-small uk-padding-remove-bottom uk-padding-remove-top">
-    <%= link_to 'Legújabb', root_path(floors: @selected_floors, tags: @selected_tags, order_by: "created_at", order_direction: "desc") %>
+    <%= link_to 'Legújabb', root_path(prev_tags: @prev_tags_str, floors: @selected_floors, order_by: "created_at", order_direction: "desc") %>
 </div>
 <div class = "uk-padding-small uk-padding-remove-bottom uk-padding-remove-top">
-    <%= link_to 'Ár: növekvő', root_path(floors: @selected_floors, tags: @selected_tags, order_by: "price", order_direction: "asc") %>
+    <%= link_to 'Ár: növekvő', root_path(prev_tags: @prev_tags_str ,floors: @selected_floors, order_by: "price", order_direction: "asc") %>
 </div>
 <div class = "uk-padding-small uk-padding-remove-bottom uk-padding-remove-top">
-    <%= link_to 'Ár: csökkenő', root_path(floors: @selected_floors, tags: @selected_tags, order_by: "price", order_direction: "desc") %>
+    <%= link_to 'Ár: csökkenő', root_path(prev_tags: @prev_tags_str ,floors: @selected_floors, order_by: "price", order_direction: "desc") %>
 </div>
 <hr>
