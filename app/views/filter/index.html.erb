@@ -40,7 +40,7 @@
         <% end %>        
       </div>
     <div class="uk-width-1-2@m">
-      <%= render 'for_u' %>
+      <%= render 'goods/for_u' %>
       <% if request.env['mobvious.device_type'].to_s == "mobile" || request.env['mobvious.device_type'].to_s == "tablet" %>
       <div align = "center" class = "uk-margin-large">
           <button class="uk-button uk-button-default uk-hidden@m uk-border-pill" type="button" uk-toggle="target: #offcanvas-flip">
@@ -54,13 +54,15 @@
               </div>
           </div>
       </div>
-      <div class = "uk-padding-small"> <%= render partial: 'prev_tags_badges' %> </div>
+      <hr>
+        <h3 class = "uk-padding-remove uk-margin-remove"> Szűrés: </h3>
+        <div> <%= render partial: 'prev_tags_badges' %> </div>
+      <hr>
       <% end %>
-      <%= render partial:'list',object:@goods %>
+      <%= render partial:'goods/list',object:@goods %>
       <div class="apple_pagination">
         <%= will_paginate @goods, params: {searched_phrase: @searched_phrase}, previous_label: "<span uk-pagination-previous></span>", next_label: "<span uk-pagination-next></span>", inner_window: 1, outer_window: 1 %>
       </div>
     </div>
     <div class="uk-width-1-4@m">Reklám hely</div>
 </div>
- <%= params.inspect %>
