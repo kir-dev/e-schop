@@ -3,6 +3,7 @@
 class GoodsController < ApplicationController
   include ProductsHelper
   include GoodsHelper
+
   before_action :force_json, only: :autocomplete
 
   def index
@@ -11,7 +12,7 @@ class GoodsController < ApplicationController
     @products = Product.with_attached_photo.all
     @sellers = find_sellers_for_goods(@goods)
 
-    @recommendtaions = get_recommendations(9) unless current_user.nil?
+    @recommendtaions = Recommendations.new(current_user).get_recommendations_from(@goods) unless current_user.nil?
   end
 
   def getSelectedGoods
@@ -30,14 +31,13 @@ class GoodsController < ApplicationController
     @product = Product.with_attached_photo.find(params[:id])
     @user = User.find_by_id(@good.seller_id)
     @order = Good.new
-
-    add_good_tags_to_user_intrests(@good) unless current_user.nil?
+    UserIntrests.new(current_user).add_good_tags(@good) unless current_user.nil?
   end
 
   def view
     unless current_user.nil?
       good = Good.with_attached_photo.find(params[:id])
-      add_good_tags_to_user_intrests(good)
+      UserIntrests.new(current_user).add_good_tags(good) unless current_user.nil?
     end
   end
 
