@@ -42,22 +42,24 @@
     <div class="uk-width-1-2@m">
       <%= render 'goods/for_u' %>
       <% if request.env['mobvious.device_type'].to_s == "mobile" || request.env['mobvious.device_type'].to_s == "tablet" %>
-      <div align = "center" class = "uk-margin-large">
-          <button class="uk-button uk-button-default uk-hidden@m uk-border-pill" type="button" uk-toggle="target: #offcanvas-flip">
-            <span uk-icon="icon: settings"></span>
-          </button>
-           <div id="offcanvas-flip" uk-offcanvas="flip: true; overlay: true">
-              <div class="uk-offcanvas-bar">
-                  <button class="uk-offcanvas-close" type="button" uk-close></button>
-                  <%= render partial: 'sort' %>
-                  <%= render partial: 'filter' %>
-              </div>
-          </div>
-      </div>
-      <hr>
-        <h3 class = "uk-padding-remove uk-margin-remove"> Szűrés: </h3>
-        <div> <%= render partial: 'prev_tags_badges' %> </div>
-      <hr>
+        <div align = "center" class = "uk-margin-large">
+            <button class="uk-button uk-button-default uk-hidden@m uk-border-pill" type="button" uk-toggle="target: #offcanvas-flip">
+              <span uk-icon="icon: settings"></span>
+            </button>
+            <div id="offcanvas-flip" uk-offcanvas="flip: true; overlay: true">
+                <div class="uk-offcanvas-bar">
+                    <button class="uk-offcanvas-close" type="button" uk-close></button>
+                    <%= render partial: 'sort' %>
+                    <%= render partial: 'filter' %>
+                </div>
+            </div>
+        </div>
+        <% if !@prev_tags_str.nil? && @prev_tags_str.count("a-zA-Z") > 0 %>
+          <hr>
+            <h3 class = "uk-padding-remove uk-margin-remove"> Szűrés: </h3>
+            <div> <%= render partial: 'prev_tags_badges' %> </div>
+          <hr>
+        <% end %>      
       <% end %>
       <%= render partial:'goods/list',object:@goods %>
       <div class="apple_pagination">
