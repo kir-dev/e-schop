@@ -29,7 +29,15 @@ class UsersController < ApplicationController
 
   def update
     if params[:new_room]
+      good_number = 0
+      Good.all.each do |g|
+        if g.seller_id == current_user.id
+          good_number += 1
+        end
+      end
+      level_num_update(-good_number, current_user.roomnumber)
       current_user.update_attributes(roomnumber: params[:new_room])
+      level_num_update(good_number, current_user.roomnumber)
     end
     if params[:new_description]
       current_user.update_attributes(description: params[:new_description])
@@ -39,7 +47,6 @@ class UsersController < ApplicationController
     else
       current_user.update_attributes(want_email: false)
     end
-
     redirect_to user_path
   end
 end

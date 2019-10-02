@@ -3,7 +3,11 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
-  get '/' => 'goods#index'
+  get 'filter/index' => 'filter#index', as: 'filter_index_get'
+  post 'filter/index' => 'filter#index', as: 'filter_index'
+    
+  get '/' => 'goods#index', as: 'goods_index_get' 
+  post '/' => 'goods#index', as: 'goods_index'
   root to: 'goods#index'
   resources :users, only: %i[show update]
   get '/user/good_show' => 'users#good_show'
@@ -17,6 +21,7 @@ Rails.application.routes.draw do
   get '/good/edit' => 'goods#edit'
   post '/good/edit' => 'goods#edit'
   patch '/good/update' => 'goods#update'
+  post '/good/update' => 'goods#update'
   get '/good/back_from_bought' => 'goods#back_from_bought'
   get '/good/delete_num' => 'goods#delete_num'
   get '/for_u' => 'goods#for_u'

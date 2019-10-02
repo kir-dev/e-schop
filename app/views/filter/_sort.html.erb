@@ -1,0 +1,18 @@
+<h3>Rendezés szempontja</h3>
+<% unless current_user.nil? %>
+    <% unless current_user.roomnumber.nil? %>
+        <div class = "uk-padding-small uk-padding-remove-bottom uk-padding-remove-top " >
+            <%= link_to 'Szint', filter_index_get_path(prev_tags: @prev_tags_str ,floors: @selected_floors, order_by: "floor"), method: :get %>
+        </div>   
+    <% end %>
+<% end %>
+<div class = "uk-padding-small uk-padding-remove-bottom uk-padding-remove-top">
+    <%= link_to 'Legújabb', filter_index_get_path(prev_tags: @prev_tags_str, floors: @selected_floors, order_by: "created_at", order_direction: "desc"), method: :get %>
+</div>
+<div class = "uk-padding-small uk-padding-remove-bottom uk-padding-remove-top">
+    <%= link_to 'Ár: növekvő', filter_index_get_path(prev_tags: @prev_tags_str ,floors: @selected_floors, order_by: "price", order_direction: "asc"), method: :get %>
+</div>
+<div class = "uk-padding-small uk-padding-remove-bottom uk-padding-remove-top">
+    <%= link_to 'Ár: csökkenő', filter_index_get_path(prev_tags: @prev_tags_str ,floors: @selected_floors, order_by: "price", order_direction: "desc"), method: :get %>
+</div>
+<hr>

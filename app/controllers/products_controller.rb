@@ -27,7 +27,9 @@ class ProductsController < ApplicationController
     end
     @good.product_id = product.id
     if @good.save
+      level_num_update(1, current_user.roomnumber)
       add_good_tags_from_params(@good)
+      tag_num_update(1, @good.tags)
       redirect_to controller: 'users', action: 'good_show', id: @good.id
     else
       render action: 'new'

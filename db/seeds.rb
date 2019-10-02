@@ -21,16 +21,22 @@ users = User.create!([
                      ])
 
 tags = Tag.create!([
-                          { name: 'Étel', category: true },
-                          { name: 'Ital', category: true },
-                          { name: 'Egyéb', category: true }
+                          { name: 'Étel', category: true, number: 0 },
+                          { name: 'Ital', category: true, number: 0 },
+                          { name: 'Egyéb', category: true, number: 0 }
                         ])
 
 tagnumber = 10
 tagnumber.times do |_tag|
-  Tag.create!(name: Faker::Food.unique.ingredient, category: false)
+  Tag.create!(name: Faker::Food.unique.ingredient, category: false, number: 0)
 end
-                     
+
+levelnumber = 20
+number_ = 1
+levelnumber.times do |level|
+  level = Level.create!( number: number_, good_number: 0 )
+  number_ += 1
+end
 
 puts 'seeding goods:'
 seednumber = 30
@@ -43,8 +49,12 @@ seednumber.times do |good|
     seller_id: 1,
     product_id: 1
   )
-  good.tags << Tag.find(rand(1..3))
-  good.tags << Tag.find(rand(4...tagnumber + 3))
+  tag = Tag.find(rand(1..3))
+  tag.number += 1
+  good.tags << tag
+  tag = Tag.find(rand(4...tagnumber + 3))
+  tag.number += 1
+  good.tags << tag
 
   product = Product.create(
     name: good.name,
@@ -61,4 +71,6 @@ seednumber.times do |good|
   product.save
 
   puts "#{product.id}/#{seednumber}"
+
+
 end

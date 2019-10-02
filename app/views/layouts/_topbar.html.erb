@@ -13,22 +13,20 @@
     </div> 
         <div class="uk-navbar-center">
                 <ul class="uk-navbar-nav">
-               <li><%= link_to 'E-schop',goods_path  %></li>
-
+               <li><%= link_to 'E-schop',filter_index_get_path  %></li>
                 
-                   <li> <%= link_to 'Étel', food_path ,class:"uk-visible@m"%> </li>
-                    <li> <%= link_to 'Ital', drink_path,class:"uk-visible@m" %> </li>
-                    <li> <%= link_to 'Egyéb', else_path,class:"uk-visible@m" %> </li>
-                    <%unless @index%>
+                <li> <%= link_to 'Étel', food_path ,class:"uk-visible@m"%> </li>
+                <li> <%= link_to 'Ital', drink_path,class:"uk-visible@m" %> </li>
+                <li> <%= link_to 'Egyéb', else_path,class:"uk-visible@m" %> </li>
+                <%unless @index%>
 
-                    <li style="position: relative; top: 19px;">
-                        <form class="uk-search uk-search-default" action="/search/" accept-charset="UTF-8" method="get" id="nameform">
-                            <input name="scearched_prase" id="scearched_prase" class="uk-search-input" type="search" placeholder="Keresés...">
-                        </form>
-                        <button type="submit" form="nameform" class="uk-search-icon-flip" uk-search-icon></button> 
-                    </li>
-                    <%end%>
-                
+                <li style="position: relative; top: 19px;">
+                <%= form_tag filter_index_get_path, method: :get, id: "nameform", class: "uk-search uk-search-default" do %>
+                    <input name="searched_phrase" id="scearched_prase" class="uk-search-input" type="search" placeholder="Keresés...">
+                <% end %>
+                <button type="submit" form="nameform" class="uk-search-icon-flip" uk-search-icon></button>
+                </li>
+                <%end%>                
             <li>
             <% if current_user.nil? %>
                 <%= link_to 'Bejelentkezés', new_user_session_path ,class:"uk-visible@m"%> 

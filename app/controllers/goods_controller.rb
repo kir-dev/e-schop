@@ -43,16 +43,19 @@ class GoodsController < ApplicationController
 
   def edit
     @good = Good.find_by_id(params[:id])
-    @categories = Category.all
+    @main_tags = Tag.where(category: true)
   end
 
   def update
     @good = Good.find_by_id(params[:id])
 
     if @good.update_attributes(good_params)
+      tag_num_update(-1, @good.tags)
+      add_good_tags_from_params(@good)
+      tag_num_update(1, @good.tags)
       redirect_to controller: 'users', action: 'good_show', id: @good.id
     else
-      @categories = Category.all
+      @main_tags = Tag.where(category: true)
       render action: 'edit'
     end
   end
@@ -69,7 +72,9 @@ class GoodsController < ApplicationController
     @good.seller_id = current_user.id
     @good.product_id = @product.id
     if @good.save
+      level_num_update(1, current_user.roomnumber)
       add_good_tags_from_params(@good)
+      tag_num_update(1, @good.tags)
       @product.tags = @good.tags
       @product.save
       redirect_to controller: 'users', action: 'good_show', id: @good.id
@@ -87,6 +92,8 @@ class GoodsController < ApplicationController
     @good = Good.find_by_id(params[:id])
     number = @good.number
     @good.update_attributes(number: 0)
+    level_num_update(-1, current_user.roomnumber)
+    tag_num_update(-1, @good.tags)
     @good.destroy
     flash[:notice] = number.to_s + " terméket töröltél"
     redirect_to controller: 'users', action: 'my_goods', method: :get
@@ -95,6 +102,8 @@ class GoodsController < ApplicationController
   def delete
     @good = Good.find(params[:id])
     if params[:good].nil?
+      level_num_update(-1, current_user.roomnumber)
+      tag_num_update(-1, @good.tags)
       @good.destroy
       redirect_to controller: 'users', action: 'my_goods'
     else
@@ -105,6 +114,8 @@ class GoodsController < ApplicationController
         flash[:notice] = t(:good_deleted)
         redirect_to controller: 'users', action: 'good_show', id: @good.id, method: :get
       else
+        tag_num_update(-1, @good.tags)
+        level_num_update(-1, current_user.roomnumber)
         @good.destroy
         flash[:notice] = t(:good_deleted)
         redirect_to controller: 'users', action: 'my_goods', method: :get
@@ -116,7 +127,6 @@ class GoodsController < ApplicationController
     @goods = Good.with_attached_photo.all
     @recommendtaions = get_recommendations(50) unless current_user.nil?
     @products = get_proucts_for_goods(@goods)
-
   end
 
   def food
@@ -222,7 +232,9 @@ class GoodsController < ApplicationController
     return if good.nil?
 
     selected_tags = params[:selected_tags].split('#')
-    selected_tags.unshift(params[:good][:main_tag])
+    unless params[:good][:main_tag].nil?
+      selected_tags.unshift(params[:good][:main_tag])
+    end
     tags = Tag.all
     selected_tags.each do |tag|
       if tags.any? { |t| t.name == tag }
@@ -277,5 +289,5 @@ class GoodsController < ApplicationController
   def force_json
     request.format = :json
   end
-
 end
+  

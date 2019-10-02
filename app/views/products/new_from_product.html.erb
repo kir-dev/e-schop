@@ -156,6 +156,21 @@ function buttonEnable() {
   document.getElementById("my_button").disabled = false;
 }
 
+function readURL(input) {
+  if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+          $('#blah')
+              .attr('src', e.target.result)
+              .width(400)
+              .height(400);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+  }
+}
+
 </script>
 <div class="uk-flex uk-flex-center">
   <div class="uk-card uk-card-body">
@@ -199,11 +214,14 @@ function buttonEnable() {
 
       <p>
           <%= form.label "Másik kép feltöltése" %><br>
-        <div uk-form-custom>
-          <%= form.file_field :photo %>
-          <button class="uk-button uk-button-default" type="button" tabindex="-1">Választ</button>           
-        </div>
-      </p>
+          <div uk-form-custom>
+            <%= form.file_field :photo ,onchange:"readURL(this);" %>
+            <input class="uk-input uk-form-width-medium" type="text" placeholder="Select file" >
+          </div>
+        </p>
+          <img id="blah" src="#" alt="fénykép" />
+        <p>
+
         <%= hidden_field_tag(:product_id, @product.id)%>
       <p>
         <%= form.submit "Felvétel" ,class:"uk-button uk-button-default", id: "my_button" %>
