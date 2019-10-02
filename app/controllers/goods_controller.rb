@@ -6,7 +6,7 @@ class GoodsController < ApplicationController
   before_action :force_json, only: :autocomplete
 
   def index
-    @index=true
+    @index = true
     @goods = getSelectedGoods
     @products = Product.with_attached_photo.all
     @sellers = find_sellers_for_goods(@goods)
@@ -95,7 +95,7 @@ class GoodsController < ApplicationController
     level_num_update(-1, current_user.roomnumber)
     tag_num_update(-1, @good.tags)
     @good.destroy
-    flash[:notice] = number.to_s + " terméket töröltél"
+    flash[:notice] = number.to_s + ' terméket töröltél'
     redirect_to controller: 'users', action: 'my_goods', method: :get
   end
 
@@ -148,21 +148,19 @@ class GoodsController < ApplicationController
   end
 
   def search
+    term = if params[:index_phrase].nil?
+             params[:scearched_prase].downcase
+           else
+             params[:index_phrase].downcase
+           end
 
-    unless  params[:index_phrase].nil?
-      term = params[:index_phrase].downcase
-    else
-      term = params[:scearched_prase].downcase
-    end
-   
     @tags = Tag.select { |tag| tag.name.include?(term) }
     @goods = Good.select { |good| good.name.downcase.include?(term) }
 
     respond_to do |format|
-      format.html {
-        @goods = Good.select { |good| good.name.downcase.include?(term)|| (@tags&good.tags).length>0 }
-        
-      }
+      format.html do
+        @goods = Good.select { |good| good.name.downcase.include?(term) || !(@tags & good.tags).empty? }
+      end
       format.json do
         @tags = @tags.take(3)
         @goods = @goods.take(3)
@@ -176,17 +174,15 @@ class GoodsController < ApplicationController
     @goods = Good.select { |good| good.name.downcase.include?(term) }
 
     respond_to do |format|
-      format.html {
-        @goods = Good.select { |good| good.name.downcase.include?(term)|| (@tags&good.tags).length>0 }
-        
-      }
+      format.html do
+        @goods = Good.select { |good| good.name.downcase.include?(term) || !(@tags & good.tags).empty? }
+      end
       format.json do
         @tags = @tags.take(3)
         @goods = @goods.take(3)
-        render "search.json"
+        render 'search.json'
       end
     end
-    
   end
 
   def autocomplete
@@ -246,9 +242,7 @@ class GoodsController < ApplicationController
     end
   end
 
-  def get_recommendations(recommendations_count,recommendation_per_tag_number = 2)
-    
-
+  def get_recommendations(recommendations_count, _recommendation_per_tag_number = 2)
     recommendations = []
     user_favourite_tags.each do |tag|
       recommendations_per_tag = @goods.select { |good| good.tags.include?(tag) && !recommendations.include?(good) }
@@ -290,4 +284,3 @@ class GoodsController < ApplicationController
     request.format = :json
   end
 end
-  

@@ -9,11 +9,11 @@ class ProductsController < ApplicationController
   def new_from_product
     @product = Product.find_by_id(params[:good][:product_id])
     @good = Good.new(name: @product.name, category_id: @product.category_id)
-    @tag_array = Array.new
+    @tag_array = []
     @product.tags.each do |t|
       @tag_array.push t.name
     end
-    @tag_array.shift    
+    @tag_array.shift
     @main_tags = Tag.where(category: true)
   end
 
@@ -35,23 +35,20 @@ class ProductsController < ApplicationController
       render action: 'new'
     end
   end
-  
+
   def search
     term = params[:product_search].downcase
     @tags = Tag.select { |tag| tag.name.include?(term) }
-    @products = Product.select { |product| product.name.downcase.include?(term)|| (@tags&product.tags).length>0}
-    
+    @products = Product.select { |product| product.name.downcase.include?(term) || !(@tags & product.tags).empty? }
+
     respond_to do |format|
-      format.html {
-        render "choose"
-      }
+      format.html do
+        render 'choose'
+      end
       format.json do
         @products
       end
     end
-   
-
-    
   end
 
   private

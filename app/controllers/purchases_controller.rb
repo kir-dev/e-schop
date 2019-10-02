@@ -7,23 +7,23 @@ class PurchasesController < ApplicationController
     good = Good.find(params[:id])
 
     body = current_user.name + ' megrendelt a(z) ' + good.name + ' termékedből ' +
-                    @purchase.number.to_s + " darabot.\n" + Time.current.to_s(:db)
+           @purchase.number.to_s + " darabot.\n" + Time.current.to_s(:db)
     seller = User.find_by_id(good.seller_id)
     if @purchase.number.nil? || @purchase.number == 0
-      flash[:alert] = "Nem vásároltál terméket"
+      flash[:alert] = 'Nem vásároltál terméket'
       redirect_to action: 'show', controller: 'goods', id: params[:id]
     elsif @purchase.number < good.number && @purchase.save
       good.update_attributes(number: good.number - @purchase.number)
       send_message(body: body, receiver_id: seller.id)
       UserMailer.with(receiver: seller, purchase_id: @purchase.id,
                       good_id: good.id, body: @message.body).to_sold_goods_mail.deliver_now
-      flash[:notice] = "Az eladót üzenetben értesítettük a rendelésről."
+      flash[:notice] = 'Az eladót üzenetben értesítettük a rendelésről.'
       redirect_to action: 'my_cart', controller: 'users'
     elsif @purchase.number == good.number && @purchase.save
       send_message(body: body, receiver_id: seller.id)
       UserMailer.with(receiver: seller, purchase_id: @purchase.id,
                       good_id: good.id, body: @message.body).to_sold_goods_mail.deliver_now
-      flash[:notice] = "Az eladót üzenetben értesítettük a rendelésről." 
+      flash[:notice] = 'Az eladót üzenetben értesítettük a rendelésről.'
       good.update_attributes(number: 0)
       level_num_update(-1, seller.roomnumber)
       tag_num_update(-1, good.tags)
@@ -45,10 +45,10 @@ class PurchasesController < ApplicationController
       tag_num_update(1, good.tags)
       good.update_attributes(deleted_at: nil)
     end
-    
+
     @purchase.destroy
 
-    body = current_user.name + ' lemondta a rendelést a(z) ' + good.name + " termékedről.\n" + Time.current.to_s(:db) 
+    body = current_user.name + ' lemondta a rendelést a(z) ' + good.name + " termékedről.\n" + Time.current.to_s(:db)
     send_message(body: body, receiver_id: seller.id)
     UserMailer.with(receiver: seller, body: body).to_sold_goods_mail.deliver_now
     flash[:notice] = t(:back_from_cart)
@@ -57,7 +57,7 @@ class PurchasesController < ApplicationController
 
   def delete
     @purchase = Purchase.find(params[:id])
-    body = "Az eladó, " + current_user.name + " jóváhagyta a termék kifizetését. " + Time.current.to_s(:db) 
+    body = 'Az eladó, ' + current_user.name + ' jóváhagyta a termék kifizetését. ' + Time.current.to_s(:db)
     buyer = User.find_by_id(@purchase.buyer_id)
     send_message(body: body, receiver_id: buyer.id)
     UserMailer.with(receiver: buyer, body: body).purchase_paid_mail.deliver_now

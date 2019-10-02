@@ -8,7 +8,6 @@ class Good < ApplicationRecord
   has_one_attached :photo
   has_and_belongs_to_many :tags
 
-  
   def thumb
     photo.variant(resize: '300x300!').processed
   end
@@ -22,11 +21,11 @@ class Good < ApplicationRecord
   end
 
   def floor
-    seller = User.find_by_id(self.seller_id)
-    unless seller.roomnumber.nil?
-      return seller.roomnumber / 100          
-    else
+    seller = User.find_by_id(seller_id)
+    if seller.roomnumber.nil?
       return nil
+    else
+      return seller.roomnumber / 100
     end
   end
 end

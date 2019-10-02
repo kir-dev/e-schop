@@ -1,9 +1,8 @@
+# frozen_string_literal: true
 
 json.array!(@tags) do |tag|
-    json.name tag.name
+  json.name tag.name
 end
-    json.array!(@products) do |product|
-      json.name product.name
-    
-    end
-  
+json.array!(@products) do |product|
+  json.name product.name
+end

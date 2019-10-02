@@ -35,15 +35,12 @@ module GoodsHelper
   end
 
   def find_seller(id)
-  
     if @sellers.nil?
       seller = User.find(id)
     elsif
-      seller = @sellers.select{|seller| seller.id==id}
+      seller = @sellers.select { |seller| seller.id == id }
     end
-    if seller.kind_of?(Array)
-      seller = seller.first 
-    end
+    seller = seller.first if seller.is_a?(Array)
     seller
   end
 
@@ -56,14 +53,11 @@ module GoodsHelper
     User.where(id: seller_ids)
   end
 
-  def goods_floor_count(floor) 
+  def goods_floor_count(floor)
     count = 0
     Good.all.each do |g|
-      if g.floor == floor
-        count += 1
-      end
+      count += 1 if g.floor == floor
     end
     count
   end
-
 end

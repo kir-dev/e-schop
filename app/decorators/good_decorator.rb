@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GoodDecorator < ApplicationDecorator
   delegate_all
   decorates :good
@@ -10,8 +12,5 @@ class GoodDecorator < ApplicationDecorator
   #     end
   #   end
 
-  def list(conversation)
-    
-  end
-
+  def list(conversation); end
 end

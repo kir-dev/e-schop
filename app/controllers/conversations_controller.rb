@@ -5,9 +5,7 @@ class ConversationsController < ApplicationController
     @conversations = Conversation.where('sender_id = ? OR receiver_id = ?', current_user.id, current_user.id)
     @conversations.each do |c|
       number = c.messages.count
-      if number == 0 && !params[:new_conv]
-        c.destroy
-      end
+      c.destroy if number == 0 && !params[:new_conv]
     end
   end
 
@@ -19,12 +17,10 @@ class ConversationsController < ApplicationController
                       Conversation.find_by_id(params[:conversation_id])
                     end
     unless @conversation.nil?
-      @messages = MessageDecorator.decorate_collection(@conversation.messages.order(created_at: :asc))      
+      @messages = MessageDecorator.decorate_collection(@conversation.messages.order(created_at: :asc))
       @message = @conversation.messages.new
     end
-    unless params[:mobile].nil?
-      @mobile = params[:mobile]
-    end
+    @mobile = params[:mobile] unless params[:mobile].nil?
   end
 
   def create
@@ -34,7 +30,6 @@ class ConversationsController < ApplicationController
       @conversation = Conversation.create!(conversation_params)
     end
     redirect_to controller: 'conversations', action: 'index', conversation_id: @conversation.id, new_conv: true
-  
   end
 
   def search
