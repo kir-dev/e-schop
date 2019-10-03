@@ -22,7 +22,7 @@ class UserMailer < ApplicationMailer
   end
 
   def purchase_paid_mail
-    receiver = params[:receiver_id]
+    receiver = params[:receiver]
     if receiver.want_email
       @url = url_for(controller: 'users', action: 'my_cart')
       @body = params[:body]
