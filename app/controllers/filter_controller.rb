@@ -3,7 +3,9 @@
 class FilterController < ApplicationController
   include GoodsHelper
   def index
-    @goods, @levels = selected_goods
+    copy_params_to_shash
+    byebug
+    @goods, @levels = get_selected_goods
     @order_by = params[:order_by]
     @order_direction = params[:order_direction]
 
@@ -19,6 +21,28 @@ class FilterController < ApplicationController
     end
 
   private
+
+  def copy_params_to_shash
+    session[:order_by]=params[:order_by]
+    session[:order_direction]=params[:order_direction]
+    session[:searched_phrase]=params[:searched_phrase]
+    session[:page]=params[:page]
+    session[:selected_floors]=params[:selected_floors]
+    session[:selected_tags]=params[:selected_tags]
+    session[:deleted_tag]=params[:deleted_tag]
+    session[:prev_tags]=params[:prev_tags]
+  end
+
+  def get_params_from_shash
+    session[:order_by]=params[:order_by]
+    session[:order_direction]=params[:order_direction]
+    session[:searched_phrase]=params[:searched_phrase]
+    session[:page]=params[:page]
+    session[:selected_floors]=params[:selected_floors]
+    session[:selected_tags]=params[:selected_tags]
+    session[:deleted_tag]=params[:deleted_tag]
+    session[:prev_tags]=params[:prev_tags]
+  end
 
   def filter_floor(goods)
     filtered_goods = []

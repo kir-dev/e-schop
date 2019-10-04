@@ -2,7 +2,6 @@
 
 class PurchasesController < ApplicationController
   def to_cart
-    
     @purchase = Purchase.new(buyer_id: current_user.id, good_id: params[:id],
                              number: params[:good][:number])
     good = Good.find(params[:id])
