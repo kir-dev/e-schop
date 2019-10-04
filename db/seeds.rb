@@ -46,7 +46,7 @@ seednumber.times do |good|
     price: Faker::Number.between(100, 10_000),
     description: Faker::Lorem.paragraph(4),
     number: rand(1...10),
-    seller_id: 1,
+    seller_id: rand(1...User.all.length+1),
     product_id: 1
   )
   tag = Tag.find(rand(1..3))
