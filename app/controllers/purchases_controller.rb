@@ -2,6 +2,7 @@
 
 class PurchasesController < ApplicationController
   def to_cart
+    
     @purchase = Purchase.new(buyer_id: current_user.id, good_id: params[:id],
                              number: params[:good][:number])
     good = Good.find(params[:id])
@@ -19,7 +20,7 @@ class PurchasesController < ApplicationController
       UserMailer.with(receiver: seller, purchase_id: @purchase.id,
                       good_id: good.id, body: @message.body).to_sold_goods_mail.deliver_now
       flash[:notice] = 'Az eladót üzenetben értesítettük a rendelésről.'
-      redirect_to action: 'my_cart', controller: 'users'
+      redirect_to action: 'index', controller: 'filter'
     elsif @purchase.number == good.number && @purchase.save
       send_message(body: body, receiver_id: seller.id)
       UserMailer.with(receiver: seller, purchase_id: @purchase.id,
@@ -29,7 +30,7 @@ class PurchasesController < ApplicationController
       level_num_update(-1, seller.roomnumber)
       tag_num_update(-1, good.tags)
       good.destroy
-      redirect_to action: 'my_cart', controller: 'users'
+      redirect_to action: 'index', controller: 'filter'
     else
       flash[:alert] = t(:not_enough_good)
       redirect_to action: 'show', controller: 'goods', id: params[:id]
