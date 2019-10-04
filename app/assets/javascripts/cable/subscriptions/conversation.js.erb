@@ -5,27 +5,30 @@
 // nr of subscriptions < nr of conversations -> sub to missing ones
 // nr of subscriptions == nr of conversations -> :)
 $(document).on("turbolinks:load", function() {
-  if(App.cable.subscriptions.subscriptions.length > <%= Conversation.all.length %>){
-    for(let subscription of App.cable.subscriptions.subscriptions){
-      console.log("removed subscription " + subscription.identifier);
-      App.cable.subscriptions.remove(subscription);
-    }
-    <% Conversation.all.each do |conversation| %>
-      createSubscription(<%= conversation.id %>);
-    <% end %>
-  }
-  else if(App.cable.subscriptions.subscriptions.length < <%= Conversation.all.length %>){
-    let subscription_ids = Array();
-    for(let subscription of App.cable.subscriptions.subscriptions)
-      subscription_ids.push(subscription.identifier.id);
-    <% Conversation.all.each do |conversation| %>
-      if(!subscription_ids.includes(<%= conversation.id %>)){
-        createSubscription(<%= conversation.id %>);
+  if ($("meta[name='current-user']").length > 0){
+    if(App.cable.subscriptions.subscriptions.length > <%= Conversation.all.length %>){
+      for(let subscription of App.cable.subscriptions.subscriptions){
+        console.log("removed subscription " + subscription.identifier);
+        App.cable.subscriptions.remove(subscription);
       }
-    <% end %>
+      <% Conversation.all.each do |conversation| %>
+        createSubscription(<%= conversation.id %>);
+      <% end %>
+    }
+    else if(App.cable.subscriptions.subscriptions.length < <%= Conversation.all.length %>){
+      let subscription_ids = Array();
+      for(let subscription of App.cable.subscriptions.subscriptions)
+        subscription_ids.push(subscription.identifier.id);
+      <% Conversation.all.each do |conversation| %>
+        if(!subscription_ids.includes(<%= conversation.id %>)){
+          createSubscription(<%= conversation.id %>);
+        }
+      <% end %>
+    }
+    else console.log("nr of subscriptions: " + App.cable.subscriptions.subscriptions.length);
   }
-  else console.log("nr of subscriptions: " + App.cable.subscriptions.subscriptions.length);
 });
+
 
 function createSubscription(conversation_id){
   return App.cable.subscriptions.create({
@@ -37,6 +40,8 @@ function createSubscription(conversation_id){
     },
 
     disconnected: function() {
+      for(let subscription of App.cable.subscriptions.subscriptions)
+        App.cable.subscriptions.remove(subscription);
       console.log("disconnected");
     },
 
