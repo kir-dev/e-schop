@@ -16,11 +16,11 @@
     <div class="uk-navbar-center">
         <%unless @index%>
             <ul class="uk-navbar-nav">
-                <li>
-                    <%= form_tag filter_index_get_path, method: :get, id: "nameform", class: "uk-search uk-search-default" do %>
-                        <input name="searched_phrase" id="scearched_prase" class="uk-search-input" type="search" placeholder="Keresés...">
-                    <% end %>
-                    <button  type="submit" form="nameform" class="uk-search-icon-flip" uk-search-icon></button>
+                <li style="position: relative; top: 19px;">
+                <%= form_tag handle_post_path, method: :post, id: "nameform", class: "uk-search uk-search-default" do %>
+                    <input name="searched_phrase" id="scearched_prase" class="uk-search-input" type="search" placeholder="Keresés...">
+                <% end %>
+                <button type="submit" form="nameform" class="uk-search-icon-flip" uk-search-icon></button>
                 </li>
             </ul>
         <%end%> 

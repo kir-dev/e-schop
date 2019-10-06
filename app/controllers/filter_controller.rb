@@ -4,12 +4,11 @@ class FilterController < ApplicationController
   include GoodsHelper
   include ParamsHelper
   def index
-    
     copy_params_to_shash
     get_params_from_shash
-    byebug
+    
 
-    @goods, @levels = get_selected_goods
+    @goods, @levels = selected_goods
     @order_by = params[:order_by]
     @order_direction = params[:order_direction]
 
@@ -22,6 +21,13 @@ class FilterController < ApplicationController
     @tags = set_tags(@goods, @prev_tags_arr)
     @goods = @goods.paginate(page: params[:page], per_page: 25)
       # @recommendtaions = get_recommendations(9) unless current_user.nil?
+    end
+
+    def handle_post
+      searched_phrase_tmp=params[:searched_phrase]
+      delete_params_from_shash
+      session[:searched_phrase]=searched_phrase_tmp
+      redirect_to filter_index_get_path
     end
 
     def delete_selected
