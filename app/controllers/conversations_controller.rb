@@ -44,13 +44,16 @@ class ConversationsController < ApplicationController
   end
 
   def view
-    if Conversation.between(current_user.id, params[:selected_user_id]).present?
-      @conversation = Conversation.between(current_user.id, params[:selected_user_id]).first
+    if params[:selected_user_id] == ""
+      redirect_to controller: 'conversations', action: 'index', mobile: "left"
     else
-      @conversation = Conversation.create!(sender_id: current_user.id, receiver_id: params[:selected_user_id])
+      if Conversation.between(current_user.id, params[:selected_user_id]).present?
+        @conversation = Conversation.between(current_user.id, params[:selected_user_id]).first
+      else
+        @conversation = Conversation.create!(sender_id: current_user.id, receiver_id: params[:selected_user_id])
+      end
+      redirect_to controller: 'conversations', action: 'index', conversation_id: @conversation.id, new_conv: true, mobile: params[:mobile]
     end
-
-    redirect_to controller: 'conversations', action: 'index', conversation_id: @conversation.id, new_conv: true, mobile: params[:mobile]
   end
 
   private

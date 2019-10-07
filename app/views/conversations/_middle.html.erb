@@ -32,7 +32,7 @@
 			<div>
 				<div class="uk-card uk-align-left">
 					<%= link_to conversations_path(conversation_id: @conversation.id, mobile: "left"), class: "uk-link-reset" do %>
-						<button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-border-rounded">
+						<button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-border-circle">
 							<span uk-icon="arrow-left"></span>
 						</button>
 					<% end %>
@@ -40,8 +40,15 @@
 			</div>
 			<div>
 				<div class="uk-card">
+					<h2><%= recipient.name %></h2>
+				</div>
+			</div>
+			<div>
+				<div class="uk-card uk-align-right">
 					<%= link_to conversations_path(conversation_id: @conversation.id, mobile: "right", new_conv: params[:new_conv]), class: "uk-link-reset" do %>
-						<h2><%= recipient.name %></h2>
+						<button class="uk-button uk-button-default uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-border-circle">
+							<span uk-icon="user"></span>
+						</button>
 					<% end %>
 				</div>
 			</div>
