@@ -49,9 +49,10 @@ document.addEventListener("turbolinks:load",function(){
 <div uk-grid>
     <div class="uk-width-1-4@m">Reklám hely</div>
     <div class="uk-width-1-2@m">
-        <%= form_tag filter_index_get_path, method: :get, id: "index_form", class: "uk-search uk-search-default uk-search-navbar" do %>
-            <input name="searched_phrase" id="index_input" class="uk-search-input" type="search" placeholder="Keresés...">
-            <button type="submit" form="index_form" class="uk-search-icon-flip" uk-search-icon></button>
+        <%= form_tag filter_index_get_path, method: :get, id: "index_form", class: "uk-search uk-search-default uk-search-navbar uk-align-center uk-position-center uk-search-large" do %>
+            <input name="searched_phrase" id="index_input" class="uk-search-input uk-width-1" type="search" placeholder="Keresés...">
+            
+            <button id="index_search_button" type="submit" form="index_form" class="uk-search-icon-flip" uk-search-icon></button>
         <% end %>
     </div>
     <div class="uk-width-1-4@m">Reklám hely</div>
