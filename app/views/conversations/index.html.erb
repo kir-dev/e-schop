@@ -76,23 +76,26 @@
 		</style>
 </head>
 <body>
-    <div class="Container uk-visible@m">
-		<% if @mobile != "left" %>
-			<div class="Left">
-				<%= render partial: 'left' %>
-			</div>  
+	<% if @mobile.nil? %>
+	  <div class="Container uk-visible@m">
+			<% if @mobile != "left" %>
+				<div class="Left">
+					<%= render partial: 'left' %>
+				</div>  
+				<% unless @conversation.nil? %>
+					<div class="Middle" id = "Middle">
+						<%= render partial: 'middle' %>
+					</div>
+				<% end %>			
+			<% end %>
 			<% unless @conversation.nil? %>
-			  	<div class="Middle" id = "Middle">
-					<%= render partial: 'middle' %>
+				<div class = "Right">
+					<%= render partial: 'right' %>
 				</div>
-			<% end %>			
-		<% end %>
-		<% unless @conversation.nil? %>
-		  	<div class = "Right">
-				<%= render partial: 'right' %>
-			</div>
-		<% end %>		
-    </div>
+			<% end %>		
+		</div>
+	<% end %>
+    
 	<div class = "Container uk-hidden@m">
 		<% if @mobile == "middle" %>
 		<div class = "Middle" id = "Middle_phone">
@@ -111,8 +114,10 @@
 </body>
 <script>
 	c= document.getElementById("Middle");
-	c.scrollTop = c.scrollHeight;
+	if (c != null)
+		c.scrollTop = c.scrollHeight;
 	d= document.getElementById("Middle_phone");
-	d.scrollTop = d.scrollHeight;
+	if (d != null)
+		d.scrollTop = d.scrollHeight;
 </script>
 

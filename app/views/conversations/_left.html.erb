@@ -39,8 +39,10 @@
     </div>
     <div class="uk-card-footer uk-padding-small uk-padding-remove-top uk-padding-remove-bottom">       
         <%= form_with url: url_for(action: 'view', controller: 'conversations'), local: true, method: :get, id: 'search_form', class: "uk-padding-small uk-padding-remove-left uk-padding-remove-right" do |form| %>
-            <%= hidden_field_tag(:mobile, "middle")%>
-            <%= form.text_field :q, placeholder: "Keresés a felhasználók között" %>
+            <% unless @mobile.nil? %>
+			  	<%= hidden_field_tag(:mobile, "middle")%>
+			<% end %>
+                <%= form.text_field :q, placeholder: "Keresés a felhasználók között" %>
             <%= hidden_field_tag :selected_user_id, ''  %> 
         <% end %>							
                             
@@ -60,7 +62,28 @@
                 </div>
             <% end %>
         </div>
-        <div class = "uk-hidden@m">
+    <% else %>
+        <%= link_to conversations_path(conversation_id: conversation.id), class: "uk-link-reset" do %>
+            <div class = "uk-visible@m">
+                <div class="uk-card uk-padding-small uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
+                    <div class="uk-card-body uk-padding-small">
+                        <% unless conversation.unread_message_count(current_user).zero? %>
+                            <h3 class="uk-text-secondary uk-text-bold uk-margin-remove-bottom"><%= recipient.name%>
+                                <div class="uk-badge uk-background-secondary uk-align-right  uk-align-right uk-margin-small-top uk-margin-remove-bottom uk-padding-small uk-padding-remove-top uk-padding-remove-bottom">
+                                    <%= conversation.unread_message_count(current_user) %>
+                                </div>
+                            </h3>
+                            <p class="uk-text-secondary uk-text-bold uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00"><%= conversation.updated_at.to_s(:db)%></time></p>
+                        <% else %>
+                            <h3 class="uk-margin-remove-bottom"><%= recipient.name%></h3>
+                            <p class="uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00"><%= conversation.updated_at.to_s(:db)%></time></p>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+    <div class = "uk-hidden@m">
             <%= link_to conversations_path(conversation_id: conversation.id, mobile: "middle"), class: "uk-link-reset" do %>
                 <div class="uk-card uk-padding-small uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
                     <div class="uk-card-body uk-padding-small">
@@ -79,23 +102,4 @@
                 </div>
             <% end %>
         </div>    
-    <% else %>
-        <%= link_to conversations_path(conversation_id: conversation.id, mobile: "middle"), class: "uk-link-reset" do %>
-            <div class="uk-card uk-padding-small uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
-                <div class="uk-card-body uk-padding-small">
-                    <% unless conversation.unread_message_count(current_user).zero? %>
-                        <h3 class="uk-text-secondary uk-text-bold uk-margin-remove-bottom"><%= recipient.name%>
-                            <div class="uk-badge uk-background-secondary uk-align-right  uk-align-right uk-margin-small-top uk-margin-remove-bottom uk-padding-small uk-padding-remove-top uk-padding-remove-bottom">
-                                <%= conversation.unread_message_count(current_user) %>
-                            </div>
-                        </h3>
-                        <p class="uk-text-secondary uk-text-bold uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00"><%= conversation.updated_at.to_s(:db)%></time></p>
-                    <% else %>
-                        <h3 class="uk-margin-remove-bottom"><%= recipient.name%></h3>
-                        <p class="uk-text-meta uk-margin-remove-top "><time datetime="2016-04-01T19:00"><%= conversation.updated_at.to_s(:db)%></time></p>
-                    <% end %>
-                </div>
-            </div>
-        <% end %>
-    <% end %>
 <% end %>

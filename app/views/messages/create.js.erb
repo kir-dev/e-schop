@@ -1,0 +1,8 @@
+$('#messages').append('<%= j render @message %>');
+c= document.getElementById("Middle");
+if (c != null)
+    c.scrollTop = c.scrollHeight;
+d= document.getElementById("Middle_phone");
+if (d != null)
+    d.scrollTop = d.scrollHeight;
+document.getElementById("message_body").value = "";
