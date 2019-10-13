@@ -28,7 +28,8 @@
                     <% vevő = "Vevő: " + User.find_by_id(p.buyer_id).username %>                    
                     <div>Mennyiség: <%= p.number %> db</div>
                     <div>Összeg: <%= p.number*good.price %> Ft</div>
-                    <%=link_to vevő,{action: 'show_other_user', id: p.buyer_id, good_id: good.id} %>
+                    <%= link_to vevő, conversations_path(sender_id: current_user.id, 
+                                                    receiver_id: p.buyer_id), method: :post %>
                 </div>
                 <div class="uk-card-footer">                    
                     <div align = 'center'>
