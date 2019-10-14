@@ -1,11 +1,11 @@
 <style>
   .apple_pagination {
-  background: #ffffff;
   border: 0px solid #e5e5e5;
   text-align: center;
   font-size: large; 
-  padding: 1em;
-  padding-top: 3em;
+  padding: 0px;
+  padding-top: 0px;
+  margin: 0px;
   cursor: default; }
   .apple_pagination a, .apple_pagination span {
     padding: 0.2em 0.3em;
@@ -62,9 +62,11 @@
         <% end %>      
       <% end %>
       <%= render partial:'goods/list',object:@goods %>
-      <div class="apple_pagination">
-        <%= will_paginate @goods, params: {searched_phrase: @searched_phrase}, previous_label: "<span uk-pagination-previous></span>", next_label: "<span uk-pagination-next></span>", inner_window: 1, outer_window: 1 %>
-      </div>
+      <div class="uk-card-small uk-card-body uk-align-center uk-width-1-4@m uk-border-rounded">
+          <div class="apple_pagination">
+            <%= will_paginate @goods, params: {searched_phrase: @searched_phrase}, previous_label: "<span uk-pagination-previous></span>", next_label: "<span uk-pagination-next></span>", inner_window: 1, outer_window: 1 %>
+          </div>
+      </div>        
     </div>
     <div class="uk-width-1-4@m">Reklám hely</div>
 </div>
