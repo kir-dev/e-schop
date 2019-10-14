@@ -35,8 +35,11 @@
 <div uk-grid>
     <div class="uk-width-1-4@m">
       <% if request.env['mobvious.device_type'].to_s == "desktop" %>
-        <%= render partial: 'sort' %>
-        <%= render partial: 'filter' %>
+        <div class="uk-background-muted uk-border-rounded">
+          <%= render partial: 'sort' %>
+          <hr>
+          <%= render partial: 'filter' %>
+        </div>
       <% end %>        
     </div>
     <div class="uk-width-1-2@m">
@@ -49,8 +52,11 @@
             <div id="offcanvas-flip" uk-offcanvas="flip: true; overlay: true">
                 <div class="uk-offcanvas-bar">
                     <button class="uk-offcanvas-close" type="button" uk-close></button>
-                    <%= render partial: 'sort' %>
-                    <%= render partial: 'filter' %>
+                    <div class="uk-background-muted uk-border-rounded">
+                      <%= render partial: 'sort' %>
+                      <hr>
+                      <%= render partial: 'filter' %>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,7 +67,9 @@
           <hr>
         <% end %>      
       <% end %>
-      <%= render partial:'goods/list',object:@goods %>
+      <div class = "uk-padding-large uk-padding-remove-left uk-padding-remove-right uk-padding-remove-bottom">
+        <%= render partial:'goods/list',object:@goods %>
+      </div>
       <div class="uk-card-small uk-card-body uk-align-center uk-width-1-4@m uk-border-rounded">
           <div class="apple_pagination">
             <%= will_paginate @goods, params: {searched_phrase: @searched_phrase}, previous_label: "<span uk-pagination-previous></span>", next_label: "<span uk-pagination-next></span>", inner_window: 1, outer_window: 1 %>
