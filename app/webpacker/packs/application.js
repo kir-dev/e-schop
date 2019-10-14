@@ -15,4 +15,10 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-console.log('Hello World from Webpacker')
+if (document.body.scrollHeight < window.innerHeight)
+    document.body.style.height = window.innerHeight + "px";
+var scrollHeight = document.body.scrollHeight;
+window.addEventListener("resize", function(){
+    if (document.body.scrollHeight < window.innerHeight || scrollHeight == document.body.scrollHeight)
+        document.body.style.height = window.innerHeight + "px";
+});

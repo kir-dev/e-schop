@@ -5,16 +5,15 @@ document.addEventListener("turbolinks:load",function(){
     var options = {
         getValue: "name",
         template: {
-		type: "custom",
-		method: function(value, item) {
-      if (item.price==undefined) {
-        return item.name;
-      }
-			return "<div style='overflow: auto;'><img style='float:right;' src='" + item.image + "' />"+item.name+"<br />"+item.price+" Ft"+"</div> ";
-		}
-	
-    
-	},
+          type: "custom",
+          method: function(value, item) {
+            if (item.price==undefined) {
+              return item.name;
+            }
+            return "<div style='overflow: auto;'><img style='float:right;' src='" + item.image + "' />"+item.name+"<br />"+item.price+" Ft"+"</div> ";
+          }	
+          
+        },
         url: function(phrase){
           return "/index_search?index_phrase="+phrase
         },
@@ -36,8 +35,7 @@ document.addEventListener("turbolinks:load",function(){
             var url=index_input.getSelectedItemData().url
             
             index_input.val("");
-            Turbolinks.visit(url)
-            
+            Turbolinks.visit(url)            
            
           }
         }
@@ -47,7 +45,6 @@ document.addEventListener("turbolinks:load",function(){
 });
 </script>
 <div uk-grid>
-    <div class="uk-width-1-4@m">Reklám hely</div>
     <div id="main" class="uk-width-1-2@m" class="uk-background-cover">
         <%= form_tag filter_index_get_path, method: :get, id: "index_form", class: "uk-search uk-search-default uk-search-navbar uk-align-center uk-position-center uk-search-large uk-background-muted uk-border-rounded"  do %>
             <input name="searched_phrase" id="index_input" class="uk-search-input uk-width-1" type="search" placeholder="Keresés...">
@@ -55,5 +52,4 @@ document.addEventListener("turbolinks:load",function(){
             <button id="index_search_button" type="submit" form="index_form" class="uk-search-icon-flip" uk-search-icon></button>
         <% end %>
     </div>
-    <div class="uk-width-1-4@m">Reklám hely</div>
 </div>
