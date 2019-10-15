@@ -2,14 +2,34 @@
 @import '../src/stylesheets/search.scss';
 @import '../src/stylesheets/background.scss';
 
-body{
-background: url("../images/fekvo_screen.png");
-background-repeat: no-repeat;
-background-attachment: fixed;
-//height: 100%;
-background-position: center;
-background-size: cover;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+.bg-main{
+  background: url("../images/fekvo_screen.png");
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.bg-main-index{
+  background: url("../images/fekvo_screen.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .uk-grid{
   //  height:1000px;
