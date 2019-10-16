@@ -93,13 +93,13 @@
         <% num += 1%>
         <% if num <= 7 %>
           <div class="uk-margin-small uk-padding-small uk-padding-remove-bottom uk-padding-remove-top">
-            <span class = "uk-text-emphasis"><%= l.number %></span>
+            <span class = ""><%= l.number %></span>
             <span class = "uk-text-muted"><%= " (" + l.good_number.to_s + ")" %></span>
             <%= check_box l.number, "yes", onchange:"addFloor(this.id);", class: "uk-checkbox uk-border-circle" %>
         </div>
         <% else %>
           <div class="toggle-animation-queued uk-margin-small uk-padding-small uk-padding-remove-bottom uk-padding-remove-top" hidden>
-            <span class = "uk-text-emphasis"><%= l.number %></span>
+            <span class = ""><%= l.number %></span>
             <span class = "uk-text-muted"><%= " (" + l.good_number.to_s + ")" %></span>
             <%= check_box l.number, "yes", onchange:"addFloor(this.id);", class: "uk-checkbox uk-border-circle" %>
         </div>
@@ -128,13 +128,13 @@
         <% num += 1%>
         <% if num <= 7 %>
         <div class="uk-margin-small uk-padding-small uk-padding-remove-bottom uk-padding-remove-top">
-            <span class = "uk-text-emphasis"><%= t.name %></span>
+            <span class = ""><%= t.name %></span>
             <span class = "uk-text-muted"><%= " (" + t.number.to_s + ")"%></span>
             <%= check_box t.name, "yes", id: t.name, onchange:"addTag(this.name);", class: "uk-checkbox uk-border-circle" %>
         </div>
         <% else %>
         <div class="toggle-animation-queued-2 uk-margin-small uk-padding-small uk-padding-remove-bottom uk-padding-remove-top" hidden>
-            <span class = "uk-text-emphasis"><%= t.name %></span>
+            <span class = ""><%= t.name %></span>
             <span class = "uk-text-muted"><%= " (" + t.number.to_s + ")"%></span>
             <%= check_box t.name, "yes", id: t.name, onchange:"addTag(this.name);", class: "uk-checkbox uk-border-circle" %>
         </div>
