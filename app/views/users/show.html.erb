@@ -1,12 +1,12 @@
 <div class="uk-flex uk-flex-center">
-   <div class="uk-card uk-card-body">
+   <div class="uk-card uk-card-body uk-card-default	">
 
     <h1> <%= current_user.name %> </h1>
 
     <%= form_with url: user_path, method: :patch do |form| %>
       <% if current_user.roomnumber.nil? %>
         <h3 class = "uk-text-danger" > Szobaszám: </h3>
-        <%= form.text_field :new_room, value: current_user.roomnumber, class: "uk-form-danger" %>
+        <%= form.text_field :new_room, value: current_user.roomnumber, class: "" %>
       <% else %>
         <h3> Szobaszám: </h3>
         <%= form.text_field :new_room, value: current_user.roomnumber %>
