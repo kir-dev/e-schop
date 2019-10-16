@@ -14,6 +14,13 @@
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+function backgroundHeight() {
+    console.log(document.body.scrollHeight + ",  ," + window.innerHeight)
+    if (document.body.scrollHeight < window.innerHeight)
+        document.getElementById("bg").style.height = window.innerHeight + "px";
+    else
+        document.getElementById("bg").style.height = document.body.scrollHeight + "px";
+}
 
 if (document.body.scrollHeight < window.innerHeight)
     document.body.style.height = window.innerHeight + "px";
@@ -22,6 +29,10 @@ window.addEventListener("resize", function () {
     if (document.body.scrollHeight < window.innerHeight || scrollHeight == document.body.scrollHeight)
         document.body.style.height = window.innerHeight + "px";
 });
+const myObserver = new ResizeObserver(backgroundHeight);
+
+var body = document.body;
+myObserver.observe(body);
 
 var mutationObserver = new MutationObserver(function(mutations) {
     var container=document.getElementById("eac-container-index_input");
@@ -47,3 +58,4 @@ var mutationObserver = new MutationObserver(function(mutations) {
     attributeOldValue: true,
     characterDataOldValue: true
   });
+
