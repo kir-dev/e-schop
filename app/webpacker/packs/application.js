@@ -18,7 +18,32 @@
 if (document.body.scrollHeight < window.innerHeight)
     document.body.style.height = window.innerHeight + "px";
 var scrollHeight = document.body.scrollHeight;
-window.addEventListener("resize", function(){
+window.addEventListener("resize", function () {
     if (document.body.scrollHeight < window.innerHeight || scrollHeight == document.body.scrollHeight)
         document.body.style.height = window.innerHeight + "px";
 });
+
+var mutationObserver = new MutationObserver(function(mutations) {
+    var container=document.getElementById("eac-container-index_input");
+    var list;
+   
+    if(container!=null){
+        list=document.getElementById("eac-container-index_input").firstChild;
+    }
+    if(list!=null){
+        if(!list.classList.contains('autocomplet-list')){
+            list.classList.add('autocomplet-list');
+           }
+    }
+   
+     
+       
+    });
+  mutationObserver.observe(document.documentElement, {
+    attributes: true,
+    characterData: true,
+    childList: true,
+    subtree: true,
+    attributeOldValue: true,
+    characterDataOldValue: true
+  });
