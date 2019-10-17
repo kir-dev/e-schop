@@ -3,12 +3,6 @@
 
         <ul class="uk-nav uk-nav-default">
             <li><%= link_to 'E-schop',goods_path  %></li>
-            <li> <%= link_to 'Étel', food_path %> </li>
-            <li> <%= link_to 'Ital', drink_path %> </li>
-            <li> <%= link_to 'Egyéb', else_path %> </li>
-            <li style="position: relative; left: -6px;">                
-            </li>
-
             <% if current_user.nil? %>
                 <li>   <%= link_to 'Bejelentkezés', new_user_session_path %>  </li>
             <% else %>           
