@@ -42,7 +42,7 @@
       <%= render 'goods/for_u' %>
       <% if mobile? || tablet? %>
         <div align = "center" class = "uk-margin-large">
-            <button class="uk-button uk-button-default uk-hidden@m uk-border-pill" type="button" uk-toggle="target: #offcanvas-flip">
+            <button class="uk-button uk-button-default uk-border-pill" type="button" uk-toggle="target: #offcanvas-flip">
               <span uk-icon="icon: settings"></span>
             </button>
             <div id="offcanvas-flip" uk-offcanvas="flip: true; overlay: true">
@@ -63,9 +63,7 @@
           <hr>
         <% end %>      
       <% end %>
-      <div class = "uk-padding-large uk-padding-remove-left uk-padding-remove-right uk-padding-remove-bottom">
-        <%= render partial:'goods/list',object:@goods %>
-      </div>
+      <%= render partial:'goods/list',object:@goods %>
       <div class="uk-card-small uk-card-body uk-align-center uk-width-1-4@m uk-border-rounded">
           <div class="apple_pagination">
             <%= will_paginate @goods, params: {searched_phrase: @searched_phrase}, previous_label: "<span uk-pagination-previous></span>", next_label: "<span uk-pagination-next></span>", inner_window: 1, outer_window: 1 %>

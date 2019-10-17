@@ -1,4 +1,5 @@
-<h3 align='center'> Megrendelt termékeim </h3>
+<h1 class = "page-name-backgound top-100px"> Megrendelt termékeim </h1>
+<h1 class = "page-name top-100px"> Megrendelt termékeim </h1>
     <% van = false %>
     <div class="uk-grid-small" uk-grid>
     <% @purchases.each do |p| %>
@@ -43,5 +44,6 @@
     <% end %>
 </div>
 <% unless van %>
-    <h1 align = 'center' > Nincs megrendelt terméked </h1>
+    <h2 class = "page-name-backgound top-300px"> Nincs megrendelt terméked </h2>
+    <h2 class = "page-name top-300px"> Nincs megrendelt terméked </h2>
 <% end %>

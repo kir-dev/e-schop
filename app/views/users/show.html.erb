@@ -6,7 +6,7 @@
     <%= form_with url: user_path, method: :patch do |form| %>
       <% if current_user.roomnumber.nil? %>
         <h3 class = "uk-text-danger" > Szobaszám: </h3>
-        <%= form.text_field :new_room, value: current_user.roomnumber, class: "" %>
+        <%= form.text_field :new_room, value: current_user.roomnumber, class: "danger-background" %>
       <% else %>
         <h3> Szobaszám: </h3>
         <%= form.text_field :new_room, value: current_user.roomnumber %>
@@ -31,12 +31,6 @@
       <%= form.text_area :new_description, value: current_user.description, class: "uk-textarea" %>
       <button class="uk-button uk-button-primary">Mentés</button>
     <% end %>
-
-    <h3 class = "uk-padding-small uk-padding-remove-left uk-margin-remove"> <%= link_to 'Üzenetek', conversations_path %> </h3>
-    <h3 class = "uk-padding-small uk-padding-remove-left uk-margin-remove"> <%= link_to 'Kosaram', user_my_cart_path %> </h3>
-    <h3 class = "uk-padding-small uk-padding-remove-left uk-margin-remove"> <%= link_to 'Termékeim', user_my_goods_path %> </h3>
-    <h3 class = "uk-padding-small uk-padding-remove-left uk-margin-remove"> <%= link_to 'Megrendelt termékeim', user_sold_goods_path %> </h3>
-
   </div>
 </div>
   

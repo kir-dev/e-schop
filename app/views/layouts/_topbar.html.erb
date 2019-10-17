@@ -4,11 +4,14 @@
     });
   
   </script>
-<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #sticky-dropdown">
-<nav class="uk-navbar uk-navbar-container">
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #sticky-dropdown" class = "uk-visible@m">
+<nav class="uk-navbar-container uk-margin uk-navbar" uk-navbar>
+
     <div class="uk-navbar-left">
-        <a uk-icon="menu" uk-toggle="target: #offcanvas-nav"  class="uk-navbar-item uk-logo router-link-exact-active uk-active uk-hidden@m"> </a>
-        <a uk-icon="menu" uk-toggle="target: #offcanvas-nav"  class="uk-navbar-item uk-logo router-link-exact-active uk-active uk-invisible"> </a>
+        <ul class="uk-navbar-nav">
+            <li><%= link_to 'E-schop', goods_index_get_path  %></li>
+        </ul>
+    </div>
 
     </div> 
         <div class="uk-navbar-center">
@@ -26,7 +29,7 @@
             <% if current_user.nil? %>
                 <%= link_to 'Bejelentkezés', new_user_session_path ,class:"uk-visible@m"%> 
             <% else %>
-                <a href="#" class="uk-visible@m"><%= current_user.username %></a>
+                <a href="#" class="uk-icon-button uk-visible@m" uk-icon="user"></a>
                 <div uk-dropdown="mode: click" class="uk-visible@m" style="z-index: -1;">
                     <ul class="uk-nav uk-dropdown-nav">
                         <li>
@@ -91,7 +94,31 @@
                     </ul>
                 </div>
             <%end%>
-            </ul>              
+            </ul>
+        <div>  
+
+</nav>
+</div>
+<div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #sticky-dropdown" class = "uk-hidden@m">
+<nav class="uk-navbar-container uk-margin uk-navbar" uk-navbar>
+    <div class="uk-navbar-left">
+        <a uk-icon="menu" uk-toggle="target: #offcanvas-nav"  class="uk-navbar-item uk-logo router-link-exact-active uk-active uk-hidden@m uk-padding-remove-right"> </a>
+        <a uk-icon="menu" uk-toggle="target: #offcanvas-nav"  class="uk-navbar-item uk-logo router-link-exact-active uk-active uk-invisible uk-padding-remove-right"> </a>
+         <%unless @index%>
+            <ul class="uk-navbar-nav">
+                <li>
+                    <%= form_tag filter_index_get_path, method: :get, id: "nameform", class: "uk-search uk-search-default" do %>
+                        <input name="searched_phrase" id="scearched_prase" class="uk-search-input" type="search" placeholder="Keresés...">
+                    <% end %>
+                    <button  type="submit" form="nameform" class="uk-search-icon-flip" uk-search-icon></button>
+                </li>
+            </ul>
+        <%end%> 
+    </div>
+    <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+            <li><%= link_to 'E-schop', goods_index_get_path  %></li>
+        </ul>
     </div>
 </nav>
 </div>
