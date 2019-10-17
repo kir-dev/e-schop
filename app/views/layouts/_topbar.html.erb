@@ -27,7 +27,7 @@
                 <%end%>                
             <li>
             <% if current_user.nil? %>
-                <%= link_to 'Bejelentkezés', new_user_session_path ,class:"uk-visible@m"%> 
+                <li><%= link_to 'Bejelentkezés', new_user_session_path %></li> 
             <% else %>
                 <a href="#" class="uk-icon-button uk-visible@m" uk-icon="user"></a>
                 <div uk-dropdown="mode: click" class="uk-visible@m" style="z-index: -1;">
