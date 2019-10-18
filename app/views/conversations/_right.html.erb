@@ -1,0 +1,32 @@
+<% recipient = @conversation.sender_id == current_user.id ? @conversation.receiver : @conversation.sender %>
+<div class="uk-card uk-padding-small uk-card-default " uk-sticky="offset: 80; bottom: #top" style="z-index: 1;">
+    <div class="uk-grid-small uk-child-width-1-3 uk-text-center" uk-grid>
+		<div>
+			<div class="uk-card uk-align-left uk-hidden@m">
+				<%= link_to conversations_path(conversation_id: @conversation.id, mobile: "middle", new_conv: params[:new_conv]), class: "uk-link-reset" do %>
+					<button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-bottom uk-padding-remove-top uk-border-circle">
+						<span uk-icon="arrow-left"></span>
+					</button>
+				<% end %>
+			</div>
+		</div>
+		<div>
+			<div class="uk-card">
+				<h2><%= recipient.name %></h2>
+			</div>
+		</div>
+	</div>
+    <div class="uk-card-footer uk-padding-small">
+        Szobaszám: <%= recipient.roomnumber %>
+    </div>
+</div>
+<h3 class = "uk-padding-small uk-padding-remove-left" uk-tooltip="title: Leírás; pos: bottom"> <%=recipient.description%> </h3>
+
+      <%@goods = Good.all.with_attached_photo.where(seller_id: recipient.id).order(created_at: :desc).limit(5)
+	  .includes(:tags)%> 
+	   <% @products=get_proucts_for_goods(@goods)%>
+	   <%@sellers= find_sellers_for_goods(@goods)%>
+	  <%puts "QUERY rIGHT"%>     
+<div>
+    <%= render partial:'goods/list',object: @goods, locals: {conversation: true} %>
+</div>

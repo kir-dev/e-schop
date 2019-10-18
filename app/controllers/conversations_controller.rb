@@ -5,7 +5,7 @@ class ConversationsController < ApplicationController
     @conversations = Conversation.where('sender_id = ? OR receiver_id = ?', current_user.id, current_user.id)
     @conversations.each do |c|
       number = c.messages.count
-      c.destroy if number == 0
+      c.destroy if number == 0 && !params[:new_conv]
     end
   end
 
@@ -17,10 +17,10 @@ class ConversationsController < ApplicationController
                       Conversation.find_by_id(params[:conversation_id])
                     end
     unless @conversation.nil?
-      @messages = @conversation.messages.order(created_at: :desc)
-      @messages.where('user_id != ? AND read = ?', current_user.id, false).update_all(read: true)
+      @messages = MessageDecorator.decorate_collection(@conversation.messages.order(created_at: :asc))
       @message = @conversation.messages.new
     end
+    @mobile = params[:mobile] unless params[:mobile].nil?
   end
 
   def create
@@ -29,13 +29,12 @@ class ConversationsController < ApplicationController
     else
       @conversation = Conversation.create!(conversation_params)
     end
-
-    redirect_to conversation_messages_path(@conversation)
+    redirect_to controller: 'conversations', action: 'index', conversation_id: @conversation.id, new_conv: true
   end
 
   def search
     term = params[:q].downcase
-    @users = User.select { |user| user.name.downcase.include?(term) }
+    @users = User.select { |user| user.name.downcase.include?(term) } - [current_user]
     respond_to do |format|
       format.html {}
       format.json do
@@ -45,7 +44,16 @@ class ConversationsController < ApplicationController
   end
 
   def view
-    render plain: params[:q].inspect
+    if params[:selected_user_id] == ""
+      redirect_to controller: 'conversations', action: 'index', mobile: "left"
+    else
+      if Conversation.between(current_user.id, params[:selected_user_id]).present?
+        @conversation = Conversation.between(current_user.id, params[:selected_user_id]).first
+      else
+        @conversation = Conversation.create!(sender_id: current_user.id, receiver_id: params[:selected_user_id])
+      end
+      redirect_to controller: 'conversations', action: 'index', conversation_id: @conversation.id, new_conv: true, mobile: params[:mobile]
+    end
   end
 
   private

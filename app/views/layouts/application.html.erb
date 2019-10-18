@@ -13,13 +13,16 @@
   </head>
  
   <body>
-
    <%=render 'layouts/topbar'%>
    <%=render 'layouts/sidebar'%>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% unless notice.nil? %>
+      <script>UIkit.notification({message: '<%= notice %>', status: 'success', timeout: 3000})</script>
+    <% end %>
+    
+    <% unless alert.nil? %>
+      <script>UIkit.notification({message: '<%= alert %>', status: 'danger', timeout: 3000})</script>
+    <% end %>
     <%= yield %>
   </body>
 </html>
-

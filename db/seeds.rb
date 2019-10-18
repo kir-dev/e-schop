@@ -20,9 +20,22 @@ users = User.create!([
                        { email: 'tester@gmail.com', password: '123456', username: 'Tester' }
                      ])
 
+tags = Tag.create!([
+                          { name: 'Étel', category: true, number: 0 },
+                          { name: 'Ital', category: true, number: 0 },
+                          { name: 'Egyéb', category: true, number: 0 }
+                        ])
+
 tagnumber = 10
-tagnumber.times do |_tag|
-  Tag.create!(name: Faker::Food.unique.ingredient)
+tagnumber.times do
+  Tag.create!(name: Faker::Food.unique.ingredient, category: false, number: 0)
+end
+
+levelnumber = 20
+number_ = 1
+levelnumber.times do
+  Level.create!( number: number_, good_number: 0 )
+  number_ += 1
 end
 
 puts 'seeding goods:'
@@ -33,16 +46,19 @@ seednumber.times do |good|
     price: Faker::Number.between(100, 10_000),
     description: Faker::Lorem.paragraph(4),
     number: rand(1...10),
-    category_id: rand(1...4),
     seller_id: 1,
     product_id: 1
   )
-
-  good.tags << Tag.find(rand(1...tagnumber - 1))
+  tag = Tag.find(rand(1..3))
+  tag.number += 1
+  good.tags << tag
+  tag = Tag.find(rand(4...tagnumber + 3))
+  tag.number += 1
+  good.tags << tag
 
   product = Product.create(
     name: good.name,
-    category_id: good.category_id
+    tags: good.tags
   )
 
   #     image = open("https://source.unsplash.com/featured/?food")
@@ -55,4 +71,6 @@ seednumber.times do |good|
   product.save
 
   puts "#{product.id}/#{seednumber}"
+
+
 end

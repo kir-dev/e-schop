@@ -33,4 +33,21 @@ module GoodsHelper
       return image
     end
   end
+
+  def find_seller(id)
+    @sellers.nil? ? User.find(id) : @sellers.find { |seller| seller.id == id }
+  end
+
+  def find_sellers_for_goods(goods)
+    seller_ids = []
+    goods.each do |good|
+      seller_id = good.seller_id
+      seller_ids.push(seller_id) unless seller_ids.include?(seller_id)
+    end
+    User.where(id: seller_ids)
+  end
+
+  def goods_floor_count(floor)
+    Good.all.select{|g| g.floor == floor}.size
+  end
 end

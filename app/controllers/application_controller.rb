@@ -7,17 +7,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def favourite_category
-    purchases = Purchase.with_deleted.where(buyer_id: current_user.id).to_a
-    if !purchases.empty?
-      arr = []
-      purchases.each do |p|
-        arr.push Good.with_deleted.find_by_id(p.good_id).category_id
-      end
-      @favourite_category = arr.group_by { |e| e }.values.max_by(&:size).first
-    else
-      @favourite_category = -1
+  def level_num_update(good_count, roomnumber)
+    return if roomnumber.nil?
+    level = Level.find_by_id(roomnumber / 100)
+    new_num = level.good_number + good_count
+    level.update_attributes(good_number: new_num)
+  end
+
+  def tag_num_update(good_count, tags)
+    tags.each do |t|
+      new_num = t.number + good_count
+      t.update_attributes(number: new_num)
     end
   end
-  helper_method :favourite_category
 end

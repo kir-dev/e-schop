@@ -10,7 +10,9 @@
                 <div class="uk-card-header">
                     <div class="uk-grid-small uk-flex-middle" uk-grid>
                         <div class="uk-width-auto">
-                                <%= link_to image_tag(get_image(good,"cart")), {action: 'good_show', purchase_id: p.id, id: good.id} %>
+                                <%= link_to action: 'good_show', purchase_id: p.id, id: good.id do %>
+                                    <%= image_tag(get_image(good,"cart")) %>
+                                <% end %>
                         </div>
                         <div class="uk-width-expand">
                             <h3 class="uk-card-title uk-margin-remove-bottom">
@@ -26,11 +28,13 @@
                     <% vevő = "Vevő: " + User.find_by_id(p.buyer_id).username %>                    
                     <div>Mennyiség: <%= p.number %> db</div>
                     <div>Összeg: <%= p.number*good.price %> Ft</div>
-                    <%=link_to vevő,{action: 'show_other_user', id: p.buyer_id, good_id: good.id} %>
+                    <%= link_to vevő, conversations_path(sender_id: current_user.id, 
+                                                    receiver_id: p.buyer_id), method: :post %>
                 </div>
                 <div class="uk-card-footer">                    
                     <div align = 'center'>
-                        <%=link_to "Kifizetve", { action: 'delete', controller: 'purchases', id: p.id } %>
+                        <% uzenet = "Valóban kifezette " + User.find_by_id(p.buyer_id).username + " a vásárlást?"%>
+                        <%=link_to "Kifizetve", { action: 'delete', controller: 'purchases', id: p.id }, data: {confirm: uzenet} %>
                     </div>
                 </div>
             </div>
@@ -39,5 +43,5 @@
     <% end %>
 </div>
 <% unless van %>
-    <div> Nincs megrendelt terméked </div>
+    <h1 align = 'center' > Nincs megrendelt terméked </h1>
 <% end %>

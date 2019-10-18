@@ -1,0 +1,70 @@
+<style>
+  .apple_pagination {
+  background: #ffffff;
+  border: 0px solid #e5e5e5;
+  text-align: center;
+  font-size: large; 
+  padding: 1em;
+  padding-top: 3em;
+  cursor: default; }
+  .apple_pagination a, .apple_pagination span {
+    padding: 0.2em 0.3em;
+     }
+  .apple_pagination .disabled {
+    color: #aaaaaa; }
+  .apple_pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    background-color: #bebebe;
+    display: inline-block;
+    width: 1.4em;
+    height: 1.4em;
+    line-height: 1.5;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
+    text-shadow: rgba(255, 255, 255, 0.8) 1px 1px 1px; }
+  .apple_pagination a {
+    text-decoration: none;
+    color: #1e87f0; }
+  .apple_pagination a:hover, .apple_pagination a:focus {
+      text-decoration: underline; }
+</style>
+
+
+<div uk-grid>
+    <div class="uk-width-1-4@m">
+        <% if desktop? %>
+          <%= render partial: 'sort' %>
+          <%= render partial: 'filter' %>
+        <% end %>        
+      </div>
+    <div class="uk-width-1-2@m">
+      <%= render 'goods/for_u' %>
+      <% if mobile? || tablet? %>
+        <div align = "center" class = "uk-margin-large">
+            <button class="uk-button uk-button-default uk-hidden@m uk-border-pill" type="button" uk-toggle="target: #offcanvas-flip">
+              <span uk-icon="icon: settings"></span>
+            </button>
+            <div id="offcanvas-flip" uk-offcanvas="flip: true; overlay: true">
+                <div class="uk-offcanvas-bar">
+                    <button class="uk-offcanvas-close" type="button" uk-close></button>
+                    <%= render partial: 'sort' %>
+                    <%= render partial: 'filter' %>
+                </div>
+            </div>
+        </div>
+        <% if !@prev_tags_str.nil? && @prev_tags_str.count("a-zA-Z") > 0 %>
+          <hr>
+            <h3 class = "uk-padding-remove uk-margin-remove"> Szűrés: </h3>
+            <div> <%= render partial: 'prev_tags_badges' %> </div>
+          <hr>
+        <% end %>      
+      <% end %>
+      <%= render partial:'goods/list',object:@goods %>
+      <div class="apple_pagination">
+        <%= will_paginate @goods, params: {searched_phrase: @searched_phrase}, previous_label: "<span uk-pagination-previous></span>", next_label: "<span uk-pagination-next></span>", inner_window: 1, outer_window: 1 %>
+      </div>
+    </div>
+    <div class="uk-width-1-4@m">Reklám hely</div>
+</div>

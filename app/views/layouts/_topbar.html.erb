@@ -7,32 +7,37 @@
 <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #sticky-dropdown">
 <nav class="uk-navbar uk-navbar-container">
     <div class="uk-navbar-left">
-        <a uk-icon="menu" uk-toggle="target: #offcanvas-nav"  class="uk-navbar-item uk-logo router-link-exact-active uk-active uk-hidden@l"> </a>
+        <a uk-icon="menu" uk-toggle="target: #offcanvas-nav"  class="uk-navbar-item uk-logo router-link-exact-active uk-active uk-hidden@m"> </a>
         <a uk-icon="menu" uk-toggle="target: #offcanvas-nav"  class="uk-navbar-item uk-logo router-link-exact-active uk-active uk-invisible"> </a>
 
     </div> 
         <div class="uk-navbar-center">
                 <ul class="uk-navbar-nav">
-               <li><%= link_to 'E-schop',goods_path  %></li>
+                    <li><%= link_to 'E-schop', goods_index_get_path  %></li>
+                <%unless @index%>
 
-                
-                   <li> <%= link_to 'Étel', food_path ,class:"uk-visible@m"%> </li>
-                    <li> <%= link_to 'Ital', drink_path,class:"uk-visible@m" %> </li>
-                    <li> <%= link_to 'Egyéb', else_path,class:"uk-visible@m" %> </li>
-                    <li style="position: relative; top: 19px;">
-                        <form class="uk-search uk-search-default" action="/goods" accept-charset="UTF-8" method="get" id="nameform">
-                            <input name="scearched_prase" id="scearched_prase" class="uk-search-input" type="search" placeholder="Keresés...">
-                        </form>
-                        <button type="submit" form="nameform" class="uk-search-icon-flip" uk-search-icon></button> 
-                    </li>
-                
+                <li style="position: relative; top: 19px;">
+                <%= form_tag filter_index_get_path, method: :get, id: "nameform", class: "uk-search uk-search-default" do %>
+                    <input name="searched_phrase" id="scearched_prase" class="uk-search-input" type="search" placeholder="Keresés...">
+                <% end %>
+                <button type="submit" form="nameform" class="uk-search-icon-flip" uk-search-icon></button>
+                </li>
+                <%end%>                
             <li>
             <% if current_user.nil? %>
                 <%= link_to 'Bejelentkezés', new_user_session_path ,class:"uk-visible@m"%> 
             <% else %>
                 <a href="#" class="uk-visible@m"><%= current_user.username %></a>
-                <div uk-dropdown class="uk-visible@m">
+                <div uk-dropdown="mode: click" class="uk-visible@m" style="z-index: -1;">
                     <ul class="uk-nav uk-dropdown-nav">
+                        <li>
+                            <%=link_to user_path(current_user.id) do %>
+                                Profilom 
+                                <% if current_user.roomnumber.nil? %>
+                                  <span class="uk-badge uk-background-secondary"> ! </span>
+                                <% end %>
+                            <%end%>
+                        </li>
                         <%@conversations = Conversation.where("sender_id = ? OR receiver_id = ?", current_user.id, current_user.id)%>
                         <% message_num = 0 %>
                         <% @conversations.each do |conversation| %>
@@ -82,7 +87,7 @@
                                     Megrendelt termékeim <span class="uk-badge"><%=good_num.to_s%></span>
                                 <%end%>
                             </li>
-                                <li><%= link_to 'Új termék felvétele', new_good_path %></li> 
+                                <li><%= link_to 'Új termék felvétele', new_good_path, method: :get %></li> 
                             <li><%= link_to 'Kijelentkezés', destroy_user_session_path, method: :delete %></li>
                     </ul>
                 </div>

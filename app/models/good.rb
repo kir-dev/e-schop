@@ -19,4 +19,9 @@ class Good < ApplicationRecord
   def thumb_cart
     photo.variant(resize: '100x100!').processed
   end
+
+  def floor
+    seller = User.find_by_id(seller_id)
+    seller.roomnumber ? seller.roomnumber / 100 : nil
+  end
 end
