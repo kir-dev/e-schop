@@ -15,7 +15,6 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 function backgroundHeight() {
-    console.log(document.body.scrollHeight + ",  ," + window.innerHeight)
     if (document.body.scrollHeight < window.innerHeight)
         document.getElementById("bg").style.height = window.innerHeight + "px";
     else
@@ -45,9 +44,7 @@ var mutationObserver = new MutationObserver(function(mutations) {
         if(!list.classList.contains('autocomplet-list')){
             list.classList.add('autocomplet-list');
            }
-    }
-   
-     
+    }     
        
     });
   mutationObserver.observe(document.documentElement, {
