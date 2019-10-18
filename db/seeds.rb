@@ -32,7 +32,7 @@ tagnumber.times do |_tag|
 end
 
 levelnumber = 20
-number_ = 1
+number_ = 0
 levelnumber.times do |level|
   level = Level.create!( number: number_, good_number: 0 )
   number_ += 1

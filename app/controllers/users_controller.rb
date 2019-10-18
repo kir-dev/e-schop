@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   def show; end
 
   def update
-    if params[:new_room]
+    if !params[:new_room].nil?
       good_number = 0
       Good.all.each do |g|
         good_number += 1 if g.seller_id == current_user.id
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
       current_user.update_attributes(roomnumber: params[:new_room])
       level_num_update(good_number, current_user.roomnumber)
     end
-    if params[:new_description]
+    if !params[:new_description].nil?
       current_user.update_attributes(description: params[:new_description])
     end
     if params[:want_email] == 'Igen'
