@@ -1,6 +1,9 @@
 <script>
+function encodeHTML(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
 document.addEventListener("turbolinks:load",function(){
-    index_input=$("#index_input");
+    const index_input=$("#index_input");
 
     var options = {
         getValue: "name",
@@ -10,7 +13,13 @@ document.addEventListener("turbolinks:load",function(){
       if (item.price==undefined) {
         return item.name;
       }
-			return "<div style='overflow: auto;'><img style='float:right;' src='" + item.image + "' />"+item.name+"<br />"+item.price+" Ft"+"</div> ";
+			return `
+        <div style='overflow: auto;'>
+          <img style='float:right;' src='${item.image}'/>
+          ${encodeHTML(item.name)}
+          <br/>
+          ${item.price} Ft
+        </div>`;
 		}
 	
     

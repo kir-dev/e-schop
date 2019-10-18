@@ -228,9 +228,7 @@ class GoodsController < ApplicationController
     return if good.nil?
 
     selected_tags = params[:selected_tags].split('#')
-    unless params[:good][:main_tag].nil?
-      selected_tags.unshift(params[:good][:main_tag])
-    end
+    selected_tags.unshift(params[:good][:main_tag]) unless params[:good][:main_tag].nil?
     tags = Tag.all
     selected_tags.each do |tag|
       if tags.any? { |t| t.name == tag }

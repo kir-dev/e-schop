@@ -1,19 +1,15 @@
-<br>
-<br class = "uk-hidden@m">
-<br class = "uk-hidden@m">
-<br class = "uk-hidden@m">
-<br class = "uk-hidden@m">
-<% if !@messages.nil? %>          
-	<% @messages.each do |message| %>
-		<% if message.body %>                  
-			<div class="uk-card uk-card-body uk-padding-small">
-				<%= message.chat_indentation %>
-			</div>
+<div class = "uk-padding-large uk-padding-remove-left uk-padding-remove-right uk-margin-large-top">
+	<% if !@messages.nil? %>          
+		<% @messages.each do |message| %>
+			<% if message.body %>                  
+				<div class="uk-card uk-card-body uk-padding-small">
+					<%= message.chat_indentation %>
+				</div>
+			<% end %>
 		<% end %>
 	<% end %>
-<% end %>
-<br>
-<br>
+</div>
+
 <div class = "uk-card uk-card-body uk-width-1-2@m uk-width-1-1@s uk-padding-remove-top uk-padding-remove-bottom uk-border-rounded" style = "position: fixed; bottom: 0; background-color: white;">
 	<%= form_for [@conversation, @message] do |f| %>
 		<div align = "center" class = "uk-align-center uk-margin-small" id = "message_form">

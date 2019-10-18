@@ -1,9 +1,9 @@
 document.addEventListener("turbolinks:load",function(){
-    input2=$("#scearched_prase");
+    const goodSearchInput = $("#scearched_prase");
 
-    var options = {
+    const options = {
         getValue: "name",
-        url: function(phrase){
+        url: function(phrase) {
           return "/search?scearched_prase="+phrase
         },
         categories: [
@@ -19,11 +19,11 @@ document.addEventListener("turbolinks:load",function(){
 
        
         list: {
-          onChooseEvent: function(){
+          onChooseEvent: function() {
 
-            var url=input2.getSelectedItemData().url
+            const url=goodSearchInput.getSelectedItemData().url
             
-            input2.val("");
+            goodSearchInput.val("");
             Turbolinks.visit(url)
             
            
@@ -31,5 +31,5 @@ document.addEventListener("turbolinks:load",function(){
         }
       }
 
-    input2.easyAutocomplete(options);
+    goodSearchInput.easyAutocomplete(options);
 });

@@ -35,13 +35,7 @@ module GoodsHelper
   end
 
   def find_seller(id)
-    if @sellers.nil?
-      seller = User.find(id)
-    elsif
-      seller = @sellers.select { |seller| seller.id == id }
-    end
-    seller = seller.first if seller.is_a?(Array)
-    seller
+    @sellers.nil? ? User.find(id) : @sellers.find { |seller| seller.id == id }
   end
 
   def find_sellers_for_goods(goods)
@@ -54,10 +48,6 @@ module GoodsHelper
   end
 
   def goods_floor_count(floor)
-    count = 0
-    Good.all.each do |g|
-      count += 1 if g.floor == floor
-    end
-    count
+    Good.all.select{|g| g.floor == floor}.size
   end
 end

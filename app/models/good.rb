@@ -22,10 +22,6 @@ class Good < ApplicationRecord
 
   def floor
     seller = User.find_by_id(seller_id)
-    if seller.roomnumber.nil?
-      return nil
-    else
-      return seller.roomnumber / 100
-    end
+    seller.roomnumber ? seller.roomnumber / 100 : nil
   end
 end
