@@ -1,7 +1,7 @@
 @import '../src/stylesheets/variables.scss';
 @import '../src/stylesheets/search.scss';
 @import '../src/stylesheets/background.scss';
-
+@import '../src/stylesheets/filter-mobile.scss';
 
 .bg-main{
   background: url("../images/fekvo_screen.png");
@@ -44,47 +44,6 @@
   overflow: auto;
   
 }
-.filter-container
-{
-  background-color: green;
-}
-
-.filter-mobile
-{
- background-color: red;
-}
-.filter-mobile>h3
-{
-  color:rgb(72, 255, 0);
-}
-.filter-mobile>div>{
-  color:green;
-}
-.filter-mobile>div>*{
-  color:blue;
-}
-.filter-mobile>form>*
-{
-  color:purple;
-}
-.filter-mobile>form>div>#searched_phrase
-{
-  background-color: hotpink;
-}
-.filter-mobile>div>
-{
-  background-color: green;
-}
-.filter-mobile>form>div>span
-{
-  color:yellowgreen;
-}
-.filter-mobile>form>div>.uk-checkbox
-{
-  background-color: rgba(255, 255, 0, 0.479);
-  color:yellowgreen;
-}
-
 
 .page-name {
   font-weight: bold;
