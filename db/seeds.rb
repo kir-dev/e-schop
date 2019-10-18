@@ -8,23 +8,11 @@ require 'faker'
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-categories = Category.create!([
-                                { name: 'Étel' },
-                                { name: 'Ital' },
-                                { name: 'Egyéb' }
-                              ])
-
-users = User.create!([
-                       { email: 'user@gmail.com', password: '123456', username: 'User' },
-                       { email: 'client@gmail.com', password: '123456', username: 'Client' },
-                       { email: 'tester@gmail.com', password: '123456', username: 'Tester' }
-                     ])
-
 tags = Tag.create!([
-                          { name: 'Étel', category: true, number: 0 },
-                          { name: 'Ital', category: true, number: 0 },
-                          { name: 'Egyéb', category: true, number: 0 }
-                        ])
+  { name: 'Étel', category: true, number: 0 },
+  { name: 'Ital', category: true, number: 0 },
+  { name: 'Egyéb', category: true, number: 0 }
+])
 
 tagnumber = 10
 tagnumber.times do
@@ -38,39 +26,45 @@ levelnumber.times do
   number_ += 1
 end
 
-puts 'seeding goods:'
-seednumber = 30
-seednumber.times do |good|
-  good = Good.create(
-    name: Faker::Food.unique.dish,
-    price: Faker::Number.between(100, 10_000),
-    description: Faker::Lorem.paragraph(4),
-    number: rand(1...10),
-    seller_id: 1,
-    product_id: 1
-  )
-  tag = Tag.find(rand(1..3))
-  tag.number += 1
-  good.tags << tag
-  tag = Tag.find(rand(4...tagnumber + 3))
-  tag.number += 1
-  good.tags << tag
+unless Rails.env == 'production'
+  users = User.create!([
+    { email: 'user@gmail.com', password: '123456', username: 'User' },
+    { email: 'client@gmail.com', password: '123456', username: 'Client' },
+    { email: 'tester@gmail.com', password: '123456', username: 'Tester' }
+  ])
 
-  product = Product.create(
-    name: good.name,
-    tags: good.tags
-  )
+  puts 'seeding goods:'
+  seednumber = 30
+  seednumber.times do |good|
+    good = Good.create(
+      name: Faker::Food.unique.dish,
+      price: Faker::Number.between(100, 10_000),
+      description: Faker::Lorem.paragraph(4),
+      number: rand(1...10),
+      seller_id: 1,
+      product_id: 1
+    )
+    tag = Tag.find(rand(1..3))
+    tag.number += 1
+    good.tags << tag
+    tag = Tag.find(rand(4...tagnumber + 3))
+    tag.number += 1
+    good.tags << tag
 
-  #     image = open("https://source.unsplash.com/featured/?food")
-  image = File.open("./seedimages/image#{good.id}.jpg", 'rb')
-  product.photo.attach(io: image, filename: 'foo.jpg')
+    product = Product.create(
+      name: good.name,
+      tags: good.tags
+    )
 
-  good.product_id = product.id
+    #     image = open("https://source.unsplash.com/featured/?food")
+    image = File.open("./seedimages/image#{good.id}.jpg", 'rb')
+    product.photo.attach(io: image, filename: 'foo.jpg')
 
-  good.save
-  product.save
+    good.product_id = product.id
 
-  puts "#{product.id}/#{seednumber}"
+    good.save
+    product.save
 
-
+    puts "#{product.id}/#{seednumber}"
+  end
 end
