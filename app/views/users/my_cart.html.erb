@@ -20,13 +20,10 @@
         </div>
 </div>
 
-<% van = false %>
 <div class="uk-child-width-1-2@l  uk-flex-center" uk-grid>    
        <ul class="uk-list uk-list-divider">
-                <% van = false %> 
              <% @purchases.each do |p| %>
                 <% if p.buyer_id == current_user.id%>
-                <% van = true %>
                 <% good = Good.with_deleted.find(p.good_id) %>
                     <li>                                          
                        <table style="width:100%">
@@ -49,7 +46,7 @@
                                    <%= link_to good.name, {action: 'good_show', id: good.id, purchase_id: p.id}, class: "uk-link-reset" %>
                                 </th>
                                 <th style="width:10%">
-                                    <div align = 'center'>
+                                    <div align="center">
                                     <% uzenet = "Tényleg törölni akarod a rendelést?"%>                                      
                                         <%= link_to back_from_cart_path(id: p.id), data: {confirm: uzenet} do %> <span uk-icon="icon: trash" uk-tooltip="title: Rendelés törlése; pos: bottom"></span><%end%> </div>
                                     </div>

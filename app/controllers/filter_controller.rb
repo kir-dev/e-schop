@@ -3,7 +3,7 @@
 class FilterController < ApplicationController
   include GoodsHelper
   def index
-    @goods, @levels = get_selected_goods
+    @goods, @levels = selected_goods
     @order_by = params[:order_by]
     @order_direction = params[:order_direction]
 
@@ -21,23 +21,26 @@ class FilterController < ApplicationController
   private
 
   def filter_floor(goods)
-    array = []
+    filtered_goods = []
+
     if params[:selected_floors].nil? || params[:selected_floors] == ''
       if params[:floors].nil?
-        array = goods
+        filtered_goods = goods
       else
         selected_floors = params[:floors]
       end
     else
       selected_floors = params[:selected_floors].split('#')
     end
+
     unless selected_floors.nil?
       goods.each do |g|
-        array.push g if selected_floors.include?(g.floor.to_s)
+        filtered_goods.push g if selected_floors.include?(g.floor.to_s)
       end
     end
-    array
-    end
+
+    filtered_goods
+  end
 
   def filter_tag(goods, searched_tags = '')
     array = []
@@ -78,15 +81,13 @@ class FilterController < ApplicationController
     if !params[:selected_tags].nil? && params[:selected_tags] != ''
       prev_tags_str = prev_tags_str + '&&' + params[:selected_tags]
     end
-    i = 0
-    prev_tags_str.split('&&').each do |s|
+    prev_tags_str.split('&&').each_with_index do |s, i|
       prev_tags_arr[i] = s.split('#')
-      i += 1
     end
     [prev_tags_arr, prev_tags_str]
   end
 
-  def get_selected_goods
+  def selected_goods
     if params[:order_by] == 'floor'
       goods = order_by_floor
     else
@@ -102,8 +103,8 @@ class FilterController < ApplicationController
 
     if !params[:prev_tags].nil? && params[:prev_tags] != ''
       if !params[:deleted_tag].nil? && params[:deleted_tag] != ''
-        params[:prev_tags].slice! (params[:deleted_tag] + '#')
-        params[:prev_tags].slice! ('#' + params[:deleted_tag])
+        params[:prev_tags].slice! "#{params[:deleted_tag]}#"
+        params[:prev_tags].slice! "##{params[:deleted_tag]}"
         params[:prev_tags].slice! params[:deleted_tag]
       end
       params[:prev_tags].split('&&').each do |t|
@@ -153,30 +154,29 @@ class FilterController < ApplicationController
 
   def set_tags(goods, prev_tags_arr)
     if search_params_nil
-      tags_o = Tag.where('number >= ?', 1).order(number: :desc, name: :asc)
-    else
-      tags = []
-      goods.each do |g|
-        g.tags.each do |t|
-          tags << t.name
-        end
-      end
-      tags = tags.uniq
-      prev_tags_arr.each do |t_arr|
-        tags -= t_arr
-      end
-      tags_o = []
-      tags.each do |t|
-        num = 0
-        goods.each do |g|
-          num += 1 unless g.tags.select { |s| s.name == t }.first.nil?
-        end
-        tags_o << Tag.new(name: t, number: num)
-      end
-      tags_o.sort_by!(&:name).reverse!
-      tags_o.sort_by!(&:number).reverse!
+      return Tag.where('number >= ?', 1).order(number: :desc, name: :asc)
     end
-    tags_o
+
+    tags = []
+    goods.each do |g|
+      g.tags.each do |t|
+        tags << t.name
+      end
+    end
+    tags = tags.uniq
+    prev_tags_arr.each do |t_arr|
+      tags -= t_arr
+    end
+    tags_o = []
+    tags.each do |t|
+      num = 0
+      goods.each do |g|
+        num += 1 unless g.tags.select { |s| s.name == t }.first.nil?
+      end
+      tags_o << Tag.new(name: t, number: num)
+    end
+    tags_o.sort_by!(&:name).reverse!
+    tags_o.sort_by!(&:number).reverse!
   end
 
   def set_levels(goods)

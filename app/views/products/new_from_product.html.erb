@@ -11,27 +11,27 @@ if (event.key == "Enter") {
 });
 
 function addProductTags() {
-  var array = <%= @tag_array.inspect.html_safe %>
-  tags=$("#good_taged")
-  tag_container=$("#tag_container")
-  selected_tags=$("#selected_tags")
+  const array = <%= @tag_array.inspect.html_safe %>
+  const tags=$("#good_taged")
+  const tag_container=$("#tag_container")
+  const selected_tags=$("#selected_tags")
 
-  for (i = 0; i < array.length; i++) {
+  array.forEach(item => {
     if ( selected_tags.val()=="") {
-      badge=createBadgeForTag(array[i])
+      badge=createBadgeForTag(item)
       tag_container.append(badge);
-      selected_tags.val(array[i])
+      selected_tags.val(item)
     }
     else {
       let st=selected_tags.val().split("#");
-      if(!st.includes(array[i]))
+      if(!st.includes(item))
       {
-        badge=createBadgeForTag(array[i])
+        badge=createBadgeForTag(item)
         tag_container.append(badge);
-        selected_tags.val(selected_tags.val()+"#"+array[i])
+        selected_tags.val(selected_tags.val()+"#"+item)
       }
     }
-  }
+  })
 }
 
 function newTag()

@@ -6,10 +6,11 @@ class PurchasesController < ApplicationController
                              number: params[:good][:number])
     good = Good.find(params[:id])
 
-    body = current_user.name + ' megrendelt a(z) ' + good.name + ' termékedből ' +
-           @purchase.number.to_s + " darabot.\n" + Time.current.to_s(:db)
+    body = "#{current_user.name} megrendelt a(z) #{good.name} termékedből
+           #{@purchase.number.to_s} darabot.\n #{Time.current.to_s(:db)}"
+    
     seller = User.find_by_id(good.seller_id)
-    if @purchase.number.nil? || @purchase.number == 0
+    if @purchase.number.nil? || @purchase.number.zero?
       flash[:alert] = 'Nem vásároltál terméket'
       redirect_to action: 'show', controller: 'goods', id: params[:id]
     elsif @purchase.number < good.number && @purchase.save
@@ -48,7 +49,7 @@ class PurchasesController < ApplicationController
 
     @purchase.destroy
 
-    body = current_user.name + ' lemondta a rendelést a(z) ' + good.name + " termékedről.\n" + Time.current.to_s(:db)
+    body = "#{current_user.name} lemondta a rendelést a(z) #{good.name} termékedről.\n #{Time.current.to_s(:db)}"
     send_message(body: body, receiver_id: seller.id)
     UserMailer.with(receiver: seller, body: body).to_sold_goods_mail.deliver_now
     flash[:notice] = t(:back_from_cart)
@@ -57,7 +58,7 @@ class PurchasesController < ApplicationController
 
   def delete
     @purchase = Purchase.find(params[:id])
-    body = 'Az eladó, ' + current_user.name + ' jóváhagyta a termék kifizetését. ' + Time.current.to_s(:db)
+    body = "Az eladó, #{current_user.name} jóváhagyta a termék kifizetését. #{Time.current.to_s(:db)}"
     buyer = User.find_by_id(@purchase.buyer_id)
     send_message(body: body, receiver_id: buyer.id)
     UserMailer.with(receiver: buyer, body: body).purchase_paid_mail.deliver_now

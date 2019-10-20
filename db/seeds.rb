@@ -27,14 +27,15 @@ tags = Tag.create!([
                         ])
 
 tagnumber = 10
-tagnumber.times do |_tag|
+tagnumber.times do
   Tag.create!(name: Faker::Food.unique.ingredient, category: false, number: 0)
 end
 
 levelnumber = 20
-number_ = 0
-levelnumber.times do |level|
-  level = Level.create!( number: number_, good_number: 0 )
+
+number_ = 1
+levelnumber.times do
+  Level.create!( number: number_, good_number: 0 )
   number_ += 1
 end
 

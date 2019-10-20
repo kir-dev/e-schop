@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   get 'filter/index' => 'filter#index', as: 'filter_index_get'
   post 'filter/index' => 'filter#index', as: 'filter_index'
-    
+
   get '/' => 'goods#index', as: 'goods_index_get' 
   post '/' => 'goods#index', as: 'goods_index'
   root to: 'goods#index'

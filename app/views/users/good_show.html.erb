@@ -24,7 +24,7 @@
           <% end %>
         </p>
 
-        <% if !params[:purchase_id].nil? %>
+        <% unless params[:purchase_id].nil? %>
           <p>
             <strong>Összesen fizetendő:</strong>
             <%= Purchase.find(params[:purchase_id]).number * @good.price %> Ft
@@ -56,7 +56,7 @@
           <a href="#modal-center" uk-toggle>Törlés</a>
           <p><%= link_to 'Szerkesztés', {action: 'edit', controller: 'goods', id: @good.id}%></p>
         <% end %>
-        <% if !params[:purchase_id].nil? %>
+        <% unless params[:purchase_id].nil? %>
           <% purchase = Purchase.find(params[:purchase_id]) %>
           <% if purchase.buyer_id == current_user.id %>           
             <p>
@@ -78,10 +78,10 @@
 <div id="modal-center" class="uk-flex-top" uk-modal>
     <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
         <button class="uk-modal-close-default" type="button" uk-close></button>
-        <% @number = Good.new %>
+        <% new_good = Good.new %>
         <div align = "center">
-          <%= form_for @number, :url => url_for(action: 'delete', controller: 'goods'), class: "uk-form-horizontal uk-margin-large" do |f| %>
-              <%= f.select :number, options_for_select(0..@good.number)%>   
+          <%= form_for new_good, :url => url_for(action: 'delete', controller: 'goods'), class: "uk-form-horizontal uk-margin-large" do |f| %>
+            <%= f.select :number, options_for_select(0..@good.number)%>   
             <%= hidden_field_tag(:id, @good.id)%>
             <%= f.submit "Törlés" %>
           <% end %>

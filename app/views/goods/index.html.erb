@@ -1,19 +1,29 @@
 <script>
+function encodeHTML(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
 document.addEventListener("turbolinks:load",function(){
-    index_input=$("#index_input");
+    const index_input=$("#index_input");
 
     var options = {
         getValue: "name",
         template: {
-          type: "custom",
-          method: function(value, item) {
-            if (item.price==undefined) {
-              return item.name;
-            }
-            return "<div style='overflow: auto;'><img style='float:right;' src='" + item.image + "' />"+item.name+"<br />"+item.price+" Ft"+"</div> ";
-          }	
-          
-        },
+		type: "custom",
+		method: function(value, item) {
+      if (item.price==undefined) {
+        return item.name;
+      }
+			return `
+        <div style='overflow: auto;'>
+          <img style='float:right;' src='${item.image}'/>
+          ${encodeHTML(item.name)}
+          <br/>
+          ${item.price} Ft
+        </div>`;
+		}
+	
+    
+	},
         url: function(phrase){
           return "/index_search?index_phrase="+phrase
         },

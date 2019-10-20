@@ -33,8 +33,7 @@
 
 <div uk-grid>
     <div class="uk-width-1-4@m">
-      <% if request.env['mobvious.device_type'].to_s == "desktop" %>
-        <div class="uk-background-muted uk-border-rounded">
+        <% if desktop? %>
           <%= render partial: 'sort' %>
           <hr>
           <%= render partial: 'filter' %>
@@ -43,7 +42,7 @@
     </div>
     <div class="uk-width-1-2@m">
       <%= render 'goods/for_u' %>
-      <% if request.env['mobvious.device_type'].to_s == "mobile" || request.env['mobvious.device_type'].to_s == "tablet" %>
+      <% if mobile? || tablet? %>
         <div align = "center" class = "uk-margin-large">
             <button class="uk-button uk-button-default uk-border-pill uk-background-muted" type="button" uk-toggle="target: #offcanvas-flip">
               <span uk-icon="icon: settings"></span>
