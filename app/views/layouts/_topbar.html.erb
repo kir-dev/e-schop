@@ -13,19 +13,22 @@
         </ul>
     </div>
 
-    </div> 
-        <div class="uk-navbar-center">
-                <ul class="uk-navbar-nav">
-                    <li><%= link_to 'E-schop', goods_index_get_path  %></li>
-                <%unless @index%>
-                    <li style="position: relative; top: 19px;">
-                        <%= form_tag filter_index_get_path, method: :get, id: "nameform", class: "uk-search uk-search-default" do %>
-                            <input name="searched_phrase" id="scearched_prase" class="uk-search-input" type="search" placeholder="Keresés...">
-                        <% end %>
-                        <button  type="submit" form="nameform" class="uk-search-icon-flip" uk-search-icon></button>
-                    </li>
-                <%end%>                
-            <li>
+    <div class="uk-navbar-center">
+        <%unless @index%>
+            <ul class="uk-navbar-nav">
+                <li>
+                    <%= form_tag filter_index_get_path, method: :get, id: "nameform", class: "uk-search uk-search-default" do %>
+                        <input name="searched_phrase" id="scearched_prase" class="uk-search-input" type="search" placeholder="Keresés...">
+                    <% end %>
+                    <button  type="submit" form="nameform" class="uk-search-icon-flip" uk-search-icon></button>
+                </li>
+            </ul>
+        <%end%> 
+    </div>
+
+    <div class="uk-navbar-right uk-padding uk-padding-remove-top uk-padding-remove-bottom ">
+
+            <ul class="uk-navbar-nav">
             <% if current_user.nil? %>
                 <li><%= link_to 'Bejelentkezés', new_user_session_path %></li> 
             <% else %>

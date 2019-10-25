@@ -32,12 +32,15 @@
 </style>
 
 <div uk-grid>
-    <div class="uk-width-1-4@m">
+    <div class="uk-width-1-4@m ">
         <% if desktop? %>
+         <div class="uk-background-muted uk-border-rounded">
           <%= render partial: 'sort' %>
+          <hr>
           <%= render partial: 'filter' %>
-        <% end %>        
-      </div>
+        </div>
+      <% end %>        
+    </div>
     <div class="uk-width-1-2@m">
       <%= render 'goods/for_u' %>
       <% if mobile? || tablet? %>
