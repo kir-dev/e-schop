@@ -79,7 +79,7 @@
 	<% if @mobile.nil? %>
 	  <div class="Container uk-visible@m">
 			<% if @mobile != "left" %>
-				<div class="Left">
+				<div class="Left" id="Left">
 					<%= render partial: 'left' %>
 				</div>  
 				<% unless @conversation.nil? %>
@@ -89,7 +89,7 @@
 				<% end %>			
 			<% end %>
 			<% unless @conversation.nil? %>
-				<div class = "Right">
+				<div class = "Right" id="Right">
 					<%= render partial: 'right' %>
 				</div>
 			<% end %>		
