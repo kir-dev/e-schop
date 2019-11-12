@@ -21,7 +21,12 @@ class ConversationsController < ApplicationController
       @message = @conversation.messages.new
     end
     @mobile = params[:mobile] unless params[:mobile].nil?
-    @conversation_page = true
+
+    respond_to do |format|
+      format.html
+      format.js {render 'index.js.erb'}
+    end
+    
   end
 
   def create

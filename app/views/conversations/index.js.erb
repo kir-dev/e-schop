@@ -1,0 +1,6 @@
+$("#contacts-list").html("<%= escape_javascript(render partial: 'conversations/contacts_list',locals: { conversation: @conversation, conversations: @conversations, mobile: @mobile } ) %>");
+$("#Middle").html("<%= escape_javascript(render partial: 'conversations/middle',locals: { conversation: @conversation, conversations: @conversations, mobile: @mobile, message: @message, messages: @messages } ) %>");
+$("#Right").html("<%= escape_javascript(render partial: 'conversations/right',locals: { conversation: @conversation} ) %>");
+c= document.getElementById("Middle");
+if (c != null)
+    c.scrollTop = c.scrollHeight;
