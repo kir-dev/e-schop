@@ -6,16 +6,19 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-<!-- UIkit CSS -->
-
+    <%= stylesheet_pack_tag 'stylesheets'%>
   </head>
  
   <body>
-   <%=render 'layouts/topbar'%>
-   <%=render 'layouts/sidebar'%>
-
+    <%if @index%>
+      <div class = "bg-main-index" id = "bg"></div>
+    <% elsif !@conversation_page %>
+      <div class = "bg-main" id = "bg"></div>
+    <% end %>
+    <%=render 'layouts/topbar'%>
+    <%=render 'layouts/sidebar'%>
     <% unless notice.nil? %>
       <script>UIkit.notification({message: '<%= notice %>', status: 'success', timeout: 3000})</script>
     <% end %>
@@ -23,6 +26,7 @@
     <% unless alert.nil? %>
       <script>UIkit.notification({message: '<%= alert %>', status: 'danger', timeout: 3000})</script>
     <% end %>
-    <%= yield %>
-  </body>
+    <%= yield %>    
+  </body>  
+  <%= javascript_pack_tag 'application'%>
 </html>

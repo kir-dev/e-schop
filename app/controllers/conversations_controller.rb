@@ -21,6 +21,7 @@ class ConversationsController < ApplicationController
       @message = @conversation.messages.new
     end
     @mobile = params[:mobile] unless params[:mobile].nil?
+    @conversation_page = true
   end
 
   def create

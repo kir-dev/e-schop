@@ -1,11 +1,11 @@
 <style>
   .apple_pagination {
-  background: #ffffff;
   border: 0px solid #e5e5e5;
   text-align: center;
   font-size: large; 
-  padding: 1em;
-  padding-top: 3em;
+  padding: 0px;
+  padding-top: 0px;
+  margin: 0px;
   cursor: default; }
   .apple_pagination a, .apple_pagination span {
     padding: 0.2em 0.3em;
@@ -31,26 +31,31 @@
       text-decoration: underline; }
 </style>
 
-
 <div uk-grid>
-    <div class="uk-width-1-4@m">
+    <div class="uk-width-1-4@m ">
         <% if desktop? %>
+         <div class="uk-background-muted uk-border-rounded">
           <%= render partial: 'sort' %>
+          <hr>
           <%= render partial: 'filter' %>
-        <% end %>        
-      </div>
+        </div>
+      <% end %>        
+    </div>
     <div class="uk-width-1-2@m">
       <%= render 'goods/for_u' %>
       <% if mobile? || tablet? %>
         <div align = "center" class = "uk-margin-large">
-            <button class="uk-button uk-button-default uk-hidden@m uk-border-pill" type="button" uk-toggle="target: #offcanvas-flip">
+            <button class="uk-button uk-button-default uk-border-pill uk-background-muted" type="button" uk-toggle="target: #offcanvas-flip">
               <span uk-icon="icon: settings"></span>
             </button>
             <div id="offcanvas-flip" uk-offcanvas="flip: true; overlay: true">
-                <div class="uk-offcanvas-bar">
+                <div class="uk-offcanvas-bar filter-container">
                     <button class="uk-offcanvas-close" type="button" uk-close></button>
-                    <%= render partial: 'sort' %>
-                    <%= render partial: 'filter' %>
+                    <div class="uk-background-muted uk-border-rounded filter-mobile">
+                      <%= render partial: 'sort' %>
+                      <hr>
+                      <%= render partial: 'filter' %>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,9 +67,11 @@
         <% end %>      
       <% end %>
       <%= render partial:'goods/list',object:@goods %>
-      <div class="apple_pagination">
-        <%= will_paginate @goods, params: {searched_phrase: @searched_phrase}, previous_label: "<span uk-pagination-previous></span>", next_label: "<span uk-pagination-next></span>", inner_window: 1, outer_window: 1 %>
-      </div>
+      <div class="uk-card-small uk-card-body uk-align-center uk-width-1-4@m uk-border-rounded">
+          <div class="apple_pagination">
+            <%= will_paginate @goods, params: {searched_phrase: @searched_phrase}, previous_label: "<span uk-pagination-previous></span>", next_label: "<span uk-pagination-next></span>", inner_window: 1, outer_window: 1 %>
+          </div>
+      </div>        
     </div>
-    <div class="uk-width-1-4@m">Reklám hely</div>
+    <div class="uk-width-1-4@m"></div>
 </div>

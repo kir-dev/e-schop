@@ -1,6 +1,7 @@
-<h3 align='center'> Termékeim </h3>
+<h1 class = "page-name-backgound top-100px"> Termékeim </h1>
+<h1 class = "page-name top-100px"> Termékeim </h1>
     <% has_goods = false %>
-    <div class="uk-grid-small" uk-grid>
+    <div style = "padding-top: 150px;" class="uk-grid-small" uk-grid>
     <% @goods.each do |g| %>
       <% if g.seller_id == current_user.id%>
         <% has_goods = true %>
@@ -38,6 +39,7 @@
       <% end %>  
     <% end %>   
 </div>
-<% if has_goods == false %>
-    <h2 align='center'> Jelenleg nem árulsz semmit </h2>
+<% if has_goods == false %>   
+    <h2 class = "page-name-backgound top-300px"> Jelenleg nem árulsz semmit </h2>
+    <h2 class = "page-name top-300px"> Jelenleg nem árulsz semmit </h2>
 <% end %>

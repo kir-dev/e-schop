@@ -1,5 +1,4 @@
-<div class="uk-flex uk-flex-center">
-   <div class="uk-card uk-card-body">
+
 <script>
 
 $(document).on("keydown", ":input:not(textarea):not(:submit)", function(event) {
@@ -150,6 +149,8 @@ function readURL(input) {
   }
 }
 </script>
+<div class="uk-flex uk-flex-center">
+   <div class="uk-card uk-card-default uk-card-body ">
     <h1>Termék felvétel</h1>
 
     <div> <%= link_to 'Felvétel meglévőből', {action: 'choose', controller: 'products'} %> </div>
