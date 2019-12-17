@@ -1,4 +1,0 @@
-<h3>Név: <%= @user.username %></h3>
-<h3>Szobaszám: <%= @user.roomnumber %></h3>
-<h3><%= link_to 'Üzenet küldése', conversations_path(sender_id: current_user.id, receiver_id: @user.id), method: :post %></h3>
-<div id="current_conversation"></div>

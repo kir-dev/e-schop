@@ -25,7 +25,8 @@
             <strong>Eladó: </strong> <%= @user.username %>
           <% elsif current_user != @user || current_user.nil? %>
             <strong>Eladó: </strong> 
-            <%= link_to @user.username, conversations_path(sender_id: current_user.id, receiver_id: @user.id), method: :post  %>
+            <span class = "uk-visible@l"> <%= link_to @user.username, conversations_path(sender_id: current_user.id, receiver_id: @user.id), method: :post  %></span>
+            <span class = "uk-hidden@l"> <%= link_to @user.username, conversations_path(sender_id: current_user.id, receiver_id: @user.id, mobile: "middle"), method: :post  %></span>
           <% else %>
             <strong>saját termék</strong>
           <% end %>
