@@ -38,7 +38,7 @@ class ConversationsController < ApplicationController
     else
       @conversation = Conversation.create!(conversation_params)
     end
-    redirect_to controller: 'conversations', action: 'index', conversation_id: @conversation.id, new_conv: true
+    redirect_to controller: 'conversations', action: 'index', conversation_id: @conversation.id, new_conv: true, mobile: params[:mobile]
   end
 
   def search

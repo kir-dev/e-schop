@@ -35,13 +35,14 @@
           <% if @good.seller_id != current_user.id %>
             <strong>Eladó:</strong>
             <% seller = User.find_by_id(@good.seller_id) %>
-            
-            <%= link_to seller.username, conversations_path(sender_id: current_user.id, receiver_id: seller.id), method: :post  %>
+              <span class = "uk-visible@l"> <%= link_to seller.username, conversations_path(sender_id: current_user.id, receiver_id: seller.id), method: :post  %></span>
+              <span class = "uk-hidden@l"> <%= link_to seller.username, conversations_path(sender_id: current_user.id, receiver_id: seller.id, mobile: "middle"), method: :post  %></span>
           <% elsif @good.seller_id == current_user.id && !params[:purchase_id].nil? %>
             <strong>Vevő:</strong>
             <% purchase = Purchase.find(params[:purchase_id]) %>
             <% buyer = User.find_by_id(purchase.buyer_id) %>
-            <%= link_to buyer.username, conversations_path(sender_id: current_user.id, receiver_id: buyer.id), method: :post  %>
+            <span class = "uk-visible@l"> <%= link_to buyer.username, conversations_path(sender_id: current_user.id, receiver_id: buyer.id), method: :post  %> </span>
+            <span class = "uk-hidden@l"> <%= link_to buyer.username, conversations_path(sender_id: current_user.id, receiver_id: buyer.id, mobile: "middle"), method: :post  %> </span>
           <% end %>
         </p>
 
