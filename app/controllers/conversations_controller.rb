@@ -11,22 +11,25 @@ class ConversationsController < ApplicationController
 
   def index
     @conversations = Conversation.where('sender_id = ? OR receiver_id = ?', current_user.id, current_user.id).order(updated_at: :desc)
-    @conversation = if params[:conversation_id].nil?
-                      @conversations.first
-                    else
-                      Conversation.find_by_id(params[:conversation_id])
-                    end
+    if !params[:selected_user_id].nil? && params[:selected_user_id] != ""
+      @conversation = view(params[:selected_user_id])
+    else
+      @conversation = if params[:conversation_id].nil?
+        @conversations.first
+      else
+        Conversation.find_by_id(params[:conversation_id])
+      end
+    end  
+
     unless @conversation.nil?
       @messages = MessageDecorator.decorate_collection(@conversation.messages.order(created_at: :asc))
       @message = @conversation.messages.new
     end
     @mobile = params[:mobile] unless params[:mobile].nil?
-
     respond_to do |format|
-      format.html
-      format.js {render 'index.js.erb'}
-    end
-    
+    format.html
+    format.js {render 'index.js.erb'}
+    end  
   end
 
   def create
@@ -49,22 +52,18 @@ class ConversationsController < ApplicationController
     end
   end
 
-  def view
-    if params[:selected_user_id] == ""
-      redirect_to controller: 'conversations', action: 'index', mobile: "left"
-    else
-      if Conversation.between(current_user.id, params[:selected_user_id]).present?
-        @conversation = Conversation.between(current_user.id, params[:selected_user_id]).first
-      else
-        @conversation = Conversation.create!(sender_id: current_user.id, receiver_id: params[:selected_user_id])
-      end
-      redirect_to controller: 'conversations', action: 'index', conversation_id: @conversation.id, new_conv: true, mobile: params[:mobile]
-    end
-  end
-
   private
 
   def conversation_params
     params.permit(:sender_id, :receiver_id)
+  end
+
+  def view(selected_user_id)
+    if Conversation.between(current_user.id, selected_user_id).present?
+      conversation = Conversation.between(current_user.id, selected_user_id).first
+    else
+      conversation = Conversation.create!(sender_id: current_user.id, receiver_id: selected_user_id)
+    end
+    conversation
   end
 end

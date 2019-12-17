@@ -2,7 +2,7 @@
     <% recipient = conversation.sender_id == current_user.id ? conversation.receiver : conversation.sender %>
     <% if conversation == @conversation %>
         <div class = "uk-visible@m">
-            <%= link_to conversations_path(conversation_id: conversation.id), class: "uk-link-reset", remote: true do %>
+            <%= link_to conversations_path(conversation_id: conversation.id, new_conv: true), class: "uk-link-reset", remote: true do %>
                 <div class="uk-card uk-card-primary uk-padding-small uk-padding-remove-bottom"  uk-sticky="offset: 80; bottom: #top">
                     <div class="uk-card-body uk-padding-small">
                         <h3 class=" uk-margin-remove-bottom"><%= recipient.name%></h3>
