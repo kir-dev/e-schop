@@ -71,4 +71,11 @@
   border-color: #f0506e;
   color: white;
 }
+#filter_list {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+#filter_list::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
 

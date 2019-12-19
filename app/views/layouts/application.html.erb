@@ -26,7 +26,11 @@
     <% unless alert.nil? %>
       <script>UIkit.notification({message: '<%= alert %>', status: 'danger', timeout: 3000})</script>
     <% end %>
+    <main>
     <%= yield %>    
+    </main>
+     <%= render 'layouts/footer' %>
+
   </body>  
   <%= javascript_pack_tag 'application'%>
 </html>
